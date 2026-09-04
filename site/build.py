@@ -63,9 +63,9 @@ def main():
     hero = find("hero"); b3 = find("b3"); av = find("avatar") or hero
     # (token, arquivo de origem, nome público, tamanho, proporção, foco vertical, qualidade, rótulo do placeholder)
     specs = [
-        ("{{FOTO_HERO}}",   hero, "hero.jpg",   900, (4, 5), 0.18, 78, "FOTO: EXPERT TRADER XP"),
+        ("{{FOTO_HERO}}",   hero, "hero.jpg",   660, (4, 5), 0.18, 72, "FOTO: EXPERT TRADER XP"),
         ("{{FOTO_B3}}",     b3,   "b3.jpg",     900, (3, 4), 0.25, 78, "FOTO: B3"),
-        ("{{FOTO_AVATAR}}", av,   "avatar.jpg", 240, (1, 1), 0.12, 85, ""),
+        ("{{FOTO_AVATAR}}", av,   "avatar.jpg", 160, (1, 1), 0.12, 80, ""),
     ]
     pub_dir = os.path.join(HERE, "public"); os.makedirs(os.path.join(pub_dir, "fotos"), exist_ok=True)
     artifact_html, public_html = tpl, tpl
