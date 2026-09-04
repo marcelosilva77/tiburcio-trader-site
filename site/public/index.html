@@ -320,6 +320,113 @@
   .pillars .rv:nth-child(4),.course-list .rv:nth-child(4){transition-delay:.24s}
   .course-list .rv:nth-child(5){transition-delay:.32s}
 
+  /* alternância de texto desktop/celular */
+  .mb{display:none}
+
+  /* ====== CELULAR: versão enxuta ====== */
+  @media(max-width:760px){
+    .dk{display:none}
+    .mb{display:inline}
+    section{padding:56px 0}
+    .sec-head{gap:10px;margin-bottom:26px}
+    h1{font-size:clamp(2rem,8.4vw,2.6rem)}
+    h2{font-size:clamp(1.55rem,6.2vw,2rem)}
+    .lede{font-size:1rem}
+    .eyebrow{font-size:.64rem}
+
+    /* hero mais curto e leve */
+    .hero{padding:34px 0 40px}
+    .hero canvas{opacity:.35}
+    .hero-grid{gap:26px}
+    .hero-copy{gap:18px}
+    .pill{font-size:.6rem;padding:7px 12px 7px 9px;gap:8px;line-height:1.35}
+    .pill svg{width:14px;height:14px}
+    .hero-photo{width:min(100%,260px);justify-self:center}
+    .hero-photo .frame{aspect-ratio:1/1;border-radius:18px}
+    .hero-photo img{object-position:center 18%}
+    .hero-photo .float,.hero-photo .corner{display:none}
+    .hero-photo .tag{font-size:.62rem;left:12px;right:12px;bottom:12px}
+    .hero-cta{gap:10px}
+    .hero-cta .btn{flex:1 1 100%;justify-content:center;padding:15px 18px}
+    .hero-stats{grid-template-columns:repeat(3,1fr);gap:12px;padding-top:18px;text-align:center}
+    .stat b,.stat b .mono{font-size:1.1rem}
+    .stat span{font-size:.66rem;line-height:1.3;display:block}
+
+    /* fita de cotações mais discreta */
+    .tape li{padding:11px 20px;gap:7px}
+    .tape .nm{display:none}
+    .tape .px{font-size:.86rem}
+    .tape .note{display:none}
+
+    /* sobre: foto menor, linha do tempo só com os marcos */
+    .about{gap:26px}
+    .about-photo{max-width:230px;margin-inline:auto}
+    .about-photo .frame{aspect-ratio:1/1;border-radius:16px}
+    .about-photo .stamp{left:auto;right:-8px;bottom:-14px;font-size:.72rem;padding:9px 12px}
+    .about-copy{gap:16px}
+    .timeline{padding-left:18px}
+    .timeline li{padding:7px 0 12px}
+    .timeline li::before{top:14px;left:-23px;width:7px;height:7px}
+    .timeline li>span:last-child{display:none}
+    .timeline b{font-size:.95rem}
+
+    /* operacional: cards só com o essencial */
+    .op-intro{gap:26px;margin-bottom:30px}
+    .live-card canvas{height:150px}
+    .live-card .lc-hl{display:none}
+    .live-card .lc-head{padding:16px 16px 10px}
+    .live-card .lc-price b{font-size:1.25rem}
+    .live-card .lc-foot div{padding:11px 14px}
+    .live-card .lc-pill{display:none}
+    .live-card .lc-note{display:none}
+    .pillars{gap:10px}
+    .pillar{padding:18px 18px;gap:10px;grid-template-columns:auto 1fr;grid-template-areas:"ico txt";align-items:center}
+    .pillar .ico{grid-area:ico;width:38px;height:38px}
+    .pillar .k{display:none}
+    .pillar h3{grid-area:txt;font-size:1.02rem}
+    .pillar p{display:none}
+    .pillar .rule{grid-column:1/-1;padding-top:10px;font-size:.68rem;margin-top:0}
+
+    /* contratos: só o que interessa na hora */
+    .spec{margin-top:26px;gap:10px}
+    .spec-card header{padding:13px 16px}
+    .spec-card dt,.spec-card dd{padding:9px 16px;font-size:.84rem}
+    .spec-card dl>:nth-child(n+5){display:none}
+    .spec-note{display:none}
+
+    /* resultados */
+    .proof{gap:14px}
+    .champ{padding:24px 20px;gap:14px;border-radius:16px}
+    .champ h3{font-size:1.25rem}
+    .champ .trophy{width:44px;height:44px}
+    .champ .muted{display:none}
+    .ig-card{padding:18px}
+    .hl{display:none}
+
+    /* curso: lista só com os títulos */
+    .course-grid{gap:26px}
+    .course-list{gap:8px}
+    .course-list li{padding:13px 15px;gap:11px;align-items:center}
+    .course-list li span{display:none}
+    .course-list b{font-size:.95rem}
+    .offer{padding:22px;gap:15px;border-radius:16px}
+    .offer h3{font-size:1.2rem}
+    .offer .pay{padding:13px;font-size:.8rem}
+
+    /* dúvidas e fechamento */
+    summary{padding:15px 0;font-size:.96rem}
+    details p{font-size:.9rem;padding-bottom:15px}
+    .final{padding-bottom:56px}
+    .final .box{padding:36px 22px;border-radius:18px;gap:16px}
+
+    /* rodapé enxuto */
+    .foot{gap:22px}
+    .foot>div:nth-child(2){display:none}
+    .disclaimer{margin-top:22px;padding-top:16px;font-size:.68rem}
+    .copy{font-size:.62rem}
+    .totop{right:14px;bottom:14px;width:42px;height:42px}
+  }
+
   /* reveal */
   .rv{transform:translateY(14px);transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .7s ease;opacity:.001}
   .rv.in{transform:none;opacity:1}
@@ -377,8 +484,8 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg>
           CAMPEÃO · EXPERT TRADER XP · COMPETIDOR ARENA
         </span>
-        <h1>O operacional que virou <em>campeão</em> na B3, ensinado do jeito que é operado.</h1>
-        <p class="lede">Ramon Tibúrcio opera mini-índice e mini-dólar desde 2022. Aqui você conhece o método, acompanha os resultados e entra na plataforma de estudo para aprender a ler o mercado com contexto, gatilho e risco definido.</p>
+        <h1><span class="dk">O operacional que virou <em>campeão</em> na B3, ensinado do jeito que é operado.</span><span class="mb">O operacional que virou <em>campeão</em> na B3.</span></h1>
+        <p class="lede"><span class="dk">Ramon Tibúrcio opera mini-índice e mini-dólar desde 2022. Aqui você conhece o método, acompanha os resultados e entra na plataforma de estudo para aprender a ler o mercado com contexto, gatilho e risco definido.</span><span class="mb">Mini-índice e mini-dólar desde 2022. Conheça o método e entre na plataforma de estudo.</span></p>
         <div class="hero-cta">
           <a class="btn btn-gold" data-link="plataforma" href="#curso">Conhecer a plataforma de estudo
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
@@ -423,8 +530,8 @@
       <div class="about-copy rv">
         <span class="eyebrow">Quem é o Tibúrcio</span>
         <h2>Da tela de um competidor ao pódio da arena.</h2>
-        <p>Ramon Tibúrcio começou a operar em 2022 com uma decisão simples: ficar em dois ativos, o mini-índice (WIN) e o mini-dólar (WDO), e dominar o comportamento deles antes de qualquer outra coisa.</p>
-        <p>Essa disciplina levou o operacional dele à arena de competidores do Expert Trader XP, o maior evento de traders do país, e de lá ao título de campeão. Hoje ele abre esse operacional para quem quer aprender com quem opera todos os dias, sem promessa de atalho.</p>
+        <p><span class="dk">Ramon Tibúrcio começou a operar em 2022 com uma decisão simples: ficar em dois ativos, o mini-índice (WIN) e o mini-dólar (WDO), e dominar o comportamento deles antes de qualquer outra coisa.</span><span class="mb">Começou em 2022 com uma decisão simples: dois ativos, WIN e WDO, dominados antes de tudo.</span></p>
+        <p class="dk">Essa disciplina levou o operacional dele à arena de competidores do Expert Trader XP, o maior evento de traders do país, e de lá ao título de campeão. Hoje ele abre esse operacional para quem quer aprender com quem opera todos os dias, sem promessa de atalho.</p>
         <ul class="timeline">
           <li><span class="yr">2022</span><b>Primeiro contrato de WIN</b><span>Início do operacional em mini-índice e mini-dólar.</span></li>
           <li><span class="yr">2023 – 2024</span><b>Rotina de day trade e registro público</b><span>Análises, resultados e fechamentos diários compartilhados no Instagram.</span></li>
@@ -441,7 +548,7 @@
         <div class="sec-head rv">
           <span class="eyebrow">O operacional</span>
           <h2>Quatro decisões, todas antes do clique.</h2>
-          <p class="lede">Não existe entrada sem contexto e não existe contexto sem rotina. O método é o mesmo todo dia, e é isso que a plataforma ensina.</p>
+          <p class="lede"><span class="dk">Não existe entrada sem contexto e não existe contexto sem rotina. O método é o mesmo todo dia, e é isso que a plataforma ensina.</span><span class="mb">Sem contexto não há entrada. O método é o mesmo todo dia.</span></p>
         </div>
         <div class="live-card rv" aria-label="Gráfico ilustrativo do mini-índice">
           <div class="lc-head">
@@ -522,13 +629,13 @@
       <div class="sec-head rv">
         <span class="eyebrow">Resultados e prova</span>
         <h2>Operacional testado em público, não em print.</h2>
-        <p class="lede">O título foi conquistado operando ao vivo, na arena do evento. E o dia a dia continua aberto no Instagram: análises, resultados e fechamento.</p>
+        <p class="lede"><span class="dk">O título foi conquistado operando ao vivo, na arena do evento. E o dia a dia continua aberto no Instagram: análises, resultados e fechamento.</span><span class="mb">Título conquistado operando ao vivo. O dia a dia segue aberto no Instagram.</span></p>
       </div>
       <div class="proof">
         <article class="champ spot rv">
           <div class="trophy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg></div>
-          <h3>Campeão da Arena de Competidores do Expert Trader XP</h3>
-          <p>Na arena, cada trader opera com o mesmo capital, o mesmo prazo e o mesmo mercado. Não há como esconder um resultado ruim nem inflar um bom. O operacional do Tibúrcio saiu de lá em primeiro lugar.</p>
+          <h3><span class="dk">Campeão da Arena de Competidores do Expert Trader XP</span><span class="mb">Campeão da Arena Expert Trader XP</span></h3>
+          <p><span class="dk">Na arena, cada trader opera com o mesmo capital, o mesmo prazo e o mesmo mercado. Não há como esconder um resultado ruim nem inflar um bom. O operacional do Tibúrcio saiu de lá em primeiro lugar.</span><span class="mb">Mesmo capital, mesmo prazo, mesmo mercado para todos. Saiu de lá em primeiro lugar.</span></p>
           <div class="badge"><small>Credencial</small><b>PREMIUM · COMPETIDOR ARENA</b></div>
           <p class="muted" style="font-size:.84rem">Resultados passados não garantem resultados futuros. Operar em bolsa envolve risco de perda do capital investido.</p>
         </article>
@@ -563,8 +670,8 @@
       <div>
         <div class="sec-head rv" style="margin-bottom:32px">
           <span class="eyebrow">Plataforma de estudo</span>
-          <h2>Aprenda o operacional completo, do pré-mercado ao fechamento.</h2>
-          <p class="lede">Um curso voltado à B3, para quem quer operar WIN e WDO com método. Sem sinal, sem cópia de operação: você aprende a decidir.</p>
+          <h2><span class="dk">Aprenda o operacional completo, do pré-mercado ao fechamento.</span><span class="mb">O operacional completo, do pré-mercado ao fechamento.</span></h2>
+          <p class="lede"><span class="dk">Um curso voltado à B3, para quem quer operar WIN e WDO com método. Sem sinal, sem cópia de operação: você aprende a decidir.</span><span class="mb">Curso de B3 para operar WIN e WDO com método. Sem sinal: você aprende a decidir.</span></p>
         </div>
         <ul class="course-list">
           <li class="rv spot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><div><b>Aulas gravadas, em módulos</b><span>Base do mercado futuro, leitura de contexto, gatilhos de entrada, gerenciamento de risco e psicologia operacional.</span></div></li>
@@ -577,7 +684,7 @@
       <aside class="offer spot rv">
         <div class="top"><span class="k">Turma aberta</span><span class="live">Inscrições abertas</span></div>
         <h3>Plataforma de estudo Tibúrcio Trader</h3>
-        <p>Acesso ao curso completo, à sala ao vivo e à comunidade. Liberação automática assim que o pagamento é confirmado.</p>
+        <p><span class="dk">Acesso ao curso completo, à sala ao vivo e à comunidade. Liberação automática assim que o pagamento é confirmado.</span><span class="mb">Curso, sala ao vivo e comunidade. Acesso liberado na hora.</span></p>
         <div class="pay">
           <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l8-8 8 8-8 8z"/></svg>Pix com acesso imediato</div>
           <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Cartão de crédito parcelado</div>
@@ -613,7 +720,7 @@
     <div class="wrap">
       <div class="box rv">
         <span class="eyebrow" style="justify-content:center">Próximo passo</span>
-        <h2>Aprenda a operar a B3 com quem provou o operacional na arena.</h2>
+        <h2><span class="dk">Aprenda a operar a B3 com quem provou o operacional na arena.</span><span class="mb">Opere a B3 com método.</span></h2>
         <p>Entre na plataforma de estudo e comece pelo pré-mercado de amanhã.</p>
         <a class="btn btn-gold" data-link="plataforma" href="#curso">Acessar a plataforma de estudo
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
