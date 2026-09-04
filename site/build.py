@@ -11,6 +11,9 @@ import base64, io, glob, os, sys
 from PIL import Image, ImageEnhance, ImageOps, ImageFilter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+# Base das fotos no site publicado. "fotos/" usa os arquivos ao lado do index.html (ideal quando a
+# Vercel estiver ligada ao GitHub). A CDN do jsDelivr serve direto do repositório público.
+FOTOS_URL = os.environ.get("FOTOS_URL", "https://cdn.jsdelivr.net/gh/marcelosilva77/tiburcio-trader-site@main/site/public/fotos/")
 FOTOS = os.path.join(HERE, "fotos")
 OUT_FOTOS = os.path.join(FOTOS, "tratadas")
 os.makedirs(OUT_FOTOS, exist_ok=True)
@@ -75,7 +78,7 @@ def main():
             raw = base64.b64decode(uri.split(",", 1)[1])
             open(os.path.join(pub_dir, "fotos", name), "wb").write(raw)
             artifact_html = artifact_html.replace(token, uri)
-            public_html = public_html.replace(token, "fotos/" + name)   # arquivo separado (site mais leve)
+            public_html = public_html.replace(token, FOTOS_URL + name)   # arquivo separado (site mais leve)
         else:
             ph = placeholder(label, ratio)
             artifact_html = artifact_html.replace(token, ph)
