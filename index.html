@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tibúrcio Trader</title>
+<meta name="description" content="Ramon Tibúrcio, campeão Expert Trader XP. Operacional em mini-índice e mini-dólar na B3 e plataforma de estudo para quem quer operar com método.">
+<meta property="og:title" content="Tibúrcio Trader · Operacional campeão em WIN e WDO">
+<meta property="og:description" content="Campeão Expert Trader XP. Aprenda a operar mini-índice e mini-dólar na B3 com método, gatilho e risco definido.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#0a0a0b">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ffd11a'/%3E%3Cpath d='M16 18h32v9H37v21h-10V27H16z' fill='%230a0a0b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --bg:#0a0a0b;
+    --bg-2:#0e0e14;
+    --surface:#12121a;
+    --surface-2:#181820;
+    --line:#26262f;
+    --line-gold:rgba(255,209,26,.28);
+    --gold:#ffd11a;
+    --gold-2:#ffb433;
+    --amber:#e88c30;
+    --bull:#30e88c;
+    --bear:#e5484d;
+    --ink:#f5eede;
+    --ink-2:#d6d0bd;
+    --muted:#9a9aa6;
+    --muted-2:#6d6d78;
+    --display:'Space Grotesk',Inter,system-ui,sans-serif;
+    --body:Inter,system-ui,-apple-system,Segoe UI,sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace;
+    --max:1160px;
+    --r:14px;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+  h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.02em;text-wrap:balance;line-height:1.08}
+  h1{font-size:clamp(2.4rem,5.4vw,4.4rem);font-weight:700}
+  h2{font-size:clamp(1.8rem,3.6vw,2.8rem);font-weight:700}
+  h3{font-size:1.2rem;font-weight:600;letter-spacing:-.01em}
+  p{margin:0}
+  .wrap{width:min(var(--max),calc(100% - 40px));margin-inline:auto}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);display:inline-flex;align-items:center;gap:10px}
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--gold)}
+  .lede{color:var(--ink-2);font-size:1.08rem;max-width:58ch}
+  .muted{color:var(--muted)}
+  .gold{color:var(--gold)}
+  .mono{font-family:var(--mono)}
+  section{padding:96px 0;position:relative}
+  .sec-head{display:grid;gap:14px;max-width:62ch;margin-bottom:48px}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 22px;border-radius:10px;font-family:var(--display);font-weight:600;font-size:.98rem;letter-spacing:-.005em;border:1px solid transparent;transition:transform .18s ease,box-shadow .18s ease,background .18s ease,border-color .18s ease;cursor:pointer;white-space:nowrap}
+  .btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  .btn-gold{background:linear-gradient(135deg,var(--gold) 0%,var(--gold-2) 100%);color:#0a0a0b;box-shadow:0 8px 28px -10px rgba(255,209,26,.55)}
+  .btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 34px -10px rgba(255,209,26,.7)}
+  .btn-ghost{background:rgba(255,255,255,.03);border-color:var(--line);color:var(--ink)}
+  .btn-ghost:hover{border-color:var(--line-gold);background:rgba(255,209,26,.05)}
+  .btn svg{width:18px;height:18px;flex:none}
+
+  /* nav */
+  .nav{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(10,10,11,.72);border-bottom:1px solid rgba(255,255,255,.05)}
+  .nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px;gap:20px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:.9rem}
+  .brand .mark{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--gold),var(--amber));display:grid;place-items:center;color:#0a0a0b;font-weight:700;font-size:1.1rem;box-shadow:0 0 0 1px rgba(255,209,26,.3),0 6px 20px -8px rgba(255,209,26,.7)}
+  .brand small{display:block;font-family:var(--mono);font-weight:500;letter-spacing:.2em;font-size:.58rem;color:var(--gold);text-transform:uppercase}
+  .nav-links{display:flex;gap:28px;font-size:.9rem;color:var(--ink-2)}
+  .nav-links a{padding:6px 0;border-bottom:1px solid transparent;transition:color .15s,border-color .15s}
+  .nav-links a:hover{color:var(--gold);border-color:var(--gold)}
+  .nav .btn{padding:10px 16px;font-size:.88rem}
+  @media(max-width:900px){.nav-links{display:none}}
+
+  /* hero */
+  .hero{padding:72px 0 64px;overflow:hidden;isolation:isolate}
+  .hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-2;opacity:.55}
+  .hero .glow{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(600px 420px at var(--mx,70%) var(--my,40%),rgba(255,209,26,.16),transparent 62%),linear-gradient(180deg,rgba(10,10,11,.2) 0%,rgba(10,10,11,.85) 78%,var(--bg) 100%)}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  .hero-copy{display:grid;gap:26px}
+  .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:999px;border:1px solid var(--line-gold);background:rgba(255,209,26,.06);font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:var(--gold);width:fit-content}
+  .pill svg{width:16px;height:16px}
+  .hero h1 em{font-style:normal;background:linear-gradient(120deg,var(--gold) 0%,var(--gold-2) 60%,var(--amber) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,auto);gap:36px;padding-top:26px;border-top:1px solid var(--line);width:fit-content}
+  .stat b{display:block;font-family:var(--display);font-size:1.5rem;font-weight:700;letter-spacing:-.02em;line-height:1.1}
+  .stat span{font-size:.8rem;color:var(--muted)}
+  .stat b .mono{font-size:1.4rem;color:var(--gold)}
+
+  .hero-photo{position:relative;justify-self:end;width:min(100%,440px)}
+  .hero-photo .frame{position:relative;aspect-ratio:4/5;border-radius:22px;overflow:hidden;border:1px solid rgba(255,209,26,.35);box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.04),0 0 80px -20px rgba(255,209,26,.35)}
+  .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:saturate(1.02) contrast(1.04)}
+  .hero-photo .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(10,10,11,.85) 100%);pointer-events:none}
+  .hero-photo .tag{position:absolute;left:18px;bottom:18px;right:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.72rem;color:var(--ink-2);letter-spacing:.04em}
+  .hero-photo .tag b{color:var(--gold);font-weight:600}
+  .hero-photo .corner{position:absolute;width:26px;height:26px;border:2px solid var(--gold);z-index:2}
+  .hero-photo .c1{top:-8px;left:-8px;border-right:0;border-bottom:0;border-radius:6px 0 0 0}
+  .hero-photo .c2{bottom:-8px;right:-8px;border-left:0;border-top:0;border-radius:0 0 6px 0}
+  .hero-photo .float{position:absolute;right:-22px;top:38px;background:var(--surface);border:1px solid var(--line-gold);border-radius:12px;padding:12px 14px;display:grid;gap:4px;box-shadow:0 20px 40px -18px rgba(0,0,0,.9);z-index:3}
+  .hero-photo .float small{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+  .hero-photo .float b{font-family:var(--display);font-size:1rem;color:var(--ink)}
+  .hero-photo .float b span{color:var(--gold)}
+  @media(max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:40px}
+    .hero-photo{justify-self:start;width:min(100%,380px)}
+    .hero-photo .float{right:0;top:-14px}
+    .hero-stats{grid-template-columns:1fr 1fr;gap:20px 32px;width:100%}
+  }
+
+  /* ticker */
+  .tape{border-block:1px solid var(--line);background:var(--bg-2);overflow:hidden;position:relative}
+  .tape::before,.tape::after{content:"";position:absolute;top:0;bottom:0;width:90px;z-index:2;pointer-events:none}
+  .tape::before{left:0;background:linear-gradient(90deg,var(--bg-2),transparent)}
+  .tape::after{right:0;background:linear-gradient(270deg,var(--bg-2),transparent)}
+  .tape-track{display:flex;width:max-content;animation:tape 46s linear infinite}
+  .tape:hover .tape-track{animation-play-state:paused}
+  .tape ul{display:flex;list-style:none;margin:0;padding:0}
+  .tape li{display:flex;align-items:center;gap:9px;padding:15px 34px;font-size:.8rem;white-space:nowrap}
+  .tape .sym{font-family:var(--mono);color:var(--gold);font-weight:600;letter-spacing:.06em;font-size:.74rem}
+  .tape .nm{color:var(--muted);font-size:.78rem}
+  .tape .px{color:var(--ink);font-weight:600;font-family:var(--display);font-size:.95rem;font-variant-numeric:tabular-nums}
+  .tape .chg{display:inline-flex;align-items:center;gap:5px;font-family:var(--mono);font-size:.72rem}
+  .tape .chg svg{width:14px;height:10px}
+  .tape .up{color:var(--bull)}
+  .tape .dn{color:var(--bear)}
+  .tape .dot{width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.7;margin-left:4px}
+  .tape .note{position:absolute;right:14px;top:-9px;font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);background:var(--bg);padding:0 8px;z-index:3}
+  @keyframes tape{to{transform:translateX(-50%)}}
+
+  /* sobre */
+  .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
+  .about-photo{position:relative}
+  .about-photo .frame{border-radius:18px;overflow:hidden;border:1px solid var(--line);aspect-ratio:3/4;box-shadow:0 30px 70px -30px rgba(0,0,0,.9)}
+  .about-photo img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+  .about-photo .stamp{position:absolute;left:-16px;bottom:34px;background:var(--gold);color:#0a0a0b;font-family:var(--display);font-weight:700;padding:12px 16px;border-radius:10px;font-size:.85rem;line-height:1.2;box-shadow:0 14px 30px -12px rgba(255,209,26,.8);transform:rotate(-2deg)}
+  .about-photo .stamp small{display:block;font-family:var(--mono);font-weight:500;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
+  .about-copy{display:grid;gap:22px}
+  .about-copy p{color:var(--ink-2);max-width:60ch}
+  .timeline{display:grid;gap:0;margin-top:8px;border-left:1px solid var(--line);padding-left:22px;position:relative}
+  .timeline li{list-style:none;position:relative;padding:10px 0 18px;display:grid;gap:3px}
+  .timeline li::before{content:"";position:absolute;left:-27px;top:18px;width:9px;height:9px;border-radius:50%;background:var(--bg);border:2px solid var(--gold)}
+  .timeline li:last-child::before{background:var(--gold);box-shadow:0 0 0 5px rgba(255,209,26,.15)}
+  .timeline .yr{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;color:var(--gold)}
+  .timeline b{font-family:var(--display);font-weight:600;font-size:1.02rem}
+  .timeline span{font-size:.9rem;color:var(--muted)}
+  @media(max-width:900px){.about{grid-template-columns:1fr;gap:44px}.about-photo{max-width:380px}}
+
+  /* operacional */
+  .op{background:var(--bg-2);border-block:1px solid var(--line)}
+  .op-intro{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;margin-bottom:56px}
+  .op-intro .sec-head{margin:0}
+  .live-card{position:relative;background:#0c0c0e;border:1px solid var(--line-gold);border-radius:18px;box-shadow:0 0 0 1px rgba(255,209,26,.08),0 0 60px -14px rgba(255,209,26,.45),0 40px 80px -40px rgba(0,0,0,.9);overflow:visible;font-family:var(--body)}
+  .live-card .lc-head{display:flex;justify-content:space-between;align-items:flex-start;padding:20px 22px 12px}
+  .live-card .lc-title{display:flex;gap:12px;align-items:center}
+  .live-card .lc-ico{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--gold),var(--gold-2));display:grid;place-items:center;color:#0a0a0b}
+  .live-card .lc-ico svg{width:18px;height:18px}
+  .live-card .lc-title b{font-family:var(--display);font-size:.98rem;display:block}
+  .live-card .lc-title .ao{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:.64rem;letter-spacing:.14em;color:var(--bull)}
+  .live-card .lc-title .ao::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--bull);box-shadow:0 0 0 3px rgba(48,232,140,.18);animation:pulse 1.8s infinite}
+  .live-card .lc-price{text-align:right}
+  .live-card .lc-price b{font-family:var(--display);font-size:1.5rem;letter-spacing:-.02em;display:block;font-variant-numeric:tabular-nums}
+  .live-card .lc-price span{font-family:var(--mono);font-size:.74rem}
+  .live-card .lc-hl{padding:0 22px 6px;font-family:var(--mono);font-size:.64rem;color:var(--muted);letter-spacing:.06em;display:flex;gap:16px}
+  .live-card canvas{display:block;width:100%;height:210px}
+  .live-card .lc-foot{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line)}
+  .live-card .lc-foot div{padding:14px 22px;border-right:1px solid var(--line)}
+  .live-card .lc-foot div:last-child{border-right:0}
+  .live-card .lc-foot small{display:block;font-family:var(--mono);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+  .live-card .lc-foot b{font-family:var(--display);font-size:.98rem}
+  .live-card .lc-pill{position:absolute;right:-14px;bottom:-16px;display:inline-flex;align-items:center;gap:8px;padding:9px 14px;border-radius:999px;background:var(--gold);color:#0a0a0b;font-family:var(--display);font-weight:600;font-size:.8rem;box-shadow:0 10px 30px -8px rgba(255,209,26,.9)}
+  .live-card .lc-pill svg{width:16px;height:16px}
+  .live-card .lc-note{position:absolute;left:22px;bottom:-22px;font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2)}
+  @media(max-width:900px){.op-intro{grid-template-columns:1fr;gap:40px}.live-card{margin-bottom:24px}}
+  .pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .pillar{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:26px 24px;display:grid;gap:14px;align-content:start;position:relative;overflow:hidden;transition:border-color .2s,transform .2s}
+  .pillar::before{content:"";position:absolute;inset:0;background:radial-gradient(240px 140px at 20% 0%,rgba(255,209,26,.12),transparent 70%);opacity:0;transition:opacity .25s}
+  .pillar:hover{border-color:var(--line-gold);transform:translateY(-3px)}
+  .pillar:hover::before{opacity:1}
+  .pillar .ico{width:42px;height:42px;border-radius:10px;background:rgba(255,209,26,.08);border:1px solid var(--line-gold);display:grid;place-items:center;color:var(--gold)}
+  .pillar .ico svg{width:20px;height:20px}
+  .pillar .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .pillar p{color:var(--muted);font-size:.93rem}
+  .pillar .rule{margin-top:auto;padding-top:14px;border-top:1px dashed var(--line);font-family:var(--mono);font-size:.74rem;color:var(--ink-2)}
+  .pillar .rule b{color:var(--gold);font-weight:600}
+  @media(max-width:1000px){.pillars{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.pillars{grid-template-columns:1fr}}
+
+  .spec{margin-top:56px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .spec-card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden}
+  .spec-card header{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;border-bottom:1px solid var(--line);background:linear-gradient(90deg,rgba(255,209,26,.08),transparent)}
+  .spec-card header b{font-family:var(--mono);font-size:1.05rem;letter-spacing:.1em;color:var(--gold)}
+  .spec-card header span{font-size:.82rem;color:var(--muted)}
+  .spec-card dl{margin:0;display:grid;grid-template-columns:1fr auto;gap:0}
+  .spec-card dt,.spec-card dd{margin:0;padding:12px 22px;border-bottom:1px solid var(--line);font-size:.9rem}
+  .spec-card dt{color:var(--muted)}
+  .spec-card dd{font-family:var(--mono);color:var(--ink);text-align:right;font-variant-numeric:tabular-nums}
+  .spec-card dt:nth-last-of-type(1),.spec-card dd:last-child{border-bottom:0}
+  .spec-note{grid-column:1/-1;font-size:.8rem;color:var(--muted-2);font-family:var(--mono)}
+  @media(max-width:760px){.spec{grid-template-columns:1fr}}
+
+  /* resultados */
+  .proof{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+  .champ{background:linear-gradient(160deg,#1a1608 0%,var(--surface) 55%);border:1px solid var(--line-gold);border-radius:20px;padding:36px;position:relative;overflow:hidden;display:grid;gap:18px;align-content:start}
+  .champ::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(255,209,26,.22),transparent 65%);pointer-events:none}
+  .champ .trophy{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--gold),var(--amber));display:grid;place-items:center;color:#0a0a0b;box-shadow:0 12px 30px -12px rgba(255,209,26,.8)}
+  .champ .trophy svg{width:28px;height:28px}
+  .champ h3{font-size:1.7rem;line-height:1.15}
+  .champ p{color:var(--ink-2);max-width:48ch}
+  .champ .badge{display:inline-grid;gap:2px;padding:10px 14px;border-radius:10px;border:1px solid var(--line-gold);background:rgba(10,10,11,.6);font-family:var(--mono);width:fit-content}
+  .champ .badge small{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+  .champ .badge b{font-size:.82rem;color:var(--gold);letter-spacing:.08em}
+  .ig{display:grid;gap:14px}
+  .ig-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;display:grid;gap:16px;transition:border-color .2s}
+  .ig-card:hover{border-color:var(--line-gold)}
+  .ig-head{display:flex;align-items:center;gap:14px}
+  .ig-head .av{width:48px;height:48px;border-radius:50%;padding:2px;background:linear-gradient(135deg,var(--gold),var(--amber));flex:none}
+  .ig-head .av img{width:100%;height:100%;border-radius:50%;object-fit:cover;object-position:center 15%;border:2px solid var(--surface)}
+  .ig-head b{font-family:var(--display);display:flex;align-items:center;gap:6px}
+  .ig-head b svg{width:15px;height:15px;color:#3b9cff}
+  .ig-head span{font-size:.82rem;color:var(--muted)}
+  .ig-nums{display:grid;grid-template-columns:repeat(3,1fr);text-align:center;border-block:1px solid var(--line);padding:12px 0}
+  .ig-nums b{display:block;font-family:var(--display);font-size:1.2rem}
+  .ig-nums span{font-size:.72rem;color:var(--muted)}
+  .hl{display:flex;gap:10px}
+  .hl a{flex:1;display:grid;gap:8px;justify-items:center;font-size:.72rem;color:var(--ink-2)}
+  .hl a i{width:54px;height:54px;border-radius:50%;border:1px solid var(--line-gold);display:grid;place-items:center;color:var(--gold);background:rgba(255,209,26,.05)}
+  .hl a i svg{width:20px;height:20px}
+  @media(max-width:900px){.proof{grid-template-columns:1fr}}
+
+  /* curso */
+  .course{background:var(--bg-2);border-block:1px solid var(--line)}
+  .course-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start}
+  .course-list{list-style:none;margin:0;padding:0;display:grid;gap:12px}
+  .course-list li{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:start;padding:16px 18px;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+  .course-list li svg{width:20px;height:20px;color:var(--gold);margin-top:2px}
+  .course-list b{font-family:var(--display);font-weight:600;display:block}
+  .course-list span{font-size:.9rem;color:var(--muted)}
+  .offer{position:sticky;top:96px;background:var(--surface);border:1px solid var(--line-gold);border-radius:20px;padding:30px;display:grid;gap:20px;box-shadow:0 40px 80px -40px rgba(255,209,26,.35)}
+  .offer .top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+  .offer .top .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .offer .top .live{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.66rem;color:var(--bull);letter-spacing:.1em}
+  .offer .top .live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--bull);box-shadow:0 0 0 4px rgba(48,232,140,.18);animation:pulse 1.8s infinite}
+  @keyframes pulse{50%{box-shadow:0 0 0 7px rgba(48,232,140,.05)}}
+  .offer h3{font-size:1.5rem}
+  .offer p{color:var(--muted);font-size:.95rem}
+  .offer .pay{display:grid;gap:8px;padding:16px;border-radius:12px;background:var(--bg);border:1px solid var(--line);font-size:.86rem;color:var(--ink-2)}
+  .offer .pay div{display:flex;gap:10px;align-items:center}
+  .offer .pay svg{width:16px;height:16px;color:var(--gold);flex:none}
+  .offer .btn{justify-content:center;width:100%}
+  .offer .fine{font-size:.74rem;color:var(--muted-2);text-align:center}
+  @media(max-width:900px){.course-grid{grid-template-columns:1fr}.offer{position:static}}
+
+  /* faq */
+  .faq{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:start}
+  details{border-bottom:1px solid var(--line)}
+  summary{cursor:pointer;list-style:none;padding:20px 0;display:flex;justify-content:space-between;align-items:center;gap:16px;font-family:var(--display);font-weight:600;font-size:1.05rem}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:"+";font-family:var(--mono);color:var(--gold);font-size:1.3rem;transition:transform .2s;flex:none}
+  details[open] summary::after{transform:rotate(45deg)}
+  details p{padding:0 0 20px;color:var(--muted);max-width:60ch}
+  @media(max-width:900px){.faq{grid-template-columns:1fr;gap:28px}}
+
+  /* final cta */
+  .final{padding:0 0 96px}
+  .final .box{position:relative;overflow:hidden;border-radius:24px;border:1px solid var(--line-gold);padding:64px 48px;text-align:center;display:grid;gap:22px;justify-items:center;background:radial-gradient(700px 300px at 50% 120%,rgba(255,209,26,.22),transparent 70%),var(--surface)}
+  .final h2{max-width:20ch}
+  .final p{color:var(--ink-2);max-width:52ch}
+  .final .box::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);background-size:40px 40px;mask-image:radial-gradient(circle at 50% 50%,#000,transparent 75%);-webkit-mask-image:radial-gradient(circle at 50% 50%,#000,transparent 75%);pointer-events:none}
+  .final .box>*{position:relative}
+
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--bg-2)}
+  .foot{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:36px;align-items:start}
+  .foot p{font-size:.84rem;color:var(--muted)}
+  .foot h4{margin:0 0 12px;font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  .foot ul{list-style:none;margin:0;padding:0;display:grid;gap:8px;font-size:.9rem;color:var(--ink-2)}
+  .foot a:hover{color:var(--gold)}
+  .disclaimer{margin-top:36px;padding-top:24px;border-top:1px solid var(--line);font-size:.76rem;color:var(--muted-2);line-height:1.6;max-width:none}
+  .copy{margin-top:18px;font-family:var(--mono);font-size:.7rem;color:var(--muted-2);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  @media(max-width:760px){.foot{grid-template-columns:1fr}}
+
+  /* barra de progresso, nav rolada, menu mobile, topo */
+  .progress{position:fixed;top:0;left:0;height:2px;width:100%;transform-origin:0 50%;transform:scaleX(0);background:linear-gradient(90deg,var(--gold),var(--amber));z-index:60;pointer-events:none}
+  .nav.scrolled{box-shadow:0 10px 40px -20px rgba(0,0,0,.9);border-color:rgba(255,209,26,.12)}
+  .nav-links a.active{color:var(--gold);border-color:var(--gold)}
+  .burger{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;place-items:center}
+  .burger svg{width:20px;height:20px}
+  .mnav{display:none;position:fixed;inset:68px 0 0 0;background:rgba(10,10,11,.96);backdrop-filter:blur(16px);z-index:49;padding:28px 20px;flex-direction:column;gap:6px}
+  .mnav a{font-family:var(--display);font-size:1.4rem;font-weight:600;padding:14px 8px;border-bottom:1px solid var(--line)}
+  .mnav .btn{margin-top:18px;justify-content:center;font-size:1rem}
+  body.menu-open .mnav{display:flex}
+  body.menu-open{overflow:hidden}
+  @media(max-width:900px){.burger{display:grid}.nav .btn-gold{display:none}}
+  .totop{position:fixed;right:22px;bottom:22px;width:46px;height:46px;border-radius:50%;background:var(--surface);border:1px solid var(--line-gold);color:var(--gold);display:grid;place-items:center;z-index:45;opacity:0;transform:translateY(10px);transition:opacity .25s,transform .25s;pointer-events:none}
+  .totop.show{opacity:1;transform:none;pointer-events:auto}
+  .totop svg{width:18px;height:18px}
+  section{scroll-margin-top:70px}
+
+  /* entrada do hero */
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  .hero-copy>*{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
+  .hero-copy>:nth-child(2){animation-delay:.08s}.hero-copy>:nth-child(3){animation-delay:.16s}.hero-copy>:nth-child(4){animation-delay:.24s}.hero-copy>:nth-child(5){animation-delay:.32s}
+  .hero-photo{animation:rise .9s .2s cubic-bezier(.2,.7,.2,1) both}
+  .hero-photo .frame{transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .35s ease}
+  .hero-photo:hover .frame{transition:transform .08s linear}
+
+  /* holofote que segue o cursor nos cards */
+  .spot{position:relative}
+  .spot::after{content:"";position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s;background:radial-gradient(260px circle at var(--sx,50%) var(--sy,50%),rgba(255,209,26,.14),transparent 45%)}
+  .spot:hover::after{opacity:1}
+
+  /* escalonamento das revelações */
+  .pillars .rv:nth-child(2),.course-list .rv:nth-child(2){transition-delay:.08s}
+  .pillars .rv:nth-child(3),.course-list .rv:nth-child(3){transition-delay:.16s}
+  .pillars .rv:nth-child(4),.course-list .rv:nth-child(4){transition-delay:.24s}
+  .course-list .rv:nth-child(5){transition-delay:.32s}
+
+  /* reveal */
+  .rv{transform:translateY(14px);transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .7s ease;opacity:.001}
+  .rv.in{transform:none;opacity:1}
+  html.no-js .rv,.rv.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){
+    .rv{transform:none;opacity:1;transition:none}
+    .hero-copy>*,.hero-photo{animation:none}
+    .hero-photo .frame{transform:none}
+    .tape-track{animation:none}
+    .btn:hover,.pillar:hover{transform:none}
+    .offer .top .live::before{animation:none}
+  }
+</style>
+
+</head>
+<body>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Tibúrcio Trader">
+      <span class="mark">T</span>
+      <span>Tibúrcio Trader<small>Mini-índice · Mini-dólar</small></span>
+    </a>
+    <nav class="nav-links" aria-label="Seções">
+      <a href="#sobre">Sobre</a>
+      <a href="#operacional">Operacional</a>
+      <a href="#resultados">Resultados</a>
+      <a href="#curso">Plataforma</a>
+      <a href="#faq">Dúvidas</a>
+    </nav>
+    <a class="btn btn-gold" data-link="plataforma" href="#curso">Acessar plataforma
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+    </a>
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-expanded="false" aria-controls="mnav">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+  <nav class="mnav" id="mnav" aria-label="Menu">
+    <a href="#sobre">Sobre</a>
+    <a href="#operacional">Operacional</a>
+    <a href="#resultados">Resultados</a>
+    <a href="#curso">Plataforma de estudo</a>
+    <a href="#faq">Dúvidas</a>
+    <a class="btn btn-gold" data-link="plataforma" href="#curso">Acessar plataforma</a>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <canvas id="candles" aria-hidden="true"></canvas>
+    <div class="glow" aria-hidden="true"></div>
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <span class="pill">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg>
+          CAMPEÃO · EXPERT TRADER XP · COMPETIDOR ARENA
+        </span>
+        <h1>O operacional que virou <em>campeão</em> na B3, ensinado do jeito que é operado.</h1>
+        <p class="lede">Ramon Tibúrcio opera mini-índice e mini-dólar desde 2022. Aqui você conhece o método, acompanha os resultados e entra na plataforma de estudo para aprender a ler o mercado com contexto, gatilho e risco definido.</p>
+        <div class="hero-cta">
+          <a class="btn btn-gold" data-link="plataforma" href="#curso">Conhecer a plataforma de estudo
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" data-link="instagram" href="https://www.instagram.com/tiburcio_trader/" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+            @tiburcio_trader
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><b><span class="mono">2022</span></b><span>operando WIN e WDO na B3</span></div>
+          <div class="stat"><b><span class="mono" data-count="1237">0</span></b><span>seguidores acompanhando</span></div>
+          <div class="stat"><b>1º lugar</b><span>Arena Expert Trader XP</span></div>
+        </div>
+      </div>
+      <div class="hero-photo">
+        <span class="corner c1" aria-hidden="true"></span>
+        <span class="corner c2" aria-hidden="true"></span>
+        <div class="float" aria-hidden="true">
+          <small>Mercado</small>
+          <b>WIN <span>▲</span> WDO</b>
+        </div>
+        <div class="frame">
+          <img src="fotos/hero.jpg" alt="Ramon Tibúrcio no evento Expert Trader XP, com o crachá de competidor da arena." width="880" height="1100" fetchpriority="high">
+          <div class="tag"><span>Expert Trader XP · São Paulo</span><b>ARENA</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="tape" aria-label="Painel ilustrativo de cotações">
+    <span class="note">painel ilustrativo</span>
+    <div class="tape-track" id="tape"></div>
+  </div>
+
+  <section id="sobre">
+    <div class="wrap about">
+      <div class="about-photo rv">
+        <div class="frame"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4MDAnIGhlaWdodD0nMTA2Nicgdmlld0JveD0nMCAwIDgwMCAxMDY2Jz4KPGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCcgeTE9JzAnIHgyPScxJyB5Mj0nMSc+PHN0b3Agb2Zmc2V0PScwJyBzdG9wLWNvbG9yPScjMWExNjA4Jy8+PHN0b3Agb2Zmc2V0PScxJyBzdG9wLWNvbG9yPScjMGUwZTE0Jy8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+CjxyZWN0IHdpZHRoPSc4MDAnIGhlaWdodD0nMTA2NicgZmlsbD0ndXJsKCNnKScvPgo8Y2lyY2xlIGN4PSc0MDAuMCcgY3k9JzQwNS4wOCcgcj0nMTI4LjAnIGZpbGw9J25vbmUnIHN0cm9rZT0nI2ZmZDExYScgc3Ryb2tlLW9wYWNpdHk9Jy41JyBzdHJva2Utd2lkdGg9JzMnLz4KPHBhdGggZD0nTTE3Ni4wIDgzMS40OCBRNDAwLjAgNTMzLjAgNjI0LjAgODMxLjQ4JyBmaWxsPSdub25lJyBzdHJva2U9JyNmZmQxMWEnIHN0cm9rZS1vcGFjaXR5PScuNScgc3Ryb2tlLXdpZHRoPSczJy8+Cjx0ZXh0IHg9JzQwMC4wJyB5PSc5NTkuNCcgdGV4dC1hbmNob3I9J21pZGRsZScgZm9udC1mYW1pbHk9J21vbm9zcGFjZScgZm9udC1zaXplPScyMicgZmlsbD0nI2ZmZDExYScgZmlsbC1vcGFjaXR5PScuOCc+Rk9UTzogQjM8L3RleHQ+PC9zdmc+" alt="Ramon Tibúrcio no estande da B3, a bolsa brasileira." width="900" height="1200" loading="lazy"></div>
+        <div class="stamp"><small>Onde tudo acontece</small>B3 · Bolsa do Brasil</div>
+      </div>
+      <div class="about-copy rv">
+        <span class="eyebrow">Quem é o Tibúrcio</span>
+        <h2>Da tela de um competidor ao pódio da arena.</h2>
+        <p>Ramon Tibúrcio começou a operar em 2022 com uma decisão simples: ficar em dois ativos, o mini-índice (WIN) e o mini-dólar (WDO), e dominar o comportamento deles antes de qualquer outra coisa.</p>
+        <p>Essa disciplina levou o operacional dele à arena de competidores do Expert Trader XP, o maior evento de traders do país, e de lá ao título de campeão. Hoje ele abre esse operacional para quem quer aprender com quem opera todos os dias, sem promessa de atalho.</p>
+        <ul class="timeline">
+          <li><span class="yr">2022</span><b>Primeiro contrato de WIN</b><span>Início do operacional em mini-índice e mini-dólar.</span></li>
+          <li><span class="yr">2023 – 2024</span><b>Rotina de day trade e registro público</b><span>Análises, resultados e fechamentos diários compartilhados no Instagram.</span></li>
+          <li><span class="yr">Expert Trader XP</span><b>Campeão da Arena de Competidores</b><span>Operacional testado ao vivo, contra outros traders, com regra e prazo.</span></li>
+          <li><span class="yr">Agora</span><b>Plataforma de estudo Tibúrcio Trader</b><span>O método inteiro, do pré-mercado ao fechamento, em aulas e sala ao vivo.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="operacional" class="op">
+    <div class="wrap">
+      <div class="op-intro">
+        <div class="sec-head rv">
+          <span class="eyebrow">O operacional</span>
+          <h2>Quatro decisões, todas antes do clique.</h2>
+          <p class="lede">Não existe entrada sem contexto e não existe contexto sem rotina. O método é o mesmo todo dia, e é isso que a plataforma ensina.</p>
+        </div>
+        <div class="live-card rv" aria-label="Gráfico ilustrativo do mini-índice">
+          <div class="lc-head">
+            <div class="lc-title">
+              <span class="lc-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h3l2-6 4 12 3-9 2 3h4"/></svg></span>
+              <div><b>WIN$ • Mini Índice</b><span class="ao">AO VIVO</span></div>
+            </div>
+            <div class="lc-price"><b id="lcPx">132.457</b><span id="lcChg" class="up">▲ 0,04%</span></div>
+          </div>
+          <div class="lc-hl"><span>H <b id="lcH">132.739</b></span><span>L <b id="lcL">132.170</b></span></div>
+          <canvas id="lcChart" aria-hidden="true"></canvas>
+          <div class="lc-foot">
+            <div><small>Vol</small><b>128k</b></div>
+            <div><small>Máx dia</small><b id="lcMax">132.739</b></div>
+            <div><small>Trend</small><b id="lcTrend" class="up">Alta</b></div>
+          </div>
+          <span class="lc-note">simulação ilustrativa</span>
+          <span class="lc-pill"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h6v6"/></svg>Leitura em tempo real</span>
+        </div>
+      </div>
+      <div class="pillars">
+        <article class="pillar spot rv">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 14l4-4 3 3 6-7"/></svg></div>
+          <span class="k">Antes das 9h</span>
+          <h3>Leitura de contexto</h3>
+          <p>Fechamento anterior, S&amp;P futuro, dólar, agenda do dia e níveis que o mercado respeitou. O plano nasce no pré-mercado.</p>
+          <div class="rule">Pregão WIN/WDO abre <b>09:00</b></div>
+        </article>
+        <article class="pillar spot rv">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></div>
+          <span class="k">Gatilho</span>
+          <h3>Entrada com critério</h3>
+          <p>Região definida, confirmação no fluxo e no tempo gráfico operacional. Sem região, não há operação. Sem confirmação, não há entrada.</p>
+          <div class="rule">Regra: <b>região + confirmação</b></div>
+        </article>
+        <article class="pillar spot rv">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <span class="k">Risco</span>
+          <h3>Gerenciamento em pontos</h3>
+          <p>Stop, alvo e perda máxima do dia definidos em pontos e em reais antes de abrir a posição. Bateu a perda do dia, encerrou.</p>
+          <div class="rule">Risco/retorno mínimo <b>1 : 2</b></div>
+        </article>
+        <article class="pillar spot rv">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M8 2v4M16 2v4M3 10h18M8 15h3"/></svg></div>
+          <span class="k">Rotina</span>
+          <h3>Fechamento e registro</h3>
+          <p>Cada operação vai para o diário: o que foi visto, o que foi feito e o que o mercado respondeu. É o registro que faz o trader evoluir.</p>
+          <div class="rule">Diário de trades <b>todo dia</b></div>
+        </article>
+      </div>
+
+      <div class="spec">
+        <div class="spec-card rv">
+          <header><b>WIN</b><span>Mini-índice Ibovespa futuro</span></header>
+          <dl>
+            <dt>Valor do ponto</dt><dd>R$ 0,20</dd>
+            <dt>Variação mínima</dt><dd>5 pontos · R$ 1,00</dd>
+            <dt>Vencimento</dt><dd>bimestral, meses pares</dd>
+            <dt>Código do mês</dt><dd>G J M Q V Z</dd>
+          </dl>
+        </div>
+        <div class="spec-card rv">
+          <header><b>WDO</b><span>Mini-dólar futuro</span></header>
+          <dl>
+            <dt>Valor do ponto</dt><dd>R$ 10,00</dd>
+            <dt>Variação mínima</dt><dd>0,5 ponto · R$ 5,00</dd>
+            <dt>Vencimento</dt><dd>mensal, 1º dia útil</dd>
+            <dt>Código do mês</dt><dd>F G H J K M N Q U V X Z</dd>
+          </dl>
+        </div>
+        <p class="spec-note">Especificações dos contratos conforme a B3. Os valores por ponto são fixos por contrato; o resultado financeiro depende da quantidade de contratos e da variação em pontos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="resultados">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <span class="eyebrow">Resultados e prova</span>
+        <h2>Operacional testado em público, não em print.</h2>
+        <p class="lede">O título foi conquistado operando ao vivo, na arena do evento. E o dia a dia continua aberto no Instagram: análises, resultados e fechamento.</p>
+      </div>
+      <div class="proof">
+        <article class="champ spot rv">
+          <div class="trophy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg></div>
+          <h3>Campeão da Arena de Competidores do Expert Trader XP</h3>
+          <p>Na arena, cada trader opera com o mesmo capital, o mesmo prazo e o mesmo mercado. Não há como esconder um resultado ruim nem inflar um bom. O operacional do Tibúrcio saiu de lá em primeiro lugar.</p>
+          <div class="badge"><small>Credencial</small><b>PREMIUM · COMPETIDOR ARENA</b></div>
+          <p class="muted" style="font-size:.84rem">Resultados passados não garantem resultados futuros. Operar em bolsa envolve risco de perda do capital investido.</p>
+        </article>
+        <aside class="ig rv">
+          <a class="ig-card" data-link="instagram" href="https://www.instagram.com/tiburcio_trader/" target="_blank" rel="noopener">
+            <div class="ig-head">
+              <span class="av"><img src="fotos/avatar.jpg" alt="" width="96" height="96" loading="lazy"></span>
+              <div>
+                <b>tiburcio_trader <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.4 2.1 3.1-.5 1 3 2.9 1.3-.6 3.1L22 13.5l-2 2.4.1 3.2-3.1.7-1.6 2.8L12 21.4l-3.4 1.2L7 19.8l-3.1-.7.1-3.2-2-2.4 1.2-3.5-.6-3.1L5.5 6.6l1-3 3.1.5L12 2zm-1.3 13.2l5.6-5.6-1.4-1.4-4.2 4.2-2-2-1.4 1.4 3.4 3.4z"/></svg></b>
+                <span>Ramon Tibúrcio | Mercado Financeiro</span>
+              </div>
+            </div>
+            <div class="ig-nums">
+              <div><b>44</b><span>posts</span></div>
+              <div><b>1.237</b><span>seguidores</span></div>
+              <div><b>718</b><span>seguindo</span></div>
+            </div>
+            <div class="hl">
+              <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l5-5 4 4 8-9"/><path d="M14 7h6v6"/></svg></i>Resultados</span>
+              <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg></i>Análises</span>
+              <span><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></i>Fechamento</span>
+            </div>
+          </a>
+          <a class="btn btn-ghost" data-link="instagram" href="https://www.instagram.com/tiburcio_trader/" target="_blank" rel="noopener" style="justify-content:center">Acompanhar no Instagram</a>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section id="curso" class="course">
+    <div class="wrap course-grid">
+      <div>
+        <div class="sec-head rv" style="margin-bottom:32px">
+          <span class="eyebrow">Plataforma de estudo</span>
+          <h2>Aprenda o operacional completo, do pré-mercado ao fechamento.</h2>
+          <p class="lede">Um curso voltado à B3, para quem quer operar WIN e WDO com método. Sem sinal, sem cópia de operação: você aprende a decidir.</p>
+        </div>
+        <ul class="course-list">
+          <li class="rv spot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><div><b>Aulas gravadas, em módulos</b><span>Base do mercado futuro, leitura de contexto, gatilhos de entrada, gerenciamento de risco e psicologia operacional.</span></div></li>
+          <li class="rv spot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><div><b>Sala ao vivo no pregão</b><span>Acompanhe a leitura do Tibúrcio no pré-mercado e durante o dia, com o raciocínio explicado em tempo real.</span></div></li>
+          <li class="rv spot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><div><b>Planilha de gerenciamento e diário de trades</b><span>As mesmas ferramentas usadas no operacional campeão, prontas para você preencher.</span></div></li>
+          <li class="rv spot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><div><b>Comunidade de alunos</b><span>Grupo fechado para dúvidas, revisão de operações e troca entre quem está no mesmo caminho.</span></div></li>
+          <li class="rv spot"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg><div><b>Fechamento semanal comentado</b><span>O que o mercado fez, o que o método pediu e o que ficou de aprendizado para a próxima semana.</span></div></li>
+        </ul>
+      </div>
+      <aside class="offer spot rv">
+        <div class="top"><span class="k">Turma aberta</span><span class="live">Inscrições abertas</span></div>
+        <h3>Plataforma de estudo Tibúrcio Trader</h3>
+        <p>Acesso ao curso completo, à sala ao vivo e à comunidade. Liberação automática assim que o pagamento é confirmado.</p>
+        <div class="pay">
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l8-8 8 8-8 8z"/></svg>Pix com acesso imediato</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg>Cartão de crédito parcelado</div>
+          <div><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7l8-4z"/></svg>Garantia de 7 dias</div>
+        </div>
+        <a class="btn btn-gold" data-link="plataforma" href="#curso">Quero entrar na plataforma
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" data-link="whatsapp" href="#" style="justify-content:center">Tirar dúvida no WhatsApp</a>
+        <p class="fine">Conteúdo educacional. Não constitui recomendação de investimento.</p>
+      </aside>
+    </div>
+  </section>
+
+  <section id="faq">
+    <div class="wrap faq">
+      <div class="sec-head rv" style="margin:0">
+        <span class="eyebrow">Dúvidas frequentes</span>
+        <h2>Antes de entrar, o que todo aluno pergunta.</h2>
+      </div>
+      <div class="rv">
+        <details><summary>Preciso já operar para acompanhar o curso?</summary><p>Não. O primeiro módulo cobre a base do mercado futuro na B3: como funcionam WIN e WDO, horários, vencimentos, margem e custos. Quem já opera pode ir direto ao operacional.</p></details>
+        <details><summary>O curso ensina a operar outros ativos ou forex?</summary><p>Não. O foco é exclusivo na B3, em mini-índice e mini-dólar, que é onde o operacional foi construído e testado.</p></details>
+        <details><summary>Vocês enviam sinais ou indicam operações?</summary><p>Não. A plataforma é educacional: você aprende o método e toma as próprias decisões. Recomendação de operações é atividade regulada pela CVM e não faz parte do que oferecemos.</p></details>
+        <details><summary>Quanto de capital preciso para começar?</summary><p>Depende da corretora e da margem exigida por contrato de WIN e WDO. No curso você aprende a dimensionar a posição de acordo com o capital e com a perda máxima aceitável por dia.</p></details>
+        <details><summary>Como funciona o acesso depois do pagamento?</summary><p>O acesso ao curso e à comunidade é liberado automaticamente após a confirmação do pagamento. No Pix, isso acontece na hora. Você recebe as instruções por e-mail e no WhatsApp.</p></details>
+        <details><summary>E se eu não me adaptar?</summary><p>Você tem 7 dias de garantia a partir da compra para pedir o reembolso integral, sem justificativa.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <div class="box rv">
+        <span class="eyebrow" style="justify-content:center">Próximo passo</span>
+        <h2>Aprenda a operar a B3 com quem provou o operacional na arena.</h2>
+        <p>Entre na plataforma de estudo e comece pelo pré-mercado de amanhã.</p>
+        <a class="btn btn-gold" data-link="plataforma" href="#curso">Acessar a plataforma de estudo
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<a class="totop" id="totop" href="#top" aria-label="Voltar ao topo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top" style="margin-bottom:14px"><span class="mark">T</span><span>Tibúrcio Trader<small>Mini-índice · Mini-dólar</small></span></a>
+        <p>Educação para o mercado futuro da B3, com o operacional de Ramon Tibúrcio, campeão do Expert Trader XP.</p>
+      </div>
+      <div>
+        <h4>Navegar</h4>
+        <ul><li><a href="#sobre">Sobre</a></li><li><a href="#operacional">Operacional</a></li><li><a href="#resultados">Resultados</a></li><li><a href="#curso">Plataforma de estudo</a></li><li><a href="#faq">Dúvidas</a></li></ul>
+      </div>
+      <div>
+        <h4>Contato</h4>
+        <ul><li><a data-link="instagram" href="https://www.instagram.com/tiburcio_trader/" target="_blank" rel="noopener">Instagram @tiburcio_trader</a></li><li><a data-link="whatsapp" href="#">WhatsApp</a></li><li><a data-link="email" href="#">E-mail</a></li></ul>
+      </div>
+    </div>
+    <p class="disclaimer">Aviso de risco: operações em mercado futuro (mini-índice e mini-dólar) envolvem alto risco e podem resultar na perda total do capital investido. Todo o conteúdo deste site e da plataforma de estudo tem caráter exclusivamente educacional e não constitui recomendação, análise ou consultoria de valores mobiliários nos termos da regulamentação da CVM. Resultados apresentados, inclusive o título obtido em competição, referem-se ao desempenho passado e não garantem resultados futuros. Cada aluno é responsável pelas próprias decisões de investimento.</p>
+    <div class="copy"><span>© <span id="yr">2026</span> Tibúrcio Trader. Todos os direitos reservados.</span><span>CNPJ 00.000.000/0001-00 · Brasil</span></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  /* ===== CONFIGURAÇÃO: troque os links aqui ===== */
+  var LINKS = {
+    plataforma: "#curso",          /* URL da plataforma de estudo / checkout (ex.: https://lastlink.com/p/xxxx) */
+    instagram:  "https://www.instagram.com/tiburcio_trader/",
+    whatsapp:   "#",               /* ex.: https://wa.me/55DDDNUMERO?text=Ol%C3%A1 */
+    email:      "#"                /* ex.: mailto:contato@tiburciotrader.com.br */
+  };
+  document.querySelectorAll("[data-link]").forEach(function(a){
+    var k=a.getAttribute("data-link"), v=LINKS[k];
+    if(!v||v==="#"){ if(k!=="plataforma"){ (a.closest("li")||a).style.display="none"; } return; }
+    a.href=v; if(/^https?:/.test(v)){a.target="_blank";a.rel="noopener";}
+  });
+
+  /* ===== Progresso, nav, menu mobile, topo ===== */
+  var prog=document.getElementById("progress"), nav=document.getElementById("nav"), totop=document.getElementById("totop");
+  var secs=[].slice.call(document.querySelectorAll("main section[id]")), navA=[].slice.call(document.querySelectorAll(".nav-links a"));
+  function onScroll(){
+    var h=document.documentElement, y=window.pageYOffset||h.scrollTop||0, max=Math.max(h.scrollHeight,document.body.scrollHeight)-window.innerHeight;
+    prog.style.transform="scaleX("+(max?y/max:0)+")";
+    nav.classList.toggle("scrolled",y>10); totop.classList.toggle("show",y>700);
+    var cur=null; secs.forEach(function(s){ if(s.getBoundingClientRect().top<=120) cur=s.id; });
+    navA.forEach(function(a){ a.classList.toggle("active",a.getAttribute("href")==="#"+cur); });
+  }
+  window.addEventListener("scroll",onScroll,{passive:true}); onScroll();
+  var burger=document.getElementById("burger");
+  burger.addEventListener("click",function(){ var o=document.body.classList.toggle("menu-open"); burger.setAttribute("aria-expanded",o); });
+  document.querySelectorAll("#mnav a").forEach(function(a){ a.addEventListener("click",function(){ document.body.classList.remove("menu-open"); burger.setAttribute("aria-expanded","false"); }); });
+
+  /* ===== Inclinação 3D da foto do hero ===== */
+  var ph=document.querySelector(".hero-photo");
+  ph.addEventListener("pointermove",function(e){ var r=ph.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5; ph.style.setProperty("--ry",(x*8)+"deg"); ph.style.setProperty("--rx",(-y*8)+"deg"); });
+  ph.addEventListener("pointerleave",function(){ ph.style.setProperty("--ry","0deg"); ph.style.setProperty("--rx","0deg"); });
+
+  /* ===== Holofote nos cards ===== */
+  document.querySelectorAll(".spot").forEach(function(c){ c.addEventListener("pointermove",function(e){ var r=c.getBoundingClientRect(); c.style.setProperty("--sx",(e.clientX-r.left)+"px"); c.style.setProperty("--sy",(e.clientY-r.top)+"px"); }); });
+  document.getElementById("yr").textContent=new Date().getFullYear();
+
+  /* ===== Ticker ilustrativo ===== */
+  var quotes=[["WIN$","132.415","-0,05%",0,"Mini Índice"],["WDO$","5.428","-0,08%",0,"Mini Dólar"],["IBOV","135.886","+0,05%",1,"Ibovespa"],["USD","5,42","-0,04%",0,"Dólar Comercial"],["PETR4","38,90","+0,31%",1,"Petrobras"],["VALE3","62,13","-0,04%",0,"Vale"],["ITUB4","34,56","+0,03%",1,"Itaú"],["BBAS3","28,91","+0,04%",1,"Banco do Brasil"],["DI JAN27","14,32%","-0,04",0,"Juros futuro"],["S&P FUT","5.980","+0,21%",1,"S&P 500"]];
+  var upIco='<svg viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 8l3-3 2 2 3-4 2 2 2-3"/></svg>';
+  var dnIco='<svg viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 2l3 3 2-2 3 4 2-2 2 3"/></svg>';
+  var ul=quotes.map(function(q){var c=q[3]?"up":"dn";return '<li><span class="sym">'+q[0]+'</span><span class="nm">'+q[4]+'</span><span class="px">'+q[1]+'</span><span class="chg '+c+'">'+(q[3]?upIco:dnIco)+q[2]+'<i class="dot"></i></span></li>';}).join("");
+  document.getElementById("tape").innerHTML='<ul>'+ul+'</ul><ul aria-hidden="true">'+ul+'</ul>';
+
+  /* ===== Reveal ===== */
+  var els=document.querySelectorAll(".rv");
+  if("IntersectionObserver" in window){
+    var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target);}});},{rootMargin:"0px 0px -8% 0px",threshold:.08});
+    els.forEach(function(el){io.observe(el);});
+  } else { els.forEach(function(el){el.classList.add("in");}); }
+
+  /* ===== Contador ===== */
+  var reduce=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  document.querySelectorAll("[data-count]").forEach(function(el){
+    var end=+el.getAttribute("data-count"), fmt=function(n){return n.toLocaleString("pt-BR");};
+    if(reduce){el.textContent=fmt(end);return;}
+    var t0=null; function step(t){ if(!t0)t0=t; var p=Math.min(1,(t-t0)/1400); p=1-Math.pow(1-p,3); el.textContent=fmt(Math.round(end*p)); if(p<1)requestAnimationFrame(step); }
+    requestAnimationFrame(step);
+  });
+
+  /* ===== Brilho que segue o mouse no hero ===== */
+  var hero=document.querySelector(".hero");
+  hero.addEventListener("pointermove",function(e){var r=hero.getBoundingClientRect();hero.style.setProperty("--mx",((e.clientX-r.left)/r.width*100)+"%");hero.style.setProperty("--my",((e.clientY-r.top)/r.height*100)+"%");});
+
+  /* ===== Candles animados no fundo do hero ===== */
+  var cv=document.getElementById("candles"), ctx=cv.getContext("2d"), W,H, candles=[], price=100, dpr=Math.min(2,window.devicePixelRatio||1);
+  function size(){W=hero.clientWidth;H=hero.clientHeight;cv.width=W*dpr;cv.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);}
+  function mk(){var o=price,c=o+(Math.random()-.47)*3,h=Math.max(o,c)+Math.random()*1.6,l=Math.min(o,c)-Math.random()*1.6;price=c;return{o:o,c:c,h:h,l:l};}
+  function seed(){candles=[];price=100;var n=Math.ceil(W/14)+2;for(var i=0;i<n;i++)candles.push(mk());}
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    var min=Infinity,max=-Infinity;candles.forEach(function(k){min=Math.min(min,k.l);max=Math.max(max,k.h);});
+    var pad=H*.18, y=function(v){return H-pad-((v-min)/(max-min||1))*(H-pad*2);};
+    ctx.lineWidth=1;
+    candles.forEach(function(k,i){
+      var x=i*14+7, up=k.c>=k.o, col=up?"rgba(48,232,140,.55)":"rgba(229,72,77,.5)";
+      ctx.strokeStyle=col;ctx.fillStyle=col;
+      ctx.beginPath();ctx.moveTo(x,y(k.h));ctx.lineTo(x,y(k.l));ctx.stroke();
+      var top=y(Math.max(k.o,k.c)),bh=Math.max(1,Math.abs(y(k.o)-y(k.c)));
+      ctx.fillRect(x-4,top,8,bh);
+    });
+    /* linha de preço */
+    var last=candles[candles.length-1];ctx.strokeStyle="rgba(255,209,26,.35)";ctx.setLineDash([4,6]);ctx.beginPath();ctx.moveTo(0,y(last.c));ctx.lineTo(W,y(last.c));ctx.stroke();ctx.setLineDash([]);
+  }
+  function loop(){candles.shift();candles.push(mk());draw();}
+  size();seed();draw();
+  window.addEventListener("resize",function(){size();seed();draw();});
+  if(!reduce) setInterval(loop,900);
+
+  /* ===== Card WIN$ ao vivo (simulação) ===== */
+  var lc=document.getElementById("lcChart"), lctx=lc.getContext("2d"), pts=[], base=132457, LW,LH;
+  function fmt(n){return Math.round(n).toLocaleString("pt-BR");}
+  function lcSize(){LW=lc.clientWidth;LH=lc.clientHeight;lc.width=LW*dpr;lc.height=LH*dpr;lctx.setTransform(dpr,0,0,dpr,0,0);}
+  function lcSeed(){pts=[];var v=base-120;for(var i=0;i<28;i++){v+=(Math.random()-.48)*140;pts.push(v);}}
+  function lcDraw(){
+    lctx.clearRect(0,0,LW,LH);
+    var min=Math.min.apply(null,pts),max=Math.max.apply(null,pts),pad=18;
+    var x=function(i){return 14+i*(LW-28)/(pts.length-1);}, y=function(v){return LH-pad-((v-min)/(max-min||1))*(LH-pad*2);};
+    var g=lctx.createLinearGradient(0,0,0,LH);g.addColorStop(0,"rgba(255,209,26,.42)");g.addColorStop(1,"rgba(255,209,26,0)");
+    lctx.beginPath();lctx.moveTo(x(0),LH);pts.forEach(function(v,i){lctx.lineTo(x(i),y(v));});lctx.lineTo(x(pts.length-1),LH);lctx.closePath();lctx.fillStyle=g;lctx.fill();
+    lctx.beginPath();pts.forEach(function(v,i){i?lctx.lineTo(x(i),y(v)):lctx.moveTo(x(i),y(v));});
+    lctx.strokeStyle="#ffd11a";lctx.lineWidth=2;lctx.lineJoin="round";lctx.shadowColor="rgba(255,209,26,.6)";lctx.shadowBlur=10;lctx.stroke();lctx.shadowBlur=0;
+    var lx=x(pts.length-1),ly=y(pts[pts.length-1]);
+    lctx.beginPath();lctx.arc(lx,ly,4,0,Math.PI*2);lctx.fillStyle="#ffd11a";lctx.fill();
+    lctx.beginPath();lctx.arc(lx,ly,8,0,Math.PI*2);lctx.fillStyle="rgba(255,209,26,.25)";lctx.fill();
+    var last=pts[pts.length-1],first=pts[0],ch=(last-first)/first*100,up=ch>=0;
+    document.getElementById("lcPx").textContent=fmt(last);
+    var c=document.getElementById("lcChg");c.textContent=(up?"▲ ":"▼ ")+Math.abs(ch).toFixed(2).replace(".",",")+"%";c.className=up?"up":"dn";
+    document.getElementById("lcH").textContent=fmt(max);document.getElementById("lcL").textContent=fmt(min);document.getElementById("lcMax").textContent=fmt(max);
+    var t=document.getElementById("lcTrend");t.textContent=up?"Alta":"Baixa";t.className=up?"up":"dn";
+  }
+  lcSize();lcSeed();lcDraw();
+  window.addEventListener("resize",function(){lcSize();lcDraw();});
+  if(!reduce) setInterval(function(){var v=pts[pts.length-1]+(Math.random()-.48)*140;pts.shift();pts.push(v);lcDraw();},1500);
+})();
+</script>
+
+</body>
+</html>
