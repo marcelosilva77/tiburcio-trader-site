@@ -519,8 +519,8 @@
   <section id="sobre">
     <div class="wrap about">
       <div class="about-photo rv">
-        <div class="frame"><img src="{{FOTO_B3}}" alt="Ramon Tibúrcio no estande da B3, a bolsa brasileira." width="900" height="1200" loading="lazy"></div>
-        <div class="stamp"><small>Onde tudo acontece</small>B3 · Bolsa do Brasil</div>
+        <div class="frame"><img src="{{FOTO_B3}}" alt="{{ALT_B3}}" width="900" height="1200" loading="lazy"></div>
+        <div class="stamp"><small>{{STAMP_B3_SUP}}</small>{{STAMP_B3}}</div>
       </div>
       <div class="about-copy rv">
         <span class="eyebrow">Quem é o Tibúrcio</span>
@@ -751,7 +751,9 @@
 (function(){
   /* ===== CONFIGURAÇÃO: troque os links aqui ===== */
   var LINKS = {
-    plataforma: "#curso",          /* URL da plataforma de estudo / checkout (ex.: https://lastlink.com/p/xxxx) */
+    /* Link do checkout na Lastlink. Troque pela URL do produto assim que ele estiver criado,
+       algo como "https://lastlink.com/p/XXXXXXX" — hoje aponta para a Lastlink. */
+    plataforma: "https://lastlink.com/",
     instagram:  "https://www.instagram.com/tiburcio_trader/",
     whatsapp:   "#",               /* ex.: https://wa.me/55DDDNUMERO?text=Ol%C3%A1 */
     email:      "#"                /* ex.: mailto:contato@tiburciotrader.com.br */

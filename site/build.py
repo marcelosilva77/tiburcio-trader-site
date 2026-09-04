@@ -64,13 +64,25 @@ def main():
     tpl = open(os.path.join(HERE, "index.template.html"), encoding="utf-8").read()
     print("Fotos:")
     hero = find("hero"); b3 = find("b3"); av = find("avatar") or hero
+    # Enquanto não houver foto da B3, a segunda seção usa a foto do evento com um recorte
+    # mais aberto (mostra o ambiente do Expert Trader XP) e o carimbo muda de texto.
+    if b3:
+        b3_src, b3_focus = b3, 0.25
+        stamp_sup, stamp, alt_b3 = "Onde tudo acontece", "B3 · Bolsa do Brasil", "Ramon Tibúrcio no estande da B3, a bolsa brasileira."
+    else:
+        b3_src, b3_focus = hero, 0.42
+        stamp_sup, stamp, alt_b3 = "Onde o título foi conquistado", "Expert Trader XP · Arena", "Ramon Tibúrcio na arena de competidores do Expert Trader XP."
+
     # (token, arquivo de origem, nome público, tamanho, proporção, foco vertical, qualidade, rótulo do placeholder)
     specs = [
-        ("{{FOTO_HERO}}",   hero, "hero.jpg",   660, (4, 5), 0.18, 72, "FOTO: EXPERT TRADER XP"),
-        ("{{FOTO_B3}}",     b3,   "b3.jpg",     900, (3, 4), 0.25, 78, "FOTO: B3"),
-        ("{{FOTO_AVATAR}}", av,   "avatar.jpg", 160, (1, 1), 0.12, 80, ""),
+        ("{{FOTO_HERO}}",   hero,   "hero.jpg",   660, (4, 5), 0.18,    72, "FOTO: EXPERT TRADER XP"),
+        ("{{FOTO_B3}}",     b3_src, "b3.jpg",     620, (3, 4), b3_focus, 72, "FOTO: B3"),
+        ("{{FOTO_AVATAR}}", av,     "avatar.jpg", 160, (1, 1), 0.12,    80, ""),
     ]
     pub_dir = os.path.join(HERE, "public"); os.makedirs(os.path.join(pub_dir, "fotos"), exist_ok=True)
+    tpl = (tpl.replace("{{STAMP_B3_SUP}}", stamp_sup)
+              .replace("{{STAMP_B3}}", stamp)
+              .replace("{{ALT_B3}}", alt_b3))
     artifact_html, public_html = tpl, tpl
     for token, src, name, size, ratio, focus, q, label in specs:
         if src:
@@ -93,8 +105,11 @@ def main():
     pub = os.path.join(pub_dir, "index.html")
     open(pub, "w", encoding="utf-8").write(full)
     print(f"Gerado: {pub} ({os.path.getsize(pub)//1024} KB)  [site completo para publicar]")
-    if not hero or not b3:
-        print("\nAVISO: faltam fotos em site/fotos/ (hero.jpg e/ou b3.jpg). Placeholders foram usados.")
+    if not hero:
+        print("\nAVISO: falta site/fotos/hero.jpg. Placeholder dourado foi usado.")
+    if not b3:
+        print("\nAVISO: falta site/fotos/b3.jpg. A segunda secao esta usando a foto do evento\n"
+              "       com recorte aberto. Salve a foto da B3 nesse caminho e rode de novo.")
 
 
 if __name__ == "__main__":
