@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Tibúrcio Trader — Guia de início</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  @page{size:A4;margin:18mm 17mm 20mm 17mm}
+  :root{--ink:#15140f;--ink-2:#3f3c34;--muted:#77736a;--line:#e3dfd3;--gold:#b48600;--gold-bg:#fff5d1;--gold-line:#e9d489;--black:#0a0a0b;--warn:#9a4f06;--warn-bg:#fff1e2}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:10.6pt;line-height:1.55;color:var(--ink);background:#fff}
+  h1,h2,h3{font-family:"Space Grotesk",Inter,sans-serif;letter-spacing:-.02em;line-height:1.15;margin:0}
+  h2{font-size:17pt;margin:0 0 8pt;padding-top:6pt;border-top:2px solid var(--gold);display:flex;gap:10pt;align-items:baseline;break-after:avoid}
+  h2 .n{font-family:"JetBrains Mono",monospace;font-size:8pt;color:var(--gold);letter-spacing:.1em;font-weight:500}
+  h3{font-size:11.5pt;margin:14pt 0 5pt;break-after:avoid}
+  p{margin:6pt 0;color:var(--ink-2)}
+  ul,ol{margin:5pt 0;padding-left:16pt;color:var(--ink-2)} li{margin:3pt 0} li b,p b{color:var(--ink)}
+  .mono{font-family:"JetBrains Mono",monospace}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  section{break-before:page}
+  section.first{break-before:auto}
+
+  /* capa */
+  .cover{height:257mm;background:var(--black);color:#f5eede;border-radius:10pt;padding:26mm 22mm;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cover::after{content:"";position:absolute;right:-60mm;bottom:-60mm;width:180mm;height:180mm;border-radius:50%;background:radial-gradient(circle,rgba(255,209,26,.28),transparent 62%)}
+  .cover .mark{width:16mm;height:16mm;border-radius:4mm;background:linear-gradient(135deg,#ffd11a,#e88c30);color:#0a0a0b;display:grid;place-items:center;font:700 11pt "Space Grotesk",sans-serif}
+  .cover h1{font-size:34pt;max-width:120mm;margin-top:10mm;color:#fff}
+  .cover h1 em{font-style:normal;color:#ffd11a}
+  .cover .sub{font-size:12.5pt;color:#d6d0bd;max-width:115mm;margin-top:8mm}
+  .cover .foot{font-family:"JetBrains Mono",monospace;font-size:8pt;color:#9a9aa6;letter-spacing:.06em;position:relative}
+  .cover .foot b{color:#ffd11a;font-weight:500}
+  .cover .brand{font:700 9pt "Space Grotesk",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-top:5mm}
+  .cover .brand small{display:block;font:500 6.5pt "JetBrains Mono",monospace;letter-spacing:.2em;color:#ffd11a;margin-top:2pt}
+
+  /* blocos */
+  .letter{border-left:3px solid var(--gold);padding:2pt 0 2pt 12pt;margin:10pt 0}
+  .letter p{color:var(--ink)}
+  .rule{background:var(--gold-bg);border:1px solid var(--gold-line);border-radius:6pt;padding:9pt 12pt;margin:10pt 0;-webkit-print-color-adjust:exact;print-color-adjust:exact;break-inside:avoid}
+  .rule b{font-family:"Space Grotesk",sans-serif}
+  .warn{background:var(--warn-bg);border-radius:6pt;padding:9pt 12pt;margin:10pt 0;-webkit-print-color-adjust:exact;print-color-adjust:exact;break-inside:avoid}
+  .warn b{color:var(--warn)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:7pt;margin:8pt 0}
+  .card{border:1px solid var(--line);border-radius:6pt;padding:8pt 10pt;break-inside:avoid}
+  .card .k{font-family:"JetBrains Mono",monospace;font-size:6.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .card b{display:block;font-family:"Space Grotesk",sans-serif;font-size:10.5pt;margin:2pt 0}
+  .card p{font-size:9pt;margin:0}
+  table{border-collapse:collapse;width:100%;font-size:9.3pt;margin:8pt 0;break-inside:auto}
+  th,td{text-align:left;padding:5.5pt 7pt;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:"JetBrains Mono",monospace;font-size:6.8pt;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;border-bottom:1.5px solid var(--gold-line)}
+  tr{break-inside:avoid}
+  td b{color:var(--ink)} td{color:var(--ink-2)}
+  .steps{list-style:none;padding:0;margin:8pt 0;counter-reset:s}
+  .steps li{counter-increment:s;display:grid;grid-template-columns:18pt 1fr;gap:8pt;padding:6pt 0;border-bottom:1px solid var(--line);break-inside:avoid}
+  .steps li::before{content:counter(s);font-family:"JetBrains Mono",monospace;font-size:8pt;color:var(--gold);border:1px solid var(--gold-line);border-radius:50%;width:16pt;height:16pt;display:grid;place-items:center;margin-top:1pt}
+  .week{display:grid;grid-template-columns:70pt 1fr;gap:10pt;padding:7pt 0;border-bottom:1px solid var(--line);break-inside:avoid}
+  .week .w{font-family:"JetBrains Mono",monospace;font-size:8pt;color:var(--gold);padding-top:2pt}
+  .week b{display:block;font-family:"Space Grotesk",sans-serif;margin-bottom:1pt}
+  .week p{margin:0;font-size:9.6pt}
+  .check{list-style:none;padding:0;margin:6pt 0}
+  .check li{display:grid;grid-template-columns:14pt 1fr;gap:6pt;padding:5pt 0;border-bottom:1px dashed var(--line);break-inside:avoid}
+  .check li::before{content:"";width:10pt;height:10pt;border:1.2pt solid var(--gold);border-radius:2pt;margin-top:3pt}
+  .who{font-family:"JetBrains Mono",monospace;font-size:7pt;color:var(--muted);margin-left:4pt}
+  code{font-family:"JetBrains Mono",monospace;font-size:.9em;background:var(--gold-bg);padding:0 4pt;border-radius:3pt;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .lesson{border:1px solid var(--line);border-radius:6pt;padding:8pt 11pt;margin:6pt 0;break-inside:avoid}
+  .lesson b{font-family:"Space Grotesk",sans-serif}
+  .lesson p{margin:2pt 0;font-size:9.5pt}
+  .sig{margin-top:18pt;font-family:"Space Grotesk",sans-serif;font-weight:600}
+</style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div class="cover">
+  <div>
+    <div class="mark">T</div>
+    <div class="brand">Tibúrcio Trader<small>Mini-índice · Mini-dólar</small></div>
+    <h1>Guia de início: do <em>operacional campeão</em> à sua escola de B3</h1>
+    <p class="sub">O caminho, passo a passo, para você transformar o que já faz todo dia no pregão num curso, numa comunidade e num negócio digital que é seu.</p>
+  </div>
+  <div class="foot">Preparado por <b>Marcelo</b> para <b>Ramon Tibúrcio</b> · setembro de 2026 · versão 1</div>
+</div>
+
+<!-- 0 CARTA -->
+<section class="first" style="margin-top:14pt">
+  <div class="eyebrow">Antes de tudo</div>
+  <h2><span class="n">00</span>Ramon, uma palavra antes do plano</h2>
+  <div class="letter">
+    <p>Você já fez a parte difícil. Construiu um operacional, testou na arena do Expert Trader XP contra outros traders, com regra e prazo, e saiu campeão. O que falta não é conhecimento: é organizar esse conhecimento numa forma que outras pessoas consigam aprender, e colocar isso no digital de um jeito que gere renda recorrente.</p>
+    <p>Meu papel é te mostrar o caminho e te ajudar nas primeiras semanas. Mas quero deixar uma coisa clara desde já: <b>tudo neste projeto é seu.</b> As contas, o site, o domínio, o dinheiro que entrar. Eu estruturo o começo para que você consiga tocar sozinho, sem depender de mim nem de ninguém.</p>
+    <p>Este guia tem sete partes. Leia inteiro uma vez, sem pressa. Depois volte na parte 7, o checklist, e comece pelo primeiro item.</p>
+  </div>
+  <p class="sig">Marcelo</p>
+
+  <h3>O que você vai encontrar aqui</h3>
+  <div class="cards">
+    <div class="card"><span class="k">Partes 1 e 2</span><b>A base</b><p>O princípio que guia tudo e as contas que precisam existir, com o que é seu e o que eu cuido.</p></div>
+    <div class="card"><span class="k">Partes 3 e 4</span><b>O produto</b><p>Como o seu operacional vira um curso, módulo por módulo, e como gravar uma aula sem nunca ter dado uma.</p></div>
+    <div class="card"><span class="k">Partes 5 a 7</span><b>O caminho</b><p>Como aparecer no digital todo dia, o que fazer nos próximos 60 dias e o checklist para começar hoje.</p></div>
+  </div>
+</section>
+
+<!-- 1 -->
+<section>
+  <h2><span class="n">01</span>O princípio: nada fica preso a ninguém que não seja você</h2>
+  <p>Todo serviço deste projeto é criado com um e-mail exclusivo dele, e não com contas pessoais, nem as suas nem as minhas. Todas as senhas ficam num cofre compartilhado. Se um dia eu precisar me ausentar, você abre o cofre e continua exatamente de onde parou.</p>
+  <div class="rule"><b>Na prática, isso significa três coisas.</b><br>1) O e-mail do projeto é a chave de tudo: Instagram, YouTube, hospedagem do site, plataforma do curso.<br>2) Nenhum material importante vive só num computador: aulas gravadas vão para o Google Drive do projeto.<br>3) O que exige seu CPF, seu telefone ou sua conta bancária (domínio, WhatsApp, plataforma de venda) é você quem cria, no seu nome.</div>
+  <h3>Quem faz o quê</h3>
+  <table>
+    <tr><th>Você</th><th>Eu</th></tr>
+    <tr><td>Grava as aulas. Aparece no Instagram todo dia. Conduz a sala ao vivo. Cria as contas que precisam do seu CPF e do seu banco. Decide preço e datas.</td><td>Estruturo o curso e os roteiros com você. Cuido do site, do domínio, da configuração da plataforma e do visual. Reviso os textos. Vou reduzindo minha presença conforme você ganha ritmo.</td></tr>
+  </table>
+</section>
+
+<!-- 2 -->
+<section>
+  <h2><span class="n">02</span>As contas do projeto</h2>
+  <p>Na ordem em que devem existir. As quatro primeiras eu crio com o e-mail do projeto e te entrego no cofre. As marcadas como suas dependem de dados que só você tem.</p>
+  <table>
+    <tr><th>Ordem</th><th>Serviço</th><th>Para quê</th><th>Quem</th><th>Custo</th></tr>
+    <tr><td>1</td><td><b>Gmail do projeto</b></td><td>E-mail oficial (algo como <code>tiburciotrader@gmail.com</code>). Login das demais contas, canal do YouTube, Drive dos materiais.</td><td>Eu, com seu celular como recuperação</td><td>Grátis</td></tr>
+    <tr><td>2</td><td><b>Bitwarden</b></td><td>Cofre de senhas compartilhado. É o que garante que você tem acesso a tudo, sempre.</td><td>Eu</td><td>Grátis</td></tr>
+    <tr><td>3</td><td><b>GitHub</b></td><td>Onde ficam os arquivos do site.</td><td>Eu</td><td>Grátis</td></tr>
+    <tr><td>4</td><td><b>Cloudflare</b></td><td>Hospedagem do site e do domínio. Gratuito e permite uso comercial.</td><td>Eu</td><td>Grátis</td></tr>
+    <tr><td>5</td><td><b>Registro.br</b></td><td>Compra do domínio <code>tiburciotrader.com.br</code>. Domínio .br exige CPF do titular: por isso é você.</td><td><b>Você</b></td><td>R$ 40/ano</td></tr>
+    <tr><td>6</td><td><b>WhatsApp Business</b></td><td>Um chip novo, só do projeto. Atendimento, comunidade gratuita e botão do site. Nunca o seu número pessoal.</td><td><b>Você</b></td><td>Chip pré-pago</td></tr>
+    <tr><td>7</td><td><b>Lastlink</b></td><td>Onde o aluno paga (Pix, cartão), assiste às aulas e entra sozinho na comunidade paga. O dinheiro cai na sua conta.</td><td><b>Você</b> (dados bancários)</td><td>6,99% + R$ 2,49 por venda</td></tr>
+    <tr><td>8</td><td><b>Instagram</b></td><td>Já existe. Vamos passar para conta profissional, trocar o link da bio pelo site e tirar tudo que é de forex.</td><td><b>Você</b></td><td>Grátis</td></tr>
+    <tr><td>9</td><td><b>YouTube</b></td><td>Nasce junto com o Gmail. Fechamentos semanais e aulas abertas.</td><td>Automático</td><td>Grátis</td></tr>
+    <tr><td>10</td><td><b>Canva</b></td><td>Logo, capas e artes dos posts.</td><td>Eu</td><td>Grátis</td></tr>
+  </table>
+  <h3>Mais adiante</h3>
+  <ul>
+    <li><b>CNPJ</b> (MEI como professor particular ou instrutor): emite nota, recebe como empresa e protege o seu CPF. Falar com um contador antes das primeiras vendas.</li>
+    <li><b>Anúncios no Instagram</b>: só depois que o conteúdo orgânico estiver rodando bem.</li>
+  </ul>
+
+  <h3>O domínio, passo a passo</h3>
+  <ol class="steps">
+    <li><div>Entre em <b>registro.br</b>, crie sua conta com seu CPF e pesquise <code>tiburciotrader.com.br</code>.</div></li>
+    <li><div>Compre por um ano (R$ 40, Pix). Guarde a senha no cofre.</div></li>
+    <li><div>Me avise. Eu preparo a hospedagem e te mando dois endereços de servidor.</div></li>
+    <li><div>No Registro.br, em "Alterar servidores DNS", cole os dois endereços e salve. Leva de uma a 24 horas.</div></li>
+    <li><div>Pronto: <b>tiburciotrader.com.br</b> no ar, com cadeado de segurança automático.</div></li>
+  </ol>
+</section>
+
+<!-- 3 -->
+<section>
+  <h2><span class="n">03</span>O produto: o seu operacional vira um curso</h2>
+  <p>Você não precisa virar professor de faculdade. Precisa explicar, com calma e na ordem certa, o que já faz todo dia. O curso é o seu operacional documentado. Esta é a estrutura que vamos seguir:</p>
+  <table>
+    <tr><th>Módulo</th><th>O que ensina</th><th>Aulas</th></tr>
+    <tr><td><b>0 · Boas-vindas</b></td><td>Quem é você, como o curso funciona, o que o aluno pode esperar e o que não pode (não é sinal, não é promessa de renda).</td><td>2</td></tr>
+    <tr><td><b>1 · Base da B3</b></td><td>Mercado futuro, WIN e WDO, valor do ponto, vencimentos, horários, margem, custos, corretora e Profit.</td><td>6</td></tr>
+    <tr><td><b>2 · Leitura de contexto</b></td><td>O seu pré-mercado: fechamento anterior, S&amp;P futuro, dólar, agenda do dia, níveis. Como o plano do dia nasce.</td><td>5</td></tr>
+    <tr><td><b>3 · O operacional</b></td><td>Regiões, confirmação, gatilho de entrada, tempo gráfico, o que invalida a operação. Com exemplos gravados na tela.</td><td>8</td></tr>
+    <tr><td><b>4 · Gerenciamento de risco</b></td><td>Stop e alvo em pontos e em reais, perda máxima do dia, quantidade de contratos, risco/retorno. A sua planilha.</td><td>5</td></tr>
+    <tr><td><b>5 · Rotina e diário</b></td><td>Fechamento do dia, o que registrar, como revisar a semana. O diário de trades como ferramenta de evolução.</td><td>4</td></tr>
+    <tr><td><b>6 · Mentalidade</b></td><td>O que a arena te ensinou: pressão, disciplina, dias ruins, quando parar. Sem autoajuda: casos reais seus.</td><td>5</td></tr>
+    <tr><td><b>Ao vivo</b></td><td>Sala semanal no pregão, com a sua leitura em tempo real, e fechamento da semana comentado. É o que sustenta a assinatura.</td><td>toda semana</td></tr>
+  </table>
+  <h3>Formato e preço para começar</h3>
+  <ul>
+    <li><b>Curso gravado</b> (módulos 0 a 6): pagamento único. Faixa inicial: R$ 497 a R$ 997.</li>
+    <li><b>Comunidade + sala ao vivo</b>: assinatura mensal, R$ 97 a R$ 197. A plataforma coloca e tira as pessoas do grupo sozinha.</li>
+    <li><b>Mentoria em grupo</b> (turma pequena, 8 semanas): produto premium para quando houver fila.</li>
+  </ul>
+  <div class="warn"><b>Regras que valem para o curso e para todo canal.</b> Conteúdo educacional, nunca recomendação. Nada de "entra aqui", "compra agora", ponto de entrada para seguidor. Nada de promessa de renda. Print de lucro não é conteúdo; raciocínio é. Além de ser o certo, é o que protege você junto à CVM e o que constrói a sua reputação a longo prazo.</div>
+</section>
+
+<!-- 4 -->
+<section>
+  <h2><span class="n">04</span>Como dar aula sem nunca ter dado uma</h2>
+  <p>Ensinar é diferente de operar, mas não é mais difícil. É um hábito, e ele tem regras simples. Estude estas antes de gravar a primeira aula.</p>
+  <h3>As cinco regras de uma boa aula</h3>
+  <ol>
+    <li><b>Uma ideia por aula.</b> Se você precisa de "e também" no meio, são duas aulas.</li>
+    <li><b>De 10 a 20 minutos.</b> Mais que isso, o aluno pausa e não volta.</li>
+    <li><b>A tela do Profit sempre aberta.</b> Você aparece no canto; o gráfico é o protagonista. Mostre, não descreva.</li>
+    <li><b>Comece pelo porquê.</b> Os primeiros 30 segundos dizem o que o aluno vai saber fazer no fim. Depois o como. Por último, a regra que fica.</li>
+    <li><b>Termine com uma tarefa.</b> "Amanhã, antes do pregão, anote os três níveis do dia." O aluno que faz, aprende e fica.</li>
+  </ol>
+  <h3>O roteiro de uma página</h3>
+  <p>Para cada aula, antes de gravar, preencha isto num papel ou no celular. Leva cinco minutos e corta o tempo de gravação pela metade.</p>
+  <div class="lesson">
+    <b>Aula: ____________________________</b>
+    <p><b>O que o aluno vai saber fazer no fim:</b> uma frase.</p>
+    <p><b>O exemplo que vou mostrar na tela:</b> qual dia, qual gráfico, qual operação.</p>
+    <p><b>A regra que fica:</b> a frase que o aluno deveria anotar.</p>
+    <p><b>Erro comum que vou apontar:</b> o que o iniciante faz de errado aqui.</p>
+    <p><b>Tarefa:</b> o que ele faz antes da próxima aula.</p>
+  </div>
+  <h3>O que você precisa para gravar</h3>
+  <ul>
+    <li><b>OBS Studio</b> (gratuito): grava a tela do Profit e a sua câmera ao mesmo tempo. Eu configuro na primeira vez com você.</li>
+    <li><b>Microfone</b>: um de lapela ou um USB simples. Áudio ruim afasta mais aluno do que vídeo ruim.</li>
+    <li><b>Luz de frente</b>, janela ou ring light. Fundo limpo.</li>
+    <li><b>Grave em blocos</b>: uma manhã com o roteiro pronto rende um módulo inteiro.</li>
+    <li><b>Não regrave por errar uma palavra.</b> Pausa, respira, continua. Corte se resolve na edição.</li>
+  </ul>
+  <h3>Estude assim nas próximas duas semanas</h3>
+  <ul>
+    <li>Assista a três aulas de traders que você respeita e anote: como eles abrem, como usam a tela, como fecham. Não para copiar; para perceber o ritmo.</li>
+    <li>Grave um vídeo de 5 minutos explicando o valor do ponto do WIN para alguém que nunca operou. Me manda. É o nosso teste zero.</li>
+    <li>Escreva a lista das 10 perguntas que mais te fazem no Instagram. Elas são as aulas que as pessoas mais querem.</li>
+  </ul>
+</section>
+
+<!-- 5 -->
+<section>
+  <h2><span class="n">05</span>Como aparecer no digital: o caminho do seguidor até o aluno</h2>
+  <p>O que funciona hoje para quem ensina trade não é truque: é <b>mostrar a rotina real, todos os dias, no horário do pregão</b>, e ter um caminho claro do conteúdo gratuito até o pago.</p>
+  <ol class="steps">
+    <li><div><b>Instagram, todo dia.</b> Um Reel de 30 a 60 segundos com a leitura do dia ou o aprendizado do fechamento, e stories durante o pregão. É a porta de entrada.</div></li>
+    <li><div><b>Comunidade gratuita no WhatsApp: "Pré-mercado do Tibúrcio".</b> Toda manhã, um áudio de 2 minutos com o contexto do dia. Quem entra aqui já confia em você.</div></li>
+    <li><div><b>YouTube, uma vez por semana.</b> O fechamento da semana em 15 minutos. Vídeo longo constrói autoridade e aparece na busca por anos.</div></li>
+    <li><div><b>Site.</b> Apresenta você, o operacional e o título, e leva para a plataforma.</div></li>
+    <li><div><b>Plataforma (Lastlink).</b> Curso gravado e comunidade paga com a sala ao vivo.</div></li>
+  </ol>
+  <h3>A semana de conteúdo (rodízio)</h3>
+  <div class="cards">
+    <div class="card"><span class="k">Segunda</span><b>Contexto</b><p>O que olhar antes de abrir o pregão. É o módulo 2 em pílulas.</p></div>
+    <div class="card"><span class="k">Terça</span><b>Operacional</b><p>Uma operação real explicada: região, gatilho, saída. Mostrar raciocínio, não lucro.</p></div>
+    <div class="card"><span class="k">Quarta</span><b>Risco</b><p>Stop, perda do dia, tamanho de posição. É o conteúdo que mais gera confiança.</p></div>
+    <div class="card"><span class="k">Quinta</span><b>Mentalidade</b><p>Histórias da arena, dias ruins, o que você faria diferente.</p></div>
+    <div class="card"><span class="k">Sexta</span><b>Fechamento</b><p>Resumo da semana no Instagram e o vídeo longo no YouTube.</p></div>
+    <div class="card"><span class="k">Sempre</span><b>Bastidores</b><p>A tela, a rotina, o café das 8h. Humaniza e te diferencia de quem só posta print.</p></div>
+  </div>
+  <h3>Como gravar um Reel em 10 minutos</h3>
+  <ol>
+    <li>Celular na vertical, apoiado, você de frente para a luz.</li>
+    <li>Primeira frase é o gancho: "Hoje o dólar abriu assim, e isso muda o meu plano no índice."</li>
+    <li>Fale como fala com um amigo. Trinta segundos. Uma ideia.</li>
+    <li>Legenda automática ligada. Muita gente assiste sem som.</li>
+    <li>Publique entre 8h e 9h ou logo depois do fechamento. Constância vale mais que perfeição.</li>
+  </ol>
+  <h3>O que não fazer</h3>
+  <ul>
+    <li>Print de resultado como propaganda. Publicar raciocínio, não lucro.</li>
+    <li>Sinal, ponto de entrada, "compra agora" para seguidor. Educação, nunca recomendação.</li>
+    <li>Misturar forex, cripto ou outros mercados. Você é B3, WIN e WDO. Foco é o seu diferencial.</li>
+    <li>Prometer renda. A regra da propaganda é: o que você faz, como decide, o que ensina.</li>
+  </ul>
+</section>
+
+<!-- 6 -->
+<section>
+  <h2><span class="n">06</span>Os próximos 60 dias</h2>
+  <div class="week"><div class="w">Semana 1</div><div><b>Fundação</b><p>Eu: e-mail do projeto, cofre, hospedagem. Você: domínio no Registro.br, chip do WhatsApp Business, fotos e vídeos do evento para mim.</p></div></div>
+  <div class="week"><div class="w">Semana 2</div><div><b>Identidade</b><p>Logo pronta, site com todas as fotos, WhatsApp e e-mail nos botões, domínio no ar. Instagram vira conta profissional com bio nova. Conta na Lastlink aberta.</p></div></div>
+  <div class="week"><div class="w">Semanas 3 e 4</div><div><b>Conteúdo começa</b><p>Você grava os módulos 0 e 1 (roteiros prontos comigo). Rotina diária no Instagram começa. Comunidade gratuita no WhatsApp abre.</p></div></div>
+  <div class="week"><div class="w">Semanas 5 e 6</div><div><b>Produto pronto</b><p>Módulos 2 a 4 gravados e subidos. Produto criado com preço e página de pagamento. Lista de espera aberta no site e no WhatsApp.</p></div></div>
+  <div class="week"><div class="w">Semanas 7 e 8</div><div><b>Lançamento</b><p>Módulos 5 e 6 prontos. Semana de lançamento: três lives no Instagram, oferta com prazo, primeira turma. Primeira sala ao vivo com os alunos.</p></div></div>
+  <div class="week"><div class="w">Depois</div><div><b>Ritmo</b><p>Reel diário, áudio matinal, sala semanal, fechamento no YouTube. Eu vou reduzindo a presença; você assume a operação com o cofre e este guia.</p></div></div>
+</section>
+
+<!-- 7 -->
+<section>
+  <h2><span class="n">07</span>Checklist: comece por aqui</h2>
+  <p>Marque conforme for fazendo. A ordem importa.</p>
+  <h3>Esta semana</h3>
+  <ul class="check">
+    <li>Me enviar: a foto no estande da B3, mais 5 a 10 fotos e vídeos do Expert Trader XP, e o nome exato da competição que você venceu <span class="who">você</span></li>
+    <li>Criar conta no Registro.br e comprar tiburciotrader.com.br <span class="who">você</span></li>
+    <li>Comprar um chip novo e ativar o WhatsApp Business como "Tibúrcio Trader" <span class="who">você</span></li>
+    <li>Gravar o vídeo-teste de 5 minutos (valor do ponto do WIN) e me mandar <span class="who">você</span></li>
+    <li>Escrever as 10 perguntas que mais te fazem no Instagram <span class="who">você</span></li>
+    <li>E-mail do projeto, cofre de senhas, hospedagem e transferência do site <span class="who">eu</span></li>
+  </ul>
+  <h3>Semana que vem</h3>
+  <ul class="check">
+    <li>Abrir a conta na Lastlink e cadastrar os dados bancários <span class="who">você</span></li>
+    <li>Passar o Instagram para conta profissional e revisar a bio comigo <span class="who">você</span></li>
+    <li>Instalar o OBS e fazer a primeira gravação de tela comigo <span class="who">nós dois</span></li>
+    <li>Roteiros dos módulos 0 e 1 prontos <span class="who">eu</span></li>
+    <li>Logo e artes do Instagram <span class="who">eu</span></li>
+  </ul>
+  <div class="rule" style="margin-top:16pt"><b>Uma última coisa.</b> O primeiro Reel vai sair pior do que você gostaria. O primeiro áudio também. Publica mesmo assim. Quem te segue não está esperando um apresentador de TV; está esperando alguém que opera de verdade e que se dispôs a explicar. Isso você já é.</div>
+  <p class="sig">Marcelo</p>
+</section>
+
+</body>
+</html>
