@@ -1,0 +1,206 @@
+<title>Plano Tibúrcio Trader</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root{
+    --bg:#fbfaf6; --paper:#ffffff; --ink:#15140f; --ink-2:#4a4740; --muted:#7a766c;
+    --line:#e6e2d6; --gold:#b98a00; --gold-bg:#fff6d6; --gold-line:#ecd98a;
+    --ok:#1f8a4c; --ok-bg:#e6f5ec; --warn:#a1560a; --warn-bg:#fff0df; --warn-line:#f2caa0;
+    --display:'Space Grotesk',Inter,system-ui,sans-serif; --body:Inter,system-ui,-apple-system,Segoe UI,sans-serif; --mono:'JetBrains Mono',ui-monospace,Menlo,monospace;
+    color-scheme:light;
+  }
+  @media(prefers-color-scheme:dark){:root:not([data-theme="light"]){
+    --bg:#0e0e11; --paper:#15151a; --ink:#f1ede2; --ink-2:#c9c4b6; --muted:#8f8b80;
+    --line:#2a2a31; --gold:#ffd11a; --gold-bg:#26210c; --gold-line:#4d4114;
+    --ok:#4ad484; --ok-bg:#10281a; --warn:#f0a458; --warn-bg:#2b1c0c; --warn-line:#5a3a14; color-scheme:dark}}
+  :root[data-theme="dark"]{
+    --bg:#0e0e11; --paper:#15151a; --ink:#f1ede2; --ink-2:#c9c4b6; --muted:#8f8b80;
+    --line:#2a2a31; --gold:#ffd11a; --gold-bg:#26210c; --gold-line:#4d4114;
+    --ok:#4ad484; --ok-bg:#10281a; --warn:#f0a458; --warn-bg:#2b1c0c; --warn-line:#5a3a14; color-scheme:dark}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6}
+  .wrap{max-width:860px;margin:0 auto;padding:48px 24px 96px}
+  h1,h2,h3{font-family:var(--display);letter-spacing:-.02em;line-height:1.15;text-wrap:balance;margin:0}
+  h1{font-size:clamp(2rem,5vw,2.8rem)}
+  h2{font-size:1.55rem;margin-top:64px;padding-top:24px;border-top:2px solid var(--gold);display:flex;align-items:baseline;gap:14px}
+  h2 .n{font-family:var(--mono);font-size:.8rem;color:var(--gold);font-weight:500;letter-spacing:.08em}
+  h3{font-size:1.1rem;margin-top:30px}
+  p{margin:12px 0;max-width:68ch;color:var(--ink-2)}
+  p.lead{font-size:1.12rem;color:var(--ink)}
+  .eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+  .meta{font-family:var(--mono);font-size:.76rem;color:var(--muted);margin-top:16px}
+  ul,ol{padding-left:22px;color:var(--ink-2)} li{margin:6px 0} li b{color:var(--ink)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:22px}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:18px 20px}
+  .card .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .card b{display:block;font-family:var(--display);font-size:1.05rem;margin:6px 0 4px}
+  .card p{font-size:.92rem;margin:0}
+  @media(max-width:700px){.cards{grid-template-columns:1fr}}
+  .rule{background:var(--gold-bg);border:1px solid var(--gold-line);border-radius:12px;padding:18px 22px;margin:22px 0}
+  .rule b{font-family:var(--display)}
+  .warn{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:12px;padding:16px 20px;margin:18px 0;color:var(--ink-2)}
+  .warn b{color:var(--warn)}
+  .tbl{overflow-x:auto;margin-top:18px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+  table{border-collapse:collapse;width:100%;font-size:.92rem;min-width:640px}
+  th,td{text-align:left;padding:11px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500}
+  tr:last-child td{border-bottom:0}
+  td b{color:var(--ink)} td{color:var(--ink-2)}
+  .tag{display:inline-block;font-family:var(--mono);font-size:.68rem;padding:2px 8px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+  .tag.ok{color:var(--ok);background:var(--ok-bg);border-color:transparent}
+  .tag.gold{color:var(--gold);background:var(--gold-bg);border-color:transparent}
+  .tag.warn{color:var(--warn);background:var(--warn-bg);border-color:transparent}
+  .steps{counter-reset:s;list-style:none;padding:0;margin:18px 0}
+  .steps li{counter-increment:s;display:grid;grid-template-columns:34px 1fr;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}
+  .steps li::before{content:counter(s);font-family:var(--mono);font-size:.8rem;color:var(--gold);border:1px solid var(--gold-line);border-radius:50%;width:28px;height:28px;display:grid;place-items:center}
+  .steps li:last-child{border-bottom:0}
+  .steps b{color:var(--ink)}
+  .week{display:grid;grid-template-columns:110px 1fr;gap:16px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .week:last-child{border-bottom:0}
+  .week .w{font-family:var(--mono);font-size:.78rem;color:var(--gold);padding-top:3px}
+  .week b{display:block;font-family:var(--display);margin-bottom:4px}
+  .week p{margin:0;font-size:.94rem}
+  .check{list-style:none;padding:0}
+  .check li{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line)}
+  .check li::before{content:"";width:16px;height:16px;border:1.5px solid var(--gold);border-radius:4px;margin-top:4px}
+  .check li:last-child{border-bottom:0}
+  .who{font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-left:6px}
+  code{font-family:var(--mono);font-size:.86em;background:var(--gold-bg);padding:1px 6px;border-radius:5px;color:var(--ink)}
+  @media(max-width:700px){.week{grid-template-columns:1fr;gap:4px}}
+</style>
+
+<div class="wrap">
+  <div class="eyebrow">Plano de estruturação</div>
+  <h1>Tibúrcio Trader: do site à escola de B3</h1>
+  <p class="lead">Como transformar o operacional campeão de Ramon Tibúrcio num negócio digital de educação em mini-índice e mini-dólar, com Marcelo como mentor do começo e o Ramon como dono de tudo desde o primeiro dia.</p>
+  <p class="meta">Versão 1 · 11 de setembro de 2026 · preparado por Marcelo com apoio do Claude</p>
+
+  <!-- 1 -->
+  <h2><span class="n">01</span>Papéis e o princípio que manda em tudo</h2>
+  <div class="cards">
+    <div class="card"><span class="k">Dono</span><b>Ramon Tibúrcio</b><p>Trader, campeão da arena Expert Trader XP. Vai ensinar o próprio operacional em WIN e WDO. Não é professor ainda: vai virar um.</p></div>
+    <div class="card"><span class="k">Mentor de início</span><b>Marcelo</b><p>Estrutura, orienta e destrava. Intermedia as decisões iniciais e ensina o Ramon a tocar o digital. Pode sair a qualquer momento sem quebrar nada.</p></div>
+    <div class="card"><span class="k">Ferramenta</span><b>Claude</b><p>Executa o técnico: site, configurações, textos, roteiros, materiais. Não cria contas nem digita senhas; isso é sempre de uma pessoa.</p></div>
+  </div>
+  <div class="rule"><b>Regra número um: nada fica preso a uma pessoa que não seja o Ramon.</b><br>Todo serviço do projeto é criado com o e-mail do projeto, não com contas pessoais de ninguém. Nada essencial vive só no computador do Marcelo: o site fica no GitHub do projeto, os materiais no Google Drive do projeto, as senhas num cofre compartilhado. Se o Marcelo se ausentar, o Ramon abre o cofre e continua.</div>
+
+  <!-- 2 -->
+  <h2><span class="n">02</span>As contas do projeto</h2>
+  <p>Na ordem em que devem ser criadas. A primeira destrava todas as outras. Onde houver "Entrar com Google", use o e-mail do projeto para não multiplicar senhas.</p>
+  <div class="tbl"><table>
+    <tr><th>Ordem</th><th>Serviço</th><th>Para quê</th><th>Quem cria</th><th>Custo</th></tr>
+    <tr><td>1</td><td><b>Gmail</b><br><span class="tag gold">base de tudo</span></td><td>E-mail do projeto, por exemplo <code>tiburciotrader@gmail.com</code>. Login das demais contas, YouTube, Drive dos materiais.</td><td>Marcelo, com o celular do Ramon como recuperação</td><td>Grátis</td></tr>
+    <tr><td>2</td><td><b>Bitwarden</b></td><td>Cofre de senhas. Guarda o acesso de tudo; compartilhado entre Marcelo e Ramon. É o que garante a continuidade.</td><td>Marcelo</td><td>Grátis</td></tr>
+    <tr><td>3</td><td><b>GitHub</b></td><td>Onde vive o código do site. O repositório atual será transferido para esta conta.</td><td>Marcelo</td><td>Grátis</td></tr>
+    <tr><td>4</td><td><b>Cloudflare</b></td><td>Hospedagem do site (Pages) e DNS do domínio. Gratuito com uso comercial permitido, ao contrário da Vercel e do GitHub Pages.</td><td>Marcelo</td><td>Grátis</td></tr>
+    <tr><td>5</td><td><b>Registro.br</b><br><span class="tag warn">CPF do Ramon</span></td><td>Compra do domínio <code>tiburciotrader.com.br</code>. Domínio .br exige CPF ou CNPJ do titular.</td><td>Ramon</td><td>R$ 40/ano</td></tr>
+    <tr><td>6</td><td><b>WhatsApp Business</b><br><span class="tag warn">chip novo</span></td><td>Número exclusivo do projeto para atendimento, comunidade gratuita e link nos botões do site. Nunca o número pessoal.</td><td>Ramon</td><td>Chip pré-pago</td></tr>
+    <tr><td>7</td><td><b>Lastlink</b></td><td>Checkout (Pix, cartão), área de membros do curso e entrada automática na comunidade paga. Recebe na conta bancária do Ramon.</td><td>Ramon (dados bancários)</td><td>6,99% + R$ 2,49 por venda</td></tr>
+    <tr><td>8</td><td><b>Instagram</b></td><td>Já existe (@tiburcio_trader). Mudar para conta profissional e trocar o link da bio pelo site. Tirar o link de forex.</td><td>Ramon</td><td>Grátis</td></tr>
+    <tr><td>9</td><td><b>YouTube</b></td><td>Canal com o Gmail do projeto. Fechamentos semanais e aulas abertas; é onde a credibilidade se acumula.</td><td>Automático com o Gmail</td><td>Grátis</td></tr>
+    <tr><td>10</td><td><b>Canva</b></td><td>Logo, capas, artes das aulas e dos posts. Entrar com Google.</td><td>Marcelo</td><td>Grátis</td></tr>
+  </table></div>
+  <div class="warn"><b>Por que sair da Vercel e do GitHub Pages.</b> Os planos gratuitos dos dois proíbem uso comercial: a Vercel limita o Hobby a "uso pessoal, não comercial" e o GitHub veta sites "voltados a facilitar transações comerciais". Um site que vende curso se enquadra. O Cloudflare Pages é gratuito e permite uso comercial, e o Cloudflare também cuida do DNS. A migração é feita pelo Claude assim que a conta existir; o site continua igual.</div>
+  <h3>Depois, quando fizer sentido</h3>
+  <ul>
+    <li><b>CNPJ</b> (MEI como "professor particular" ou "instrutor de cursos"): emite nota, recebe na Lastlink como empresa, protege o CPF. Conversar com um contador antes de faturar.</li>
+    <li><b>Meta Business Suite</b> para anúncios no Instagram, só depois de o conteúdo orgânico estar rodando.</li>
+    <li><b>Telegram</b> se a comunidade crescer além do que o WhatsApp comporta.</li>
+  </ul>
+
+  <!-- 3 -->
+  <h2><span class="n">03</span>Domínio</h2>
+  <p>Opções, da melhor para a alternativa:</p>
+  <ul>
+    <li><b>tiburciotrader.com.br</b>: curto, é o nome do Instagram, brasileiro como o público. Primeira escolha.</li>
+    <li><b>tiburcio.trade.br</b> ou <b>tiburciotrader.trader.br</b>: existem, mas confundem quem digita.</li>
+    <li><b>tiburciotrader.com</b>: só se o .com.br estiver ocupado; no Cloudflare sai a preço de custo (cerca de US$ 10/ano).</li>
+  </ul>
+  <ol class="steps">
+    <li><div><b>Ramon cria a conta no Registro.br</b> com o CPF dele e verifica se <code>tiburciotrader.com.br</code> está livre.</div></li>
+    <li><div><b>Compra por um ano</b> (R$ 40, Pix) e guarda o acesso no Bitwarden.</div></li>
+    <li><div><b>Marcelo cria o site no Cloudflare</b> e o Claude conecta ao GitHub do projeto.</div></li>
+    <li><div><b>O Claude gera os dois nomes de servidor do Cloudflare</b>; o Ramon cola no Registro.br em "Alterar servidores DNS". Leva de 1 a 24 h para propagar.</div></li>
+    <li><div><b>Site no ar no domínio próprio</b>, com HTTPS automático. Os endereços antigos passam a redirecionar.</div></li>
+  </ol>
+
+  <!-- 4 -->
+  <h2><span class="n">04</span>O produto: do operacional ao curso</h2>
+  <p>O Ramon não precisa virar professor de faculdade. Precisa explicar, com calma e em ordem, o que já faz todo dia. O curso é o operacional dele documentado. Regra de ouro para quem ensina pela primeira vez: <b>aulas de 10 a 20 minutos, uma ideia por aula, sempre com a tela do Profit aberta.</b></p>
+  <div class="tbl"><table>
+    <tr><th>Módulo</th><th>O que ensina</th><th>Aulas</th></tr>
+    <tr><td><b>0 · Boas-vindas</b></td><td>Quem é o Ramon, como funciona o curso, o que esperar e o que não esperar (não é sinal, não é promessa).</td><td>2</td></tr>
+    <tr><td><b>1 · Base da B3</b></td><td>Mercado futuro, WIN e WDO, valor do ponto, vencimentos, horários, margem, custos, corretora e Profit.</td><td>6</td></tr>
+    <tr><td><b>2 · Leitura de contexto</b></td><td>O pré-mercado do Ramon: fechamento anterior, S&amp;P futuro, dólar, agenda, níveis. Como o plano do dia nasce.</td><td>5</td></tr>
+    <tr><td><b>3 · O operacional</b></td><td>Regiões, confirmação, gatilho de entrada, tempo gráfico, o que invalida a operação. Com exemplos gravados.</td><td>8</td></tr>
+    <tr><td><b>4 · Gerenciamento de risco</b></td><td>Stop e alvo em pontos e em reais, perda máxima do dia, quantidade de contratos, risco/retorno. A planilha do Ramon.</td><td>5</td></tr>
+    <tr><td><b>5 · Rotina e diário</b></td><td>Fechamento do dia, o que registrar, como revisar a semana. O diário de trades como ferramenta de evolução.</td><td>4</td></tr>
+    <tr><td><b>6 · Mentalidade</b></td><td>O que o Ramon aprendeu na arena: pressão, disciplina, dias ruins, quando parar. Sem autoajuda: casos reais.</td><td>5</td></tr>
+    <tr><td><b>Ao vivo</b></td><td>Sala semanal no pregão (leitura em tempo real) e fechamento semanal comentado. É o que diferencia do curso gravado e sustenta a assinatura.</td><td>semanal</td></tr>
+  </table></div>
+  <h3>Formato e preço</h3>
+  <ul>
+    <li><b>Curso gravado</b> (módulos 0 a 6): pagamento único. Sugestão de faixa para começar: R$ 497 a R$ 997.</li>
+    <li><b>Comunidade + sala ao vivo</b>: assinatura mensal (R$ 97 a R$ 197). A Lastlink coloca e tira as pessoas do grupo automaticamente.</li>
+    <li><b>Mentoria em grupo</b> (turma pequena, 8 semanas): produto premium para depois, quando houver fila.</li>
+  </ul>
+  <h3>Produção mínima</h3>
+  <ul>
+    <li>OBS Studio (grátis) gravando a tela do Profit + câmera do celular ou webcam no canto.</li>
+    <li>Microfone de lapela ou USB simples. Áudio ruim afasta mais aluno do que vídeo ruim.</li>
+    <li>Roteiro de uma página por aula: o que vai mostrar, o exemplo, a regra que fica.</li>
+    <li>Gravar em blocos: uma manhã rende um módulo inteiro.</li>
+  </ul>
+
+  <!-- 5 -->
+  <h2><span class="n">05</span>Estratégia digital: como o Ramon começa</h2>
+  <p>O que funciona para educador de trade no Brasil hoje não é truque: é <b>mostrar a rotina real, todos os dias, no horário do pregão</b>, e ter um caminho claro do conteúdo gratuito até o pago.</p>
+  <h3>O funil</h3>
+  <ol class="steps">
+    <li><div><b>Instagram, todo dia</b>: um Reel curto (30 a 60 s) com a leitura do dia ou o aprendizado do fechamento, e stories durante o pregão. É a porta de entrada.</div></li>
+    <li><div><b>Comunidade gratuita no WhatsApp</b>: "Pré-mercado do Tibúrcio". Toda manhã, um áudio de 2 minutos com o contexto do dia. Quem entra aqui já confia.</div></li>
+    <li><div><b>YouTube semanal</b>: o fechamento da semana em 15 minutos. Vídeo longo constrói autoridade e aparece na busca por anos.</div></li>
+    <li><div><b>Site</b>: apresenta o Ramon, o operacional e o título, e manda para a Lastlink.</div></li>
+    <li><div><b>Lastlink</b>: curso gravado e comunidade paga com a sala ao vivo.</div></li>
+  </ol>
+  <h3>Cinco pilares de conteúdo (rodízio)</h3>
+  <div class="cards">
+    <div class="card"><span class="k">Segunda</span><b>Contexto</b><p>O que olhar antes de abrir o pregão. Ensina o módulo 2 em pílulas.</p></div>
+    <div class="card"><span class="k">Terça</span><b>Operacional</b><p>Uma operação real explicada: região, gatilho, saída. Sem exibir lucro, exibir raciocínio.</p></div>
+    <div class="card"><span class="k">Quarta</span><b>Risco</b><p>Stop, perda do dia, tamanho de posição. O conteúdo que mais gera confiança.</p></div>
+    <div class="card"><span class="k">Quinta</span><b>Mentalidade</b><p>Histórias da arena, dias ruins, o que ele faria diferente.</p></div>
+    <div class="card"><span class="k">Sexta</span><b>Fechamento</b><p>Resumo da semana no Instagram e o vídeo longo no YouTube.</p></div>
+    <div class="card"><span class="k">Sempre</span><b>Bastidores</b><p>Tela do Profit, a rotina, o café das 8h. Humaniza e diferencia de quem só posta print.</p></div>
+  </div>
+  <h3>O que não fazer</h3>
+  <ul>
+    <li>Não publicar print de resultado como propaganda. Publicar raciocínio. Além de melhor para a marca, evita problema com a CVM.</li>
+    <li>Não dar "sinal" nem "ponto de entrada" para seguidores. Educação, não recomendação. O aviso de risco do site vale para todo canal.</li>
+    <li>Não misturar forex, cripto ou outros mercados. O posicionamento é B3, WIN e WDO. Foco é o diferencial.</li>
+    <li>Não prometer renda. A regra da propaganda é: o que o Ramon faz, como ele decide, o que ele ensina.</li>
+  </ul>
+
+  <!-- 6 -->
+  <h2><span class="n">06</span>Os próximos 60 dias</h2>
+  <div class="week"><div class="w">Semana 1</div><div><b>Fundação</b><p>Gmail, Bitwarden, GitHub, Cloudflare (Marcelo). Registro.br, chip do WhatsApp Business (Ramon). Claude transfere o site e aponta o domínio.</p></div></div>
+  <div class="week"><div class="w">Semana 2</div><div><b>Identidade</b><p>Logo no Canva, foto da B3 e outras fotos no site, WhatsApp e e-mail nos botões. Instagram vira conta profissional com a bio nova. Conta na Lastlink aberta.</p></div></div>
+  <div class="week"><div class="w">Semanas 3 e 4</div><div><b>Conteúdo começa</b><p>Ramon grava os módulos 0 e 1. Rotina diária no Instagram inicia. Comunidade gratuita no WhatsApp abre com os primeiros seguidores.</p></div></div>
+  <div class="week"><div class="w">Semanas 5 e 6</div><div><b>Produto pronto</b><p>Módulos 2 a 4 gravados e subidos na Lastlink. Produto criado com preço e página de checkout. Botões do site apontam para o link real. Lista de espera aberta no site e no WhatsApp.</p></div></div>
+  <div class="week"><div class="w">Semanas 7 e 8</div><div><b>Lançamento</b><p>Módulos 5 e 6 prontos. Semana de lançamento: três lives no Instagram, oferta com prazo, primeira turma. Primeira sala ao vivo com os alunos.</p></div></div>
+  <div class="week"><div class="w">Depois</div><div><b>Ritmo</b><p>Reel diário, áudio matinal, sala semanal, fechamento no YouTube. Marcelo vai reduzindo a presença; o Ramon assume a operação com o cofre de senhas e este plano.</p></div></div>
+
+  <!-- 7 -->
+  <h2><span class="n">07</span>Checklist imediato</h2>
+  <ul class="check">
+    <li>Criar o Gmail do projeto e anotar a senha no Bitwarden <span class="who">Marcelo</span></li>
+    <li>Criar GitHub e Cloudflare com o Gmail do projeto e avisar o Claude <span class="who">Marcelo</span></li>
+    <li>Conta no Registro.br e compra de tiburciotrader.com.br <span class="who">Ramon</span></li>
+    <li>Chip novo e WhatsApp Business "Tibúrcio Trader" <span class="who">Ramon</span></li>
+    <li>Enviar ao Marcelo: foto na B3, mais 5 a 10 fotos e vídeos do evento, título exato da competição <span class="who">Ramon</span></li>
+    <li>Transferir o site para o GitHub do projeto, migrar para Cloudflare Pages, apontar o domínio <span class="who">Claude</span></li>
+    <li>Preparar roteiros das aulas dos módulos 0 e 1 para o Ramon gravar <span class="who">Claude</span></li>
+    <li>Abrir a Lastlink e cadastrar dados bancários <span class="who">Ramon</span></li>
+  </ul>
+
+  <p class="meta" style="margin-top:56px">Este plano vive junto com o site, na pasta <code>docs/</code> do repositório do projeto, para que o Ramon o tenha sempre à mão.</p>
+</div>
