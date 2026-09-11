@@ -95,6 +95,15 @@ def main():
             ph = placeholder(label, ratio)
             artifact_html = artifact_html.replace(token, ph)
             public_html = public_html.replace(token, ph)
+    # Imagens de marca em public/img/: {{IMG:arquivo}} -> data URI no artifact, URL no site
+    import re, mimetypes
+    IMG_URL = FOTOS_URL.replace("/fotos/", "/img/")
+    def img_uri(name):
+        path = os.path.join(pub_dir, "img", name)
+        mt = mimetypes.guess_type(name)[0] or "image/png"
+        return "data:%s;base64,%s" % (mt, base64.b64encode(open(path, "rb").read()).decode())
+    artifact_html = re.sub(r"\{\{IMG:([\w.\-]+)\}\}", lambda m: img_uri(m.group(1)), artifact_html)
+    public_html = re.sub(r"\{\{IMG:([\w.\-]+)\}\}", lambda m: IMG_URL + m.group(1), public_html)
     out = os.path.join(HERE, "index.html")
     open(out, "w", encoding="utf-8").write(artifact_html)
     print(f"\nGerado: {out} ({os.path.getsize(out)//1024} KB)  [fragmento para o Artifact do Claude]")
