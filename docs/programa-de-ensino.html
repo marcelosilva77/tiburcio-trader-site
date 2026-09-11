@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Tibúrcio Trader — Programa de Ensino</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  @page{size:A4;margin:18mm 17mm 20mm 17mm}
+  :root{--ink:#15140f;--ink-2:#3f3c34;--muted:#77736a;--line:#e3dfd3;--gold:#b48600;--gold-bg:#fff5d1;--gold-line:#e9d489;--black:#0a0a0b;--warn:#9a4f06;--warn-bg:#fff1e2}
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:10.6pt;line-height:1.55;color:var(--ink);background:#fff}
+  h1,h2,h3,h4{font-family:"Space Grotesk",Inter,sans-serif;letter-spacing:-.02em;line-height:1.15;margin:0}
+  h2{font-size:17pt;margin:0 0 8pt;padding-top:6pt;border-top:2px solid var(--gold);display:flex;gap:10pt;align-items:baseline;break-after:avoid}
+  h2 .n{font-family:"JetBrains Mono",monospace;font-size:8pt;color:var(--gold);letter-spacing:.1em;font-weight:500}
+  h3{font-size:11.5pt;margin:14pt 0 5pt;break-after:avoid}
+  h4{font-size:10.5pt;margin:10pt 0 3pt;break-after:avoid}
+  p{margin:6pt 0;color:var(--ink-2)}
+  ul,ol{margin:5pt 0;padding-left:16pt;color:var(--ink-2)} li{margin:3pt 0} li b,p b{color:var(--ink)}
+  .eyebrow{font-family:"JetBrains Mono",monospace;font-size:7.5pt;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+  section{break-before:page}
+  section.first{break-before:auto}
+  .cover{height:257mm;background:var(--black);color:#f5eede;border-radius:10pt;padding:26mm 22mm;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cover::after{content:"";position:absolute;right:-60mm;bottom:-60mm;width:180mm;height:180mm;border-radius:50%;background:radial-gradient(circle,rgba(255,209,26,.28),transparent 62%)}
+  .cover .mark{width:16mm;height:16mm;border-radius:4mm;background:linear-gradient(135deg,#ffd11a,#e88c30);color:#0a0a0b;display:grid;place-items:center;font:700 11pt "Space Grotesk",sans-serif}
+  .cover h1{font-size:34pt;max-width:125mm;margin-top:10mm;color:#fff}
+  .cover h1 em{font-style:normal;color:#ffd11a}
+  .cover .sub{font-size:12.5pt;color:#d6d0bd;max-width:118mm;margin-top:8mm}
+  .cover .foot{font-family:"JetBrains Mono",monospace;font-size:8pt;color:#9a9aa6;letter-spacing:.06em;position:relative}
+  .cover .foot b{color:#ffd11a;font-weight:500}
+  .cover .brand{font:700 9pt "Space Grotesk",sans-serif;letter-spacing:.14em;text-transform:uppercase;color:#fff;margin-top:5mm}
+  .cover .brand small{display:block;font:500 6.5pt "JetBrains Mono",monospace;letter-spacing:.2em;color:#ffd11a;margin-top:2pt}
+  .letter{border-left:3px solid var(--gold);padding:2pt 0 2pt 12pt;margin:10pt 0}
+  .letter p{color:var(--ink)}
+  .rule{background:var(--gold-bg);border:1px solid var(--gold-line);border-radius:6pt;padding:9pt 12pt;margin:10pt 0;-webkit-print-color-adjust:exact;print-color-adjust:exact;break-inside:avoid}
+  .rule b{font-family:"Space Grotesk",sans-serif}
+  .warn{background:var(--warn-bg);border-radius:6pt;padding:9pt 12pt;margin:10pt 0;-webkit-print-color-adjust:exact;print-color-adjust:exact;break-inside:avoid}
+  .warn b{color:var(--warn)}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:7pt;margin:8pt 0}
+  .cards.two{grid-template-columns:1fr 1fr}
+  .card{border:1px solid var(--line);border-radius:6pt;padding:8pt 10pt;break-inside:avoid}
+  .card .k{font-family:"JetBrains Mono",monospace;font-size:6.5pt;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+  .card b{display:block;font-family:"Space Grotesk",sans-serif;font-size:10.5pt;margin:2pt 0}
+  .card p{font-size:9pt;margin:0}
+  table{border-collapse:collapse;width:100%;font-size:9.3pt;margin:8pt 0}
+  th,td{text-align:left;padding:5.5pt 7pt;border-bottom:1px solid var(--line);vertical-align:top}
+  th{font-family:"JetBrains Mono",monospace;font-size:6.8pt;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;border-bottom:1.5px solid var(--gold-line)}
+  tr{break-inside:avoid}
+  td b{color:var(--ink)} td{color:var(--ink-2)}
+  td.t{font-family:"JetBrains Mono",monospace;font-size:8.5pt;white-space:nowrap;color:var(--muted)}
+  .mod{border:1px solid var(--line);border-radius:7pt;padding:10pt 12pt;margin:9pt 0;break-inside:avoid}
+  .mod .head{display:flex;justify-content:space-between;align-items:baseline;gap:8pt;border-bottom:1px solid var(--line);padding-bottom:5pt;margin-bottom:5pt}
+  .mod .head b{font-family:"Space Grotesk",sans-serif;font-size:11.5pt}
+  .mod .head span{font-family:"JetBrains Mono",monospace;font-size:7.5pt;color:var(--gold);white-space:nowrap}
+  .mod .goal{font-size:9.6pt;color:var(--ink);margin:0 0 4pt}
+  .mod table{margin:4pt 0}
+  .mod .out{font-size:9.2pt;margin:4pt 0 0;color:var(--ink-2)}
+  .mod .out b{color:var(--gold)}
+  .steps{list-style:none;padding:0;margin:8pt 0;counter-reset:s}
+  .steps li{counter-increment:s;display:grid;grid-template-columns:18pt 1fr;gap:8pt;padding:6pt 0;border-bottom:1px solid var(--line);break-inside:avoid}
+  .steps li::before{content:counter(s);font-family:"JetBrains Mono",monospace;font-size:8pt;color:var(--gold);border:1px solid var(--gold-line);border-radius:50%;width:16pt;height:16pt;display:grid;place-items:center;margin-top:1pt}
+  .week{display:grid;grid-template-columns:72pt 1fr;gap:10pt;padding:7pt 0;border-bottom:1px solid var(--line);break-inside:avoid}
+  .week .w{font-family:"JetBrains Mono",monospace;font-size:8pt;color:var(--gold);padding-top:2pt}
+  .week b{display:block;font-family:"Space Grotesk",sans-serif;margin-bottom:1pt}
+  .week p{margin:0;font-size:9.6pt}
+  .check{list-style:none;padding:0;margin:6pt 0}
+  .check li{display:grid;grid-template-columns:14pt 1fr;gap:6pt;padding:5pt 0;border-bottom:1px dashed var(--line);break-inside:avoid}
+  .check li::before{content:"";width:10pt;height:10pt;border:1.2pt solid var(--gold);border-radius:2pt;margin-top:3pt}
+  .lesson{border:1px solid var(--line);border-radius:6pt;padding:8pt 11pt;margin:6pt 0;break-inside:avoid}
+  .lesson b{font-family:"Space Grotesk",sans-serif}
+  .lesson p{margin:2pt 0;font-size:9.5pt}
+  .sig{margin-top:18pt;font-family:"Space Grotesk",sans-serif;font-weight:600}
+  .q{font-size:9.6pt}
+  .q li{margin:2pt 0}
+</style>
+</head>
+<body>
+
+<!-- CAPA -->
+<div class="cover">
+  <div>
+    <div class="mark">T</div>
+    <div class="brand">Tibúrcio Trader<small>Mini-índice · Mini-dólar</small></div>
+    <h1>Programa de ensino: como o seu <em>operacional</em> vira um curso que forma traders</h1>
+    <p class="sub">A grade completa, o que você precisa preparar e estudar para ensinar, como cada aula e cada semana funcionam, e o que o aluno recebe do primeiro ao último dia.</p>
+  </div>
+  <div class="foot">De <b>Marcelo</b> para <b>Ramon Tibúrcio</b> · setembro de 2026 · versão 1</div>
+</div>
+
+<!-- 00 -->
+<section class="first" style="margin-top:14pt">
+  <div class="eyebrow">Antes de tudo</div>
+  <h2><span class="n">00</span>Ramon, sobre virar professor</h2>
+  <div class="letter">
+    <p>Operar bem e ensinar a operar são habilidades diferentes. Você já tem a primeira, provada na arena. A segunda se aprende, e é mais simples do que parece: ensinar é colocar em ordem o que você já faz de forma automática, e explicar cada passo para alguém que ainda não vê o que você vê.</p>
+    <p>Este documento é o programa do curso. Ele diz o que o aluno vai aprender, em que ordem, em quanto tempo, e o que você precisa preparar para dar cada parte. Não é uma sugestão de conteúdo: é o seu operacional, organizado. Onde eu escrevi algo que não bate com o jeito que você opera, você corrige. O método é seu; a estrutura é o que eu te entrego.</p>
+    <p>Leia inteiro uma vez. Depois vá para a parte 4, que é a sua lição de casa antes de gravar qualquer aula.</p>
+  </div>
+  <p class="sig">Marcelo</p>
+
+  <h3>O programa em uma página</h3>
+  <div class="cards">
+    <div class="card"><span class="k">O que é</span><b>Curso gravado + sala ao vivo</b><p>7 módulos, 35 aulas curtas, cerca de 8 horas e meia de vídeo. Mais uma sala ao vivo por semana no pregão e um fechamento semanal.</p></div>
+    <div class="card"><span class="k">Para quem</span><b>Quem quer operar WIN e WDO com método</b><p>Do iniciante que nunca abriu o Profit até quem já opera e perde por falta de regra.</p></div>
+    <div class="card"><span class="k">Resultado</span><b>O aluno sai sabendo decidir</b><p>Ler o contexto, achar a região, entrar com gatilho, sair com regra, registrar e revisar. Sem depender de ninguém.</p></div>
+  </div>
+  <div class="rule"><b>A promessa do curso, em uma frase (é isso que você diz na aula 1 e no site):</b><br>"Ao final, você vai saber ler o mercado antes do pregão, identificar uma região de interesse, executar uma operação com gatilho e risco definidos, e registrar e revisar o seu dia como um trader profissional faz." Nada de promessa de lucro: a promessa é de competência.</div>
+</section>
+
+<!-- 01 -->
+<section>
+  <h2><span class="n">01</span>Quem é o aluno e o que ele precisa</h2>
+  <p>Você vai ensinar para três tipos de pessoa ao mesmo tempo. Saber quem são muda como você explica.</p>
+  <div class="cards">
+    <div class="card"><span class="k">Perfil 1</span><b>O que nunca operou</b><p>Tem conta na corretora ou vai abrir. Não sabe o que é ponto, vencimento nem margem. Precisa da base antes de qualquer gráfico. É a maioria no começo.</p></div>
+    <div class="card"><span class="k">Perfil 2</span><b>O que opera e perde</b><p>Já sabe apertar o botão. Entra sem plano, não tem stop, opera vingança. Precisa de regra e de rotina, e vai resistir às duas.</p></div>
+    <div class="card"><span class="k">Perfil 3</span><b>O que quer o seu método</b><p>Já tem disciplina, quer um operacional testado. Vai direto ao módulo 3 e valoriza a sala ao vivo.</p></div>
+  </div>
+  <h3>Como falar com os três ao mesmo tempo</h3>
+  <ul>
+    <li>Explique <b>todo termo na primeira vez</b> que ele aparece, mesmo os óbvios para você. O perfil 3 não se incomoda; o perfil 1 fica.</li>
+    <li>Diga ao perfil 2, logo na aula 1, que <b>ele vai querer pular o módulo de risco</b> e que é justamente o módulo que ele precisa.</li>
+    <li>Marque no início de cada aula para quem ela é essencial: "se você já opera, esta aula é revisão; assista em velocidade 1,5".</li>
+  </ul>
+  <h3>Pré-requisitos que o aluno precisa ter</h3>
+  <ul>
+    <li>Conta em corretora com acesso a futuros e ao Profit (ou plataforma equivalente). Sem isso ele só assiste.</li>
+    <li>Duas horas por semana para as aulas e o pré-mercado de pelo menos três dias por semana para praticar.</li>
+    <li>Capital que ele pode perder. Você não decide isso por ele, mas diz isso com todas as letras.</li>
+  </ul>
+</section>
+
+<!-- 02 -->
+<section>
+  <h2><span class="n">02</span>A grade completa</h2>
+  <p>Cada módulo tem um objetivo, as aulas, a tarefa que o aluno faz e a entrega que prova que ele aprendeu. Os títulos das aulas são o que o aluno vê na plataforma. Tempos são a duração-alvo do vídeo.</p>
+
+  <div class="mod">
+    <div class="head"><b>Módulo 0 · Boas-vindas</b><span>2 aulas · ~20 min</span></div>
+    <p class="goal">Objetivo: o aluno entende o que vai aprender, como o curso funciona e o que não vai encontrar aqui.</p>
+    <table>
+      <tr><td class="t">0.1 · 10 min</td><td><b>Quem sou eu e por que ensino assim</b>. Sua história em 2022, a arena, o título. Por que só WIN e WDO. A promessa do curso.</td></tr>
+      <tr><td class="t">0.2 · 10 min</td><td><b>Como estudar este curso</b>. Ordem dos módulos, tarefas, o diário, a sala ao vivo, a comunidade. O que não é: sinal, cópia, promessa de renda.</td></tr>
+    </table>
+    <p class="out"><b>Tarefa:</b> o aluno escreve em uma frase por que quer operar e quanto pode perder sem mudar de vida. <b>Entrega:</b> a frase, postada na comunidade.</p>
+  </div>
+
+  <div class="mod">
+    <div class="head"><b>Módulo 1 · A base da B3</b><span>6 aulas · ~1h30</span></div>
+    <p class="goal">Objetivo: o aluno entende o que está comprando e vendendo, quanto vale cada ponto e o que acontece com o dinheiro dele.</p>
+    <table>
+      <tr><td class="t">1.1 · 15 min</td><td><b>O que é o mercado futuro</b>. Contrato, vencimento, quem está do outro lado. Por que existe índice futuro e dólar futuro.</td></tr>
+      <tr><td class="t">1.2 · 15 min</td><td><b>WIN: o mini-índice</b>. O que ele acompanha, valor do ponto (R$ 0,20), variação mínima, código de vencimento (G J M Q V Z), rolagem.</td></tr>
+      <tr><td class="t">1.3 · 15 min</td><td><b>WDO: o mini-dólar</b>. Valor do ponto (R$ 10), variação mínima, vencimento mensal, o que o move.</td></tr>
+      <tr><td class="t">1.4 · 15 min</td><td><b>Horários, margem e custos</b>. Pregão, leilão, margem de garantia, corretagem, emolumentos. Quanto custa uma operação de verdade.</td></tr>
+      <tr><td class="t">1.5 · 15 min</td><td><b>O Profit do jeito que eu uso</b>. Sua tela, seus painéis, boleta, tempos gráficos. O aluno monta a mesma tela.</td></tr>
+      <tr><td class="t">1.6 · 15 min</td><td><b>Simulador: como treinar sem perder dinheiro</b>. Conta simulada, o que ela ensina e o que ela não ensina.</td></tr>
+    </table>
+    <p class="out"><b>Tarefa:</b> montar a tela do Profit igual à sua e calcular o resultado de três operações hipotéticas em reais. <b>Entrega:</b> print da tela e os três cálculos.</p>
+  </div>
+
+  <div class="mod">
+    <div class="head"><b>Módulo 2 · Leitura de contexto</b><span>5 aulas · ~1h15</span></div>
+    <p class="goal">Objetivo: o aluno reproduz o seu pré-mercado e chega às 9h com um plano escrito.</p>
+    <table>
+      <tr><td class="t">2.1 · 15 min</td><td><b>O que eu olho antes de abrir</b>. Fechamento anterior, S&amp;P futuro, dólar, agenda do dia. Por que a ordem importa.</td></tr>
+      <tr><td class="t">2.2 · 15 min</td><td><b>Níveis: onde o mercado já respeitou</b>. Máximas e mínimas relevantes, região de fechamento, gaps. Como você marca no gráfico.</td></tr>
+      <tr><td class="t">2.3 · 15 min</td><td><b>Tendência ou lateral: decidir o dia</b>. Os sinais que você usa para classificar o dia antes de operar.</td></tr>
+      <tr><td class="t">2.4 · 15 min</td><td><b>O plano do dia em uma folha</b>. Seu checklist pré-mercado, preenchido ao vivo com um dia real.</td></tr>
+      <tr><td class="t">2.5 · 15 min</td><td><b>Três pré-mercados comentados</b>. Um dia de tendência, um lateral, um de notícia. O que mudou no plano em cada um.</td></tr>
+    </table>
+    <p class="out"><b>Tarefa:</b> cinco dias seguidos preenchendo o checklist pré-mercado antes das 9h. <b>Entrega:</b> os cinco checklists no diário.</p>
+  </div>
+
+  <div class="mod">
+    <div class="head"><b>Módulo 3 · O operacional</b><span>8 aulas · ~2h20</span></div>
+    <p class="goal">Objetivo: o aluno identifica a região, espera a confirmação e executa a entrada do jeito que você executa.</p>
+    <table>
+      <tr><td class="t">3.1 · 15 min</td><td><b>A ideia por trás do operacional</b>. O que você procura no mercado e por que funciona. Uma aula de conceito, sem entrada ainda.</td></tr>
+      <tr><td class="t">3.2 · 18 min</td><td><b>Região de interesse</b>. Como você define, quantas por dia, o que faz uma região ser boa ou ruim.</td></tr>
+      <tr><td class="t">3.3 · 18 min</td><td><b>Confirmação</b>. O que precisa acontecer na região para você agir: fluxo, candle, tempo gráfico. O que é confirmação falsa.</td></tr>
+      <tr><td class="t">3.4 · 18 min</td><td><b>O gatilho de entrada</b>. O momento exato do clique, boleta, tipo de ordem. Gravado com operação real.</td></tr>
+      <tr><td class="t">3.5 · 18 min</td><td><b>Alvo e saída</b>. Onde você realiza, parcial ou total, e por quê. Quando sair antes do alvo.</td></tr>
+      <tr><td class="t">3.6 · 18 min</td><td><b>O que invalida a operação</b>. Sinais para não entrar ou para sair. A aula que evita as piores perdas.</td></tr>
+      <tr><td class="t">3.7 · 18 min</td><td><b>WIN e WDO: o que muda</b>. O mesmo operacional nos dois ativos, com as diferenças de ritmo e de risco.</td></tr>
+      <tr><td class="t">3.8 · 20 min</td><td><b>Dez operações comentadas</b>. Cinco que deram certo, três que deram errado e duas que você não fez. Do plano ao resultado.</td></tr>
+    </table>
+    <p class="out"><b>Tarefa:</b> dez operações no simulador seguindo o operacional, cada uma com região, confirmação, gatilho e saída anotados. <b>Entrega:</b> as dez fichas no diário. Nenhuma pode estar fora da regra.</p>
+  </div>
+
+  <div class="mod">
+    <div class="head"><b>Módulo 4 · Gerenciamento de risco</b><span>5 aulas · ~1h15</span></div>
+    <p class="goal">Objetivo: o aluno nunca abre uma posição sem saber quanto pode perder, e para de operar quando bate o limite do dia.</p>
+    <table>
+      <tr><td class="t">4.1 · 15 min</td><td><b>Risco em pontos e em reais</b>. Stop e alvo em pontos, convertidos em dinheiro. A conta que o aluno faz antes de cada entrada.</td></tr>
+      <tr><td class="t">4.2 · 15 min</td><td><b>Perda máxima do dia e da semana</b>. Como você define, o que faz quando bate. Por que isso é inegociável.</td></tr>
+      <tr><td class="t">4.3 · 15 min</td><td><b>Quantos contratos</b>. Tamanho de posição a partir do capital e do risco por operação. Quando aumentar, quando reduzir.</td></tr>
+      <tr><td class="t">4.4 · 15 min</td><td><b>Risco/retorno e a matemática de sobreviver</b>. Por que 1:2 permite errar mais da metade e ainda crescer.</td></tr>
+      <tr><td class="t">4.5 · 15 min</td><td><b>A minha planilha, célula por célula</b>. A planilha de gerenciamento que o aluno recebe, preenchida com um mês real.</td></tr>
+    </table>
+    <p class="out"><b>Tarefa:</b> definir por escrito o risco por operação, a perda do dia e a perda da semana, e preencher a planilha com as dez operações do módulo 3. <b>Entrega:</b> a planilha preenchida.</p>
+  </div>
+
+  <div class="mod">
+    <div class="head"><b>Módulo 5 · Rotina e diário</b><span>4 aulas · ~50 min</span></div>
+    <p class="goal">Objetivo: o aluno tem uma rotina fixa de pré-mercado, operação, fechamento e revisão, e um diário que mostra onde ele erra.</p>
+    <table>
+      <tr><td class="t">5.1 · 12 min</td><td><b>Um dia inteiro comigo</b>. Do café ao fechamento, em tempo real acelerado. A rotina como proteção.</td></tr>
+      <tr><td class="t">5.2 · 12 min</td><td><b>O diário de trades</b>. O modelo que o aluno recebe: o que anotar em cada operação e por quê.</td></tr>
+      <tr><td class="t">5.3 · 12 min</td><td><b>O fechamento do dia em 10 minutos</b>. As três perguntas que você responde todo dia.</td></tr>
+      <tr><td class="t">5.4 · 14 min</td><td><b>A revisão da semana</b>. Como ler o diário, achar o erro que se repete e corrigir uma coisa por vez.</td></tr>
+    </table>
+    <p class="out"><b>Tarefa:</b> duas semanas de diário completo, com fechamento diário e uma revisão semanal. <b>Entrega:</b> a revisão da semana, postada na comunidade para comentário.</p>
+  </div>
+
+  <div class="mod">
+    <div class="head"><b>Módulo 6 · Mentalidade</b><span>5 aulas · ~1h</span></div>
+    <p class="goal">Objetivo: o aluno reconhece os próprios sabotadores e tem um protocolo para os dias ruins.</p>
+    <table>
+      <tr><td class="t">6.1 · 12 min</td><td><b>O que a arena me ensinou sobre pressão</b>. Operar com prazo, com plateia, com placar. O que você fez para não travar.</td></tr>
+      <tr><td class="t">6.2 · 12 min</td><td><b>Os quatro erros de cabeça</b>. Vingança, ansiedade de entrar, medo de realizar, ganância depois de ganhar. Como cada um aparece no diário.</td></tr>
+      <tr><td class="t">6.3 · 12 min</td><td><b>O dia ruim: protocolo</b>. O que você faz depois de bater o stop do dia. Passo a passo, sem discurso.</td></tr>
+      <tr><td class="t">6.4 · 12 min</td><td><b>Constância: a única vantagem real</b>. Por que quem sobrevive seis meses seguindo regra ganha de quem acerta um mês.</td></tr>
+      <tr><td class="t">6.5 · 12 min</td><td><b>Quando ir para a conta real</b>. Os critérios objetivos (parte 6 deste programa) e o que muda quando o dinheiro é de verdade.</td></tr>
+    </table>
+    <p class="out"><b>Tarefa:</b> identificar no próprio diário o erro de cabeça mais frequente e escrever o protocolo pessoal para ele. <b>Entrega:</b> o protocolo, em uma página.</p>
+  </div>
+
+  <h3>Totais</h3>
+  <table>
+    <tr><th>Módulos</th><th>Aulas</th><th>Vídeo gravado</th><th>Tarefas</th><th>Tempo do aluno</th></tr>
+    <tr><td>7</td><td>35</td><td>cerca de 8h30</td><td>7 entregas</td><td>8 semanas, 2 a 3 h por semana mais o pré-mercado</td></tr>
+  </table>
+</section>
+
+<!-- 03 -->
+<section>
+  <h2><span class="n">03</span>A sala ao vivo e a comunidade</h2>
+  <p>O curso gravado ensina o método. A sala ao vivo mostra o método acontecendo. É onde o aluno vê você decidir em tempo real, e é o que faz ele ficar depois de terminar as aulas.</p>
+  <h3>Sala ao vivo semanal: o formato</h3>
+  <table>
+    <tr><th>Horário</th><th>O que acontece</th><th>Duração</th></tr>
+    <tr><td class="t">8h30</td><td><b>Pré-mercado ao vivo.</b> Você preenche o checklist do módulo 2 na frente dos alunos: fechamento, S&amp;P, dólar, agenda, níveis. Classifica o dia.</td><td>25 min</td></tr>
+    <tr><td class="t">8h55</td><td><b>Regiões do dia.</b> Marca no gráfico as regiões de interesse e explica por que cada uma. Diz o que confirmaria e o que invalidaria.</td><td>10 min</td></tr>
+    <tr><td class="t">9h05</td><td><b>Acompanhamento.</b> Mercado aberto. Você narra o que vê, não o que fazer. "A região está sendo testada, o fluxo ainda não confirmou." O aluno aprende a esperar.</td><td>40 min</td></tr>
+    <tr><td class="t">9h45</td><td><b>Perguntas.</b> Só sobre leitura e método. Perguntas de "entro agora?" você devolve: "o que o seu plano diz?"</td><td>15 min</td></tr>
+  </table>
+  <div class="warn"><b>A linha que não se cruza na sala ao vivo.</b> Você mostra a sua leitura e as suas regiões. Você não diz "compra", "vende", "entra agora", nem para a turma nem em resposta a pergunta. Se você operar ao vivo, narra a sua decisão como exemplo do método, com o aviso de que cada aluno decide pelo próprio plano. Isso é o que separa educação de recomendação, e é o que protege você e o aluno.</div>
+  <h3>Fechamento da semana</h3>
+  <p>Sexta, depois do pregão, 15 a 20 minutos gravados: o que o mercado fez na semana, o que o método pediu, três operações comentadas (uma sua, duas de alunos, com autorização), e o tema da revisão de diário da semana. Esse vídeo vai para a comunidade e, editado, para o canal aberto.</p>
+  <h3>A comunidade: regras simples</h3>
+  <ul>
+    <li><b>O que entra:</b> checklist pré-mercado, fichas de operação, revisões de diário, dúvidas sobre o método, print de gráfico com pergunta.</li>
+    <li><b>O que não entra:</b> pedido de sinal, print de lucro sem análise, indicação de outros cursos, outros mercados.</li>
+    <li><b>Como você participa:</b> um comentário por dia em uma entrega de aluno, escolhendo a que ensina mais para os outros. Não precisa responder tudo; precisa aparecer todo dia.</li>
+    <li><b>Ritual semanal:</b> segunda, você posta o tema da semana ("esta semana observem como vocês reagem depois do primeiro stop"). Sexta, o fechamento.</li>
+  </ul>
+</section>
+
+<!-- 04 -->
+<section>
+  <h2><span class="n">04</span>A sua lição de casa: documentar o operacional</h2>
+  <p>Antes de gravar uma aula, você precisa colocar no papel o que hoje está na sua cabeça. Este é o trabalho mais importante do programa inteiro. Responda por escrito, com o gráfico do lado. Não precisa ser bonito; precisa ser exato.</p>
+  <h3>As perguntas que definem o seu método</h3>
+  <h4>Contexto (módulo 2)</h4>
+  <ol class="q">
+    <li>Em que ordem você olha as coisas antes das 9h? Liste do primeiro ao último.</li>
+    <li>O que faz você classificar um dia como de tendência ou lateral? Dê dois exemplos reais de cada.</li>
+    <li>Como você marca um nível? O que um nível precisa ter para você confiar nele?</li>
+    <li>Que notícia ou agenda muda o seu plano? O que você faz nesses dias?</li>
+  </ol>
+  <h4>Operacional (módulo 3)</h4>
+  <ol class="q" start="5">
+    <li>Em uma frase: o que você procura no mercado?</li>
+    <li>Como você define uma região de interesse? Quantas você aceita por dia?</li>
+    <li>O que exatamente precisa acontecer na região para você entrar? Descreva o candle, o fluxo, o tempo gráfico.</li>
+    <li>Que tipo de ordem você usa? Onde clica? O que faz nos 10 segundos seguintes?</li>
+    <li>Onde fica o alvo? Você faz parcial? Quando sai antes?</li>
+    <li>Cite cinco situações em que você não entra mesmo com a região certa.</li>
+    <li>O que muda entre WIN e WDO no seu operacional?</li>
+  </ol>
+  <h4>Risco (módulo 4)</h4>
+  <ol class="q" start="12">
+    <li>Quantos pontos de stop e de alvo você usa, em cada ativo, e por quê esses números?</li>
+    <li>Qual é a sua perda máxima do dia? E da semana? O que você faz quando bate?</li>
+    <li>Como você decide o número de contratos? Escreva a conta.</li>
+    <li>Quando você aumenta a mão? Quando reduz?</li>
+  </ol>
+  <h4>Rotina e cabeça (módulos 5 e 6)</h4>
+  <ol class="q" start="16">
+    <li>Descreva o seu dia do momento em que acorda até fechar o Profit, com horários.</li>
+    <li>O que você anota depois de cada operação? Mostre uma página real do seu registro.</li>
+    <li>Qual foi o seu pior dia? O que aconteceu na sua cabeça e o que você mudou depois?</li>
+    <li>O que a arena te ensinou que você não sabia antes dela?</li>
+    <li>Quais foram os critérios que você usou para passar do simulador para o real?</li>
+  </ol>
+  <h3>Material que você precisa separar</h3>
+  <ul class="check">
+    <li><b>30 operações gravadas ou em print</b> com o gráfico antes, durante e depois: 15 que deram certo, 10 que deram errado seguindo a regra, 5 que você não fez e explicará por quê. Elas alimentam os módulos 3, 4 e 6.</li>
+    <li><b>Sua planilha de gerenciamento</b>, com um mês real preenchido. Vai virar o modelo do aluno (com os seus números apagados).</li>
+    <li><b>Seu registro de operações</b>, do jeito que é hoje. Vamos transformá-lo no diário do aluno.</li>
+    <li><b>Seu checklist pré-mercado</b>, mesmo que seja mental. Escreva os itens na ordem.</li>
+    <li><b>Cinco pré-mercados de dias diferentes</b>, salvos com o gráfico da manhã, para a aula 2.5 e para as primeiras salas ao vivo.</li>
+  </ul>
+  <h3>O que estudar antes de gravar</h3>
+  <ul>
+    <li><b>Vocabulário.</b> Faça a lista de todos os termos que você usa sem pensar (fluxo, região, rompimento, pullback, leilão, rolagem, margem) e escreva uma definição de uma frase para cada. Isso vira o glossário do aluno, e vai te obrigar a explicar em vez de supor.</li>
+    <li><b>As 10 perguntas que mais te fazem no Instagram.</b> Anote as respostas. Elas mostram onde o iniciante trava, e é exatamente aí que a aula precisa ir devagar.</li>
+    <li><b>Assista a três aulas de traders que você respeita</b>, com caderno: como abrem, como usam a tela, como fecham. Não para copiar; para perceber ritmo e clareza.</li>
+    <li><b>Grave um vídeo-teste de cinco minutos</b> explicando o valor do ponto do WIN para alguém que nunca operou. É o nosso ponto de partida para ajustar o seu jeito de ensinar.</li>
+  </ul>
+</section>
+
+<!-- 05 -->
+<section>
+  <h2><span class="n">05</span>Como cada aula é construída</h2>
+  <p>Toda aula do curso segue a mesma estrutura de cinco partes. O aluno aprende a esperar por ela, e você grava mais rápido porque nunca começa do zero.</p>
+  <ol class="steps">
+    <li><div><b>O porquê (30 segundos).</b> O que o aluno vai saber fazer no fim desta aula e por que isso importa no dia dele. "Hoje você vai aprender a calcular o risco em reais antes de entrar. Sem isso, você não sabe quanto está apostando."</div></li>
+    <li><div><b>O conceito (2 a 4 minutos).</b> A ideia explicada com palavras simples, uma vez. Sem gráfico ainda.</div></li>
+    <li><div><b>A tela (o grosso da aula).</b> Profit aberto, exemplo real, você mostrando enquanto explica. Aponte com o mouse. Fale o que está olhando. Mostre o erro comum aqui.</div></li>
+    <li><div><b>A regra que fica (30 segundos).</b> A frase que o aluno deveria anotar. Repita devagar. "Sem região, não há operação. Sem confirmação, não há entrada."</div></li>
+    <li><div><b>A tarefa (30 segundos).</b> O que ele faz antes da próxima aula. Concreto, pequeno, com prazo.</div></li>
+  </ol>
+  <h3>O roteiro de uma página</h3>
+  <p>Preencha antes de gravar cada aula. Leva cinco minutos e corta o tempo de gravação pela metade.</p>
+  <div class="lesson">
+    <b>Aula ____ · ______________________________</b>
+    <p><b>Para quem é essencial:</b> iniciante / quem já opera / todos</p>
+    <p><b>O que o aluno vai saber fazer no fim:</b> uma frase.</p>
+    <p><b>O exemplo que vou mostrar:</b> data, ativo, gráfico, o que aconteceu.</p>
+    <p><b>Erro comum que vou apontar:</b> o que o iniciante faz de errado aqui.</p>
+    <p><b>A regra que fica:</b> a frase para anotar.</p>
+    <p><b>Tarefa:</b> o que ele faz antes da próxima aula.</p>
+  </div>
+  <h3>As regras do professor</h3>
+  <ul>
+    <li><b>Uma ideia por aula.</b> Se precisou de "e também" no meio, são duas aulas.</li>
+    <li><b>Mostre, não descreva.</b> Se dá para apontar na tela, aponte na tela.</li>
+    <li><b>Explique todo termo na primeira vez.</b> Custa dez segundos e mantém o iniciante.</li>
+    <li><b>Erre em voz alta.</b> Quando mostrar operação que deu errado, diga o que pensou na hora. É a aula mais valiosa.</li>
+    <li><b>Fale como fala com um amigo.</b> Não "levante a voz de professor". O aluno quer o trader, não o apresentador.</li>
+    <li><b>Não regrave por errar uma palavra.</b> Pausa, respira, continua. Corta na edição.</li>
+  </ul>
+</section>
+
+<!-- 06 -->
+<section>
+  <h2><span class="n">06</span>A jornada do aluno: 8 semanas</h2>
+  <p>É assim que o aluno vive o curso. Publique este calendário na comunidade no dia em que a turma começa. Cada semana tem aulas, uma tarefa e a sala ao vivo.</p>
+  <div class="week"><div class="w">Semana 1</div><div><b>Módulos 0 e 1: a base</b><p>8 aulas. Monta a tela do Profit, entende WIN e WDO, faz as três contas em reais. Entra na primeira sala ao vivo só para assistir.</p></div></div>
+  <div class="week"><div class="w">Semana 2</div><div><b>Módulo 2: contexto</b><p>5 aulas. Começa a preencher o checklist pré-mercado todo dia antes das 9h. Compara o dele com o seu na sala ao vivo.</p></div></div>
+  <div class="week"><div class="w">Semanas 3 e 4</div><div><b>Módulo 3: o operacional</b><p>8 aulas em duas semanas. Abre o simulador. Dez operações seguindo a regra, cada uma com ficha. É a fase em que mais gente erra e mais gente aprende.</p></div></div>
+  <div class="week"><div class="w">Semana 5</div><div><b>Módulo 4: risco</b><p>5 aulas. Define por escrito risco por operação, perda do dia e da semana. Preenche a planilha com as operações do simulador. Continua no simulador.</p></div></div>
+  <div class="week"><div class="w">Semana 6</div><div><b>Módulo 5: rotina e diário</b><p>4 aulas. Duas semanas de diário começam aqui. Primeira revisão semanal, postada na comunidade.</p></div></div>
+  <div class="week"><div class="w">Semana 7</div><div><b>Módulo 6: mentalidade</b><p>5 aulas. Identifica o próprio erro de cabeça no diário. Escreve o protocolo pessoal para o dia ruim.</p></div></div>
+  <div class="week"><div class="w">Semana 8</div><div><b>Consolidação</b><p>Sem aula nova. Segunda revisão semanal. Avaliação dos critérios para conta real (abaixo). Quem cumpre, recebe o seu aval na comunidade. Quem não cumpre, repete as semanas 3 a 6 no simulador, sem vergonha: é o esperado.</p></div></div>
+  <h3>Critérios para o aluno ir para a conta real</h3>
+  <p>Objetivos, verificáveis no diário. Você não libera ninguém no sentimento.</p>
+  <ul class="check">
+    <li>Pelo menos <b>20 pregões</b> no simulador seguindo o operacional, com diário completo.</li>
+    <li><b>Zero operações fora da regra</b> nas últimas duas semanas (fora da região, sem confirmação, sem stop).</li>
+    <li><b>Nunca ultrapassou a perda máxima do dia</b> no período. Um dia que bateu e parou conta a favor; um dia que bateu e continuou zera a contagem.</li>
+    <li>Duas revisões semanais feitas e postadas, com um erro identificado e corrigido.</li>
+    <li>Começa no real com <b>um contrato</b>, e só. Aumento de mão segue a regra do módulo 4, nunca a vontade.</li>
+  </ul>
+</section>
+
+<!-- 07 -->
+<section>
+  <h2><span class="n">07</span>O que o aluno recebe</h2>
+  <p>Além das aulas, estes materiais. Todos saem do que você já usa; o trabalho é limpar e dar formato de modelo.</p>
+  <table>
+    <tr><th>Material</th><th>O que é</th><th>Módulo</th></tr>
+    <tr><td><b>Checklist pré-mercado</b></td><td>Uma página, na ordem em que você olha. O aluno preenche todo dia.</td><td>2</td></tr>
+    <tr><td><b>Ficha de operação</b></td><td>Região, confirmação, gatilho, stop, alvo, resultado, o que pensou. Uma por operação.</td><td>3</td></tr>
+    <tr><td><b>Planilha de gerenciamento</b></td><td>A sua, com os números apagados e as fórmulas explicadas. Calcula contratos, risco em reais, resultado do dia e da semana.</td><td>4</td></tr>
+    <tr><td><b>Diário de trades</b></td><td>Modelo com o fechamento do dia (as três perguntas) e a revisão da semana.</td><td>5</td></tr>
+    <tr><td><b>Protocolo do dia ruim</b></td><td>Modelo de uma página que o aluno preenche com o próprio gatilho e a própria resposta.</td><td>6</td></tr>
+    <tr><td><b>Glossário</b></td><td>Todos os termos do curso, uma frase cada, do jeito que você fala.</td><td>todos</td></tr>
+    <tr><td><b>Resumo de cada módulo</b></td><td>Uma página por módulo com as regras que ficam. Para imprimir e deixar do lado do monitor.</td><td>todos</td></tr>
+    <tr><td><b>Calendário da turma</b></td><td>As 8 semanas, com as aulas e as entregas de cada uma.</td><td>0</td></tr>
+  </table>
+
+  <h2 style="margin-top:22pt"><span class="n">08</span>As etapas para o curso existir</h2>
+  <p>Do documento ao primeiro aluno. As semanas são de trabalho seu; o resto anda em paralelo.</p>
+  <div class="week"><div class="w">Semanas 1 e 2</div><div><b>Documentar</b><p>Responder as 20 perguntas da parte 4. Separar as 30 operações, a planilha, o registro, os cinco pré-mercados. Gravar o vídeo-teste. Revisar este programa comigo e corrigir o que não bate com o seu método.</p></div></div>
+  <div class="week"><div class="w">Semana 3</div><div><b>Preparar</b><p>Roteiro de uma página para cada uma das 35 aulas (eu preparo os rascunhos a partir das suas respostas; você corrige). Montar o cenário de gravação e fazer dois testes.</p></div></div>
+  <div class="week"><div class="w">Semanas 4 e 5</div><div><b>Gravar a base</b><p>Módulos 0, 1 e 2: 13 aulas. Duas manhãs de gravação por semana. Os materiais do aluno dos módulos 2 e 3 ficam prontos.</p></div></div>
+  <div class="week"><div class="w">Semanas 6 e 7</div><div><b>Gravar o núcleo</b><p>Módulos 3 e 4: 13 aulas. Planilha e ficha de operação finalizadas.</p></div></div>
+  <div class="week"><div class="w">Semana 8</div><div><b>Gravar o fechamento</b><p>Módulos 5 e 6: 9 aulas. Diário, protocolo, glossário e resumos prontos.</p></div></div>
+  <div class="week"><div class="w">Semana 9</div><div><b>Turma piloto</b><p>De 10 a 20 alunos, preço reduzido, em troca de retorno. Primeira sala ao vivo. Você descobre quais aulas confundem e regrava só essas.</p></div></div>
+  <div class="week"><div class="w">Semana 10 em diante</div><div><b>Turma aberta</b><p>Curso completo no ar. Sala ao vivo toda semana, fechamento toda sexta. A cada turma, uma revisão do programa.</p></div></div>
+
+  <div class="rule" style="margin-top:16pt"><b>Uma última coisa.</b> A primeira aula que você gravar vai sair pior do que você queria. Grave mesmo assim, e grave a segunda. Ninguém aprende a ensinar lendo sobre ensinar; aprende gravando, assistindo, e gravando de novo. O aluno não quer um apresentador. Quer o trader que venceu a arena explicando, com calma, como faz. Isso você já é.</div>
+  <p class="sig">Marcelo</p>
+</section>
+
+</body>
+</html>
