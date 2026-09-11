@@ -5,6 +5,7 @@ Fotos esperadas em site/fotos/ (qualquer um destes nomes, jpg/jpeg/png):
   hero.*   -> foto no Expert Trader XP (crachá)   -> {{FOTO_HERO}}
   b3.*     -> foto no estande da B3               -> {{FOTO_B3}}
   avatar.* -> foto de perfil (opcional; se faltar usa a hero) -> {{FOTO_AVATAR}}
+  hl-resultados.*, hl-analises.*, hl-fechamento.* -> capas dos destaques do Instagram (opcionais)
 Se uma foto não existir, entra um placeholder dourado no lugar.
 """
 import base64, io, glob, os, sys
@@ -104,6 +105,21 @@ def main():
         return "data:%s;base64,%s" % (mt, base64.b64encode(open(path, "rb").read()).decode())
     artifact_html = re.sub(r"\{\{IMG:([\w.\-]+)\}\}", lambda m: img_uri(m.group(1)), artifact_html)
     public_html = re.sub(r"\{\{IMG:([\w.\-]+)\}\}", lambda m: IMG_URL + m.group(1), public_html)
+    # Destaques do Instagram: {{HL:nome|Rótulo|svg}} -> capa real se existir fotos/hl-nome.(jpg|png), senão ícone
+    def hl(m, mode):
+        name, label, svg = m.group(1), m.group(2), m.group(3)
+        src = find("hl-" + name)
+        if src:
+            uri = treat(src, 160, (1, 1), 0.5, 80)
+            raw = base64.b64decode(uri.split(",", 1)[1])
+            open(os.path.join(pub_dir, "fotos", "hl-" + name + ".jpg"), "wb").write(raw)
+            img = uri if mode == "artifact" else FOTOS_URL + "hl-" + name + ".jpg"
+            return '<span><i><img src="%s" alt="" loading="lazy"></i>%s</span>' % (img, label)
+        return ('<span><i class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
+                'stroke-linecap="round" stroke-linejoin="round">%s</svg></i>%s</span>' % (svg, label))
+    HL = r"\{\{HL:([\w-]+)\|([^|]+)\|(.*?)\}\}"
+    artifact_html = re.sub(HL, lambda m: hl(m, "artifact"), artifact_html)
+    public_html = re.sub(HL, lambda m: hl(m, "public"), public_html)
     out = os.path.join(HERE, "index.html")
     open(out, "w", encoding="utf-8").write(artifact_html)
     print(f"\nGerado: {out} ({os.path.getsize(out)//1024} KB)  [fragmento para o Artifact do Claude]")
