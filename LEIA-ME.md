@@ -5,24 +5,15 @@ e direcionamento para a plataforma de estudo.
 
 ## Endereços
 
-- Site público com a foto (GitHub Pages, gratuito): https://marcelosilva77.github.io/tiburcio-trader-site/
-- Site na Vercel (gratuito, mas ainda na versão SEM a foto): https://tiburcio-trader.vercel.app
-- Repositório: https://github.com/marcelosilva77/tiburcio-trader-site (público; as fotos são servidas dele)
+- **Site oficial: https://tiburciotrader.com.br** (www redireciona; HTTPS obrigatório)
+- Repositório: https://github.com/marcelosilva77/tiburcio-trader-site (público; serve as fotos)
 - Prévia no Claude: https://claude.ai/code/artifact/ce8ddf24-2b36-42a1-ad3e-6f26b3966d45
 
-### Para a Vercel atualizar sozinha a cada mudança (fazer uma vez, no navegador)
+Hospedagem: GitHub Pages (branch `gh-pages` = conteúdo de `site/public`).
+DNS no Registro.br em **modo avançado**: 4 registros A (185.199.108/109/110/111.153)
+e CNAME `www` apontando para `marcelosilva77.github.io`.
 
-1. Entre em https://vercel.com/new e escolha "Import Git Repository".
-2. Selecione `marcelosilva77/tiburcio-trader-site` (se pedir, autorize o app da Vercel no GitHub).
-3. Em "Root Directory" escolha `site/public`. Framework: "Other". Clique em Deploy.
-4. Depois disso, todo `git push` na branch `main` publica automaticamente.
-5. Opcional: apague o projeto antigo `tiburcio-trader` no painel da Vercel para não confundir.
-
-O conector da Vercel usado pelo Claude só enxerga projetos antigos (marcelo-app, onetrader-vip, dist),
-por isso ele não conseguiu atualizar o projeto novo. Se quiser liberar, abra no painel da Vercel
-Settings > Integrations > o conector do Claude e inclua o projeto novo.
-
-### Para republicar no GitHub Pages depois de mudar algo
+### Para republicar depois de mudar algo
 
 ```bash
 cd "C:\Users\marce\PROJETO B3" && python site\build.py && git add -A && git commit -m "atualiza site" && git push && git subtree split --prefix site/public -b gh-pages && git push -f origin gh-pages
