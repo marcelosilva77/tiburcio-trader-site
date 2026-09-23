@@ -2,9 +2,9 @@
 
 Uso:  python build.py
 Fotos esperadas em site/fotos/ (qualquer um destes nomes, jpg/jpeg/png):
-  hero.*   -> foto no Expert Trader XP (crachá)   -> {{FOTO_HERO}}
-  b3.*     -> foto no estande da B3               -> {{FOTO_B3}}
-  avatar.* -> foto de perfil (opcional; se faltar usa a hero) -> {{FOTO_AVATAR}}
+  sobre.*  -> foto da secao Sobre (Expert Trader XP)  -> {{FOTO_B3}}
+  b3.*     -> alternativa: foto no estande da B3      -> {{FOTO_B3}}
+  hero.*   -> ultimo recurso, se as duas faltarem
   hl-resultados.*, hl-analises.*, hl-fechamento.* -> capas dos destaques do Instagram (opcionais)
 Se uma foto não existir, entra um placeholder dourado no lugar.
 """
@@ -64,21 +64,20 @@ def placeholder(label, ratio):
 def main():
     tpl = open(os.path.join(HERE, "index.template.html"), encoding="utf-8").read()
     print("Fotos:")
-    hero = find("hero"); b3 = find("b3"); av = find("avatar") or hero
-    # Enquanto não houver foto da B3, a segunda seção usa a foto do evento com um recorte
-    # mais aberto (mostra o ambiente do Expert Trader XP) e o carimbo muda de texto.
-    if b3:
-        b3_src, b3_focus = b3, 0.25
-        stamp_sup, stamp, alt_b3 = "Onde tudo acontece", "B3 · Bolsa do Brasil", "Ramon Tibúrcio no estande da B3, a bolsa brasileira."
-    else:
-        b3_src, b3_focus = hero, 0.42
-        stamp_sup, stamp, alt_b3 = "Onde o título foi conquistado", "Expert Trader XP · Arena", "Ramon Tibúrcio na arena de competidores do Expert Trader XP."
+    # foto da secao "Sobre": procura sobre.*, depois b3.*, e por fim hero.*
+    sobre = find("sobre"); b3 = find("b3"); hero = find("hero")
+    foto_sobre = sobre or b3 or hero
 
-    # (token, arquivo de origem, nome público, tamanho, proporção, foco vertical, qualidade, rótulo do placeholder)
+    if b3 and not sobre:
+        stamp_sup, stamp = "Onde tudo acontece", "B3 · Bolsa do Brasil"
+        alt_b3 = "Ramon Tibúrcio no estande da B3, a bolsa brasileira."
+    else:
+        stamp_sup, stamp = "Onde o título foi conquistado", "Expert Trader XP · Arena"
+        alt_b3 = "Ramon Tibúrcio no evento Expert Trader XP."
+
+    # (token, origem, nome publico, largura, proporcao, foco vertical, qualidade, rotulo)
     specs = [
-        ("{{FOTO_HERO}}",   hero,   "hero.jpg",   660, (4, 5), 0.18,    72, "FOTO: EXPERT TRADER XP"),
-        ("{{FOTO_B3}}",     b3_src, "b3.jpg",     620, (3, 4), b3_focus, 72, "FOTO: B3"),
-        ("{{FOTO_AVATAR}}", av,     "avatar.jpg", 160, (1, 1), 0.12,    80, ""),
+        ("{{FOTO_B3}}", foto_sobre, "sobre.jpg", 900, (4, 3), 0.30, 78, "FOTO: EXPERT TRADER XP"),
     ]
     pub_dir = os.path.join(HERE, "public"); os.makedirs(os.path.join(pub_dir, "fotos"), exist_ok=True)
     tpl = (tpl.replace("{{STAMP_B3_SUP}}", stamp_sup)
@@ -130,11 +129,8 @@ def main():
     pub = os.path.join(pub_dir, "index.html")
     open(pub, "w", encoding="utf-8").write(full)
     print(f"Gerado: {pub} ({os.path.getsize(pub)//1024} KB)  [site completo para publicar]")
-    if not hero:
-        print("\nAVISO: falta site/fotos/hero.jpg. Placeholder dourado foi usado.")
-    if not b3:
-        print("\nAVISO: falta site/fotos/b3.jpg. A segunda secao esta usando a foto do evento\n"
-              "       com recorte aberto. Salve a foto da B3 nesse caminho e rode de novo.")
+    if not foto_sobre:
+        print("\nAVISO: nenhuma foto em site/fotos/ (sobre.*, b3.* ou hero.*). Placeholder usado.")
 
 
 if __name__ == "__main__":

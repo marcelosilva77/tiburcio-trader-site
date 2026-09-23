@@ -122,9 +122,9 @@
   /* sobre */
   .about{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
   .about-photo{position:relative}
-  .about-photo .frame{border-radius:18px;overflow:hidden;border:1px solid var(--line);aspect-ratio:3/4;box-shadow:0 30px 70px -30px rgba(0,0,0,.9)}
-  .about-photo img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
-  .about-photo .stamp{position:absolute;left:-16px;bottom:34px;background:var(--gold);color:#0a0a0b;font-family:var(--display);font-weight:700;padding:12px 16px;border-radius:10px;font-size:.85rem;line-height:1.2;box-shadow:0 14px 30px -12px rgba(255,209,26,.8);transform:rotate(-2deg)}
+  .about-photo .frame{border-radius:18px;overflow:hidden;border:1px solid var(--line);aspect-ratio:4/3;box-shadow:0 30px 70px -30px rgba(0,0,0,.9)}
+  .about-photo img{width:100%;height:100%;object-fit:cover;object-position:center 32%}
+  .about-photo .stamp{position:absolute;left:-20px;bottom:-18px;background:var(--gold);color:#0a0a0b;font-family:var(--display);font-weight:700;padding:12px 16px;border-radius:10px;font-size:.85rem;line-height:1.2;box-shadow:0 14px 30px -12px rgba(255,209,26,.8);transform:rotate(-2deg)}
   .about-photo .stamp small{display:block;font-family:var(--mono);font-weight:500;font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;opacity:.75}
   .about-copy{display:grid;gap:22px}
   .about-copy p{color:var(--ink-2);max-width:60ch}
@@ -135,7 +135,7 @@
   .timeline .yr{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;color:var(--gold)}
   .timeline b{font-family:var(--display);font-weight:600;font-size:1.02rem}
   .timeline span{font-size:.9rem;color:var(--muted)}
-  @media(max-width:900px){.about{grid-template-columns:1fr;gap:44px}.about-photo{max-width:380px}}
+  @media(max-width:900px){.about{grid-template-columns:1fr;gap:44px}.about-photo{max-width:460px}}
 
   /* operacional */
   .op{background:var(--bg-2);border-block:1px solid var(--line)}
@@ -382,8 +382,8 @@
 
     /* sobre: foto menor, linha do tempo só com os marcos */
     .about{gap:26px}
-    .about-photo{max-width:230px;margin-inline:auto}
-    .about-photo .frame{aspect-ratio:1/1;border-radius:16px}
+    .about-photo{max-width:330px;margin-inline:auto}
+    .about-photo .frame{aspect-ratio:4/3;border-radius:16px}
     .about-photo .stamp{left:auto;right:-8px;bottom:-14px;font-size:.72rem;padding:9px 12px}
     .about-copy{gap:16px}
     .timeline{padding-left:18px}
@@ -565,7 +565,7 @@
   <section id="sobre">
     <div class="wrap about">
       <div class="about-photo rv">
-        <div class="frame"><img src="{{FOTO_B3}}" alt="{{ALT_B3}}" width="900" height="1200" loading="lazy"></div>
+        <div class="frame"><img src="{{FOTO_B3}}" alt="{{ALT_B3}}" width="900" height="675" loading="lazy"></div>
         <div class="stamp"><small>{{STAMP_B3_SUP}}</small>{{STAMP_B3}}</div>
       </div>
       <div class="about-copy rv">
