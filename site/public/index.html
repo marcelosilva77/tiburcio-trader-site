@@ -294,13 +294,14 @@
   .clist b{font-family:var(--display);font-weight:600}
   .clist span{font-size:.9rem;color:var(--muted)}
   .comm-copy .fine{margin-top:12px;font-size:.78rem;color:var(--muted-2)}
-  .comm-cta{position:sticky;top:96px;background:var(--surface);border:1px solid var(--line-gold);border-radius:18px;padding:26px;display:grid;gap:12px;text-align:center;justify-items:center;box-shadow:0 40px 80px -40px rgba(255,209,26,.35)}
+  .comm .comm-cta{position:sticky;top:96px}
+  .comm-cta{background:var(--surface);border:1px solid var(--line-gold);border-radius:18px;padding:26px;display:grid;gap:12px;text-align:center;justify-items:center;box-shadow:0 40px 80px -40px rgba(255,209,26,.35)}
   .comm-cta .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
   .comm-cta b{font-family:var(--display);font-size:1.2rem}
   .comm-cta p{color:var(--muted);font-size:.92rem;margin:0}
   .comm-cta .btn{width:100%;justify-content:center}
   .comm-cta .mini{font-family:var(--mono);font-size:.68rem;color:var(--muted-2)}
-  @media(max-width:900px){.comm{grid-template-columns:1fr}.comm-cta{position:static}}
+  @media(max-width:900px){.comm{grid-template-columns:1fr}.comm .comm-cta{position:static;top:auto}}
 
   /* curso em breve */
   .soon{margin-top:20px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;padding:24px 26px;border:1px dashed var(--line-gold);border-radius:16px;background:rgba(255,209,26,.03)}
