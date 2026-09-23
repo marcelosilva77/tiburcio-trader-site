@@ -28,7 +28,7 @@ cd "C:\Users\marce\PROJETO B3" && python site\build.py && git add -A && git comm
   - `b3.jpg` → foto no estande da B3.
   - `avatar.jpg` → foto de perfil (opcional; se faltar, usa a `hero.jpg`).
 - `site/index.html` — versão para o Artifact do Claude (gerado, não edite à mão).
-- `site/public/index.html` — site completo, é este que vai para a Vercel (gerado).
+- `site/public/index.html` — site completo, é este que vai para o ar (gerado).
 
 ## Como gerar o site depois de colocar as fotos
 

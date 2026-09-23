@@ -13,7 +13,7 @@ from PIL import Image, ImageEnhance, ImageOps, ImageFilter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 # Base das fotos no site publicado. "fotos/" usa os arquivos ao lado do index.html (ideal quando a
-# Vercel estiver ligada ao GitHub). A CDN do jsDelivr serve direto do repositório público.
+# hospedagem servir os arquivos). A CDN do jsDelivr serve direto do repositório público.
 FOTOS_URL = os.environ.get("FOTOS_URL", "https://cdn.jsdelivr.net/gh/marcelosilva77/tiburcio-trader-site@main/site/public/fotos/")
 FOTOS = os.path.join(HERE, "fotos")
 OUT_FOTOS = os.path.join(FOTOS, "tratadas")
@@ -123,7 +123,7 @@ def main():
     out = os.path.join(HERE, "index.html")
     open(out, "w", encoding="utf-8").write(artifact_html)
     print(f"\nGerado: {out} ({os.path.getsize(out)//1024} KB)  [fragmento para o Artifact do Claude]")
-    # Versão completa (com <!doctype html>) para hospedar na Vercel ou em qualquer servidor
+    # Versão completa (com <!doctype html>) para hospedar em qualquer servidor
     head_end = public_html.index("<div class=\"progress\"")
     full = ("<!doctype html>\n<html lang=\"pt-BR\">\n<head>\n" + public_html[:head_end] + "</head>\n<body>\n"
             + public_html[head_end:] + "\n</body>\n</html>\n")
