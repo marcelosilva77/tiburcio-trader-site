@@ -245,6 +245,8 @@
   @media(max-width:900px){.course-grid{grid-template-columns:1fr}.offer{position:static}}
 
   /* canais */
+  button.banner{border:1px solid var(--line-gold);padding:0;background:none;cursor:pointer;font:inherit;width:100%}
+  .soon-nota{max-width:70ch;margin:14px auto 0;text-align:center;color:var(--muted);font-size:.95rem}
   .banner{display:block;max-width:980px;margin:0 auto 18px;border-radius:18px;overflow:hidden;border:1px solid var(--line-gold);box-shadow:0 40px 90px -45px rgba(255,209,26,.5),0 0 0 1px rgba(255,255,255,.03);transition:transform .25s ease,box-shadow .25s ease}
   .banner:hover{transform:translateY(-3px);box-shadow:0 50px 100px -45px rgba(255,209,26,.65)}
   .banner img{width:100%;height:auto;display:block}
@@ -759,14 +761,10 @@
         </aside>
       </div>
 
-      <div class="soon rv">
-        <div>
-          <span class="eyebrow">Em preparação</span>
-          <h3>A mentoria de WIN e WDO está sendo preparada.</h3>
-          <p>O operacional inteiro, do pré-mercado ao fechamento: leitura de contexto, gatilho de entrada, gerenciamento de risco e rotina. <b>Quem entra na lista de espera é avisado primeiro</b>, com condição de turma inicial.</p>
-        </div>
-        <button class="btn btn-gold" type="button" data-abrir-lista>Entrar na lista de espera <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
-      </div>
+      <button class="banner spot rv" type="button" data-abrir-lista aria-label="Entrar na lista de espera da mentoria">
+        <img src="{{IMG:banner-mentoria.jpg}}" alt="Lista de espera da mentoria Tibúrcio Trader" width="1536" height="1024" loading="lazy">
+      </button>
+      <p class="soon-nota rv">A mentoria de WIN e WDO está sendo preparada: o operacional inteiro, do pré-mercado ao fechamento. <b>Quem entra na lista de espera é avisado primeiro</b>, com condição de turma inicial.</p>
     </div>
   </section>
 
