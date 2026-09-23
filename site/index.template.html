@@ -314,6 +314,8 @@
   .foot a:hover{color:var(--gold)}
   .disclaimer{margin-top:24px;padding-top:16px;border-top:1px solid var(--line);font-size:.7rem;color:var(--muted-2);line-height:1.5;max-width:78ch}
   .disclaimer b{color:var(--muted);font-weight:600}
+  .copy a{color:var(--muted-2)}
+  .copy a:hover{color:var(--gold)}
   .copy{margin-top:18px;font-family:var(--mono);font-size:.7rem;color:var(--muted-2);display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
   @media(max-width:760px){.foot{grid-template-columns:1fr}}
 
@@ -466,6 +468,40 @@
     .copy{font-size:.62rem}
     .totop{right:14px;bottom:14px;width:42px;height:42px}
   }
+
+  /* modal da lista de espera */
+  .modal{position:fixed;inset:0;z-index:90;display:grid;place-items:center;padding:20px}
+  .modal[hidden]{display:none}
+  .modal-bd{position:absolute;inset:0;background:rgba(6,6,8,.82);backdrop-filter:blur(6px)}
+  .modal-box{position:relative;width:min(460px,100%);max-height:90vh;overflow-y:auto;background:var(--surface);border:1px solid var(--line-gold);border-radius:20px;padding:30px 28px;box-shadow:0 50px 100px -40px rgba(0,0,0,.95),0 0 80px -30px rgba(255,209,26,.35)}
+  .modal-x{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.03);color:var(--muted);display:grid;place-items:center;cursor:pointer}
+  .modal-x:hover{color:var(--ink);border-color:var(--line-gold)}
+  .modal-x svg{width:16px;height:16px}
+  .modal-box h3{font-family:var(--display);font-size:1.6rem;letter-spacing:-.02em;margin:8px 0 6px;line-height:1.15}
+  .modal-box .sub{color:var(--muted);font-size:.95rem;margin:0 0 18px}
+  .modal-box .f{display:grid;gap:6px;margin-bottom:14px}
+  .modal-box .f>span{font-size:.86rem;color:var(--ink-2)}
+  .modal-box input[type=text],.modal-box input[type=tel],.modal-box input[type=email]{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:13px 14px;color:var(--ink);font-family:var(--body);font-size:.98rem}
+  .modal-box input::placeholder{color:var(--muted-2)}
+  .modal-box input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(255,209,26,.12)}
+  .modal-box input:user-invalid{border-color:var(--bear)}
+  .modal-box .tel{display:grid;grid-template-columns:auto 1fr;gap:8px}
+  .modal-box .ddi{display:grid;place-items:center;padding:0 14px;background:var(--bg);border:1px solid var(--line);border-radius:10px;font-family:var(--mono);font-size:.9rem;color:var(--ink-2);white-space:nowrap}
+  .modal-box .ok{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;margin:4px 0 16px;font-size:.84rem;color:var(--muted);cursor:pointer}
+  .modal-box .ok input{width:17px;height:17px;margin-top:2px;accent-color:var(--gold);flex:none}
+  .modal-box .ok a{color:var(--gold)}
+  .modal-box .btn{width:100%;justify-content:center}
+  .modal-box .fine{font-size:.76rem;color:var(--muted-2);text-align:center;margin:12px 0 0}
+  .modal-box .erro{background:rgba(229,72,77,.1);border:1px solid rgba(229,72,77,.4);color:#ff9ba0;border-radius:9px;padding:9px 12px;font-size:.86rem;margin:0 0 12px}
+  .modal-box .erro[hidden]{display:none}
+  .okbox{text-align:center;display:grid;gap:12px;justify-items:center;padding:8px 0}
+  .okbox[hidden]{display:none}
+  .okbox .tick{width:58px;height:58px;border-radius:50%;background:rgba(48,232,140,.12);border:1px solid rgba(48,232,140,.45);color:var(--bull);display:grid;place-items:center}
+  .okbox .tick svg{width:26px;height:26px}
+  .okbox h3{margin:0}
+  .okbox p{color:var(--muted);font-size:.95rem;margin:0 0 6px}
+  body.modal-open{overflow:hidden}
+  @media(max-width:560px){.modal{padding:12px}.modal-box{padding:26px 20px;border-radius:16px}.modal-box h3{font-size:1.35rem}}
 
   /* reveal */
   .rv{transform:translateY(14px);transition:transform .7s cubic-bezier(.2,.7,.2,1),opacity .7s ease;opacity:.001}
@@ -713,7 +749,7 @@
             <li><b>Contato direto comigo</b><span>Sem intermediário: você fala com quem opera, e eu participo das conversas.</span></li>
             <li><b>Espaço para perguntar</b><span>Dúvidas sobre leitura de mercado, gerenciamento de risco e rotina de operação.</span></li>
             <li><b>Troca com outras pessoas</b><span>Gente no mesmo caminho, estudando mini-índice e mini-dólar.</span></li>
-            <li><b>Novidades em primeira mão</b><span>Curso, materiais e transmissões são anunciados ali antes de qualquer outro lugar.</span></li>
+            <li><b>Novidades em primeira mão</b><span>Mentoria, materiais e transmissões são anunciados ali antes de qualquer outro lugar.</span></li>
           </ul>
           <p class="fine">Grupo gratuito e educacional, sem periodicidade fixa de publicações. Não envio sinal nem recomendação de compra ou venda.</p>
         </div>
@@ -728,11 +764,11 @@
 
       <div class="soon rv">
         <div>
-          <span class="eyebrow">Em produção</span>
-          <h3>O curso completo de WIN e WDO está sendo gravado.</h3>
-          <p>Um curso voltado à B3, com o operacional inteiro: leitura de contexto, gatilho de entrada, gerenciamento de risco e rotina. <b>Quem está na comunidade fica sabendo primeiro</b>, e com condição de turma inicial.</p>
+          <span class="eyebrow">Em preparação</span>
+          <h3>A mentoria de WIN e WDO está sendo preparada.</h3>
+          <p>O operacional inteiro, do pré-mercado ao fechamento: leitura de contexto, gatilho de entrada, gerenciamento de risco e rotina. <b>Quem entra na lista de espera é avisado primeiro</b>, com condição de turma inicial.</p>
         </div>
-        <a class="btn btn-ghost" data-link="whatsapp" href="#">Quero ser avisado <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <button class="btn btn-gold" type="button" data-abrir-lista>Entrar na lista de espera <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
     </div>
   </section>
@@ -750,7 +786,7 @@
         <details><summary>Você envia sinal ou indica operações?</summary><p>Não. Eu mostro a minha leitura e o meu raciocínio. Recomendação de operação é atividade regulada pela CVM e não faz parte do que eu faço. Cada pessoa decide pelo próprio plano.</p></details>
         <details><summary>Você opera outros mercados, como forex ou cripto?</summary><p>Não. Só B3, mini-índice e mini-dólar. O foco é o que me trouxe até aqui.</p></details>
         <details><summary>Quanto de capital preciso para começar?</summary><p>Depende da corretora e da margem exigida por contrato. Mais importante que o valor inicial é aprender a dimensionar a posição e definir a perda máxima do dia.</p></details>
-        <details><summary>Quando sai o curso?</summary><p>Está sendo gravado. A comunidade é avisada primeiro, com condição especial para a turma inicial.</p></details>
+        <details><summary>Quando abre a mentoria?</summary><p>Ainda não há data. Quem entra na lista de espera é avisado antes de todo mundo e tem condição especial na turma inicial.</p></details>
       </div>
     </div>
   </section>
@@ -767,6 +803,60 @@
     </div>
   </section>
 </main>
+
+
+<div class="modal" id="modalLista" hidden>
+  <div class="modal-bd" data-fechar-lista></div>
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="tituloLista">
+    <button class="modal-x" type="button" aria-label="Fechar" data-fechar-lista>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <form id="formLista" novalidate>
+      <span class="eyebrow">Mentoria · Tibúrcio Trader</span>
+      <h3 id="tituloLista">Entre para a lista de espera</h3>
+      <p class="sub">Preencha seus dados e seja avisado antes de todo mundo quando as inscrições abrirem.</p>
+
+      <label class="f">
+        <span>Nome</span>
+        <input type="text" name="nome" placeholder="Seu nome completo" autocomplete="name" required>
+      </label>
+
+      <label class="f">
+        <span>Telefone / WhatsApp</span>
+        <div class="tel">
+          <span class="ddi">🇧🇷 +55</span>
+          <input type="tel" name="telefone" placeholder="(00) 00000-0000" inputmode="tel" autocomplete="tel" required>
+        </div>
+      </label>
+
+      <label class="f">
+        <span>E-mail</span>
+        <input type="email" name="email" placeholder="seu@email.com" autocomplete="email" required>
+      </label>
+
+      <label class="ok">
+        <input type="checkbox" name="aceite" required>
+        <span>Concordo em receber mensagens sobre a mentoria e li a <a href="/privacidade.html" target="_blank" rel="noopener">Política de Privacidade</a>.</span>
+      </label>
+
+      <p class="erro" id="erroLista" hidden></p>
+
+      <button class="btn btn-gold" type="submit">Quero entrar na lista</button>
+      <p class="fine">Seus dados ficam só conosco. Você sai da lista quando quiser.</p>
+    </form>
+
+    <div class="okbox" id="okLista" hidden>
+      <span class="tick">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7"/></svg>
+      </span>
+      <h3>Pronto, você está na lista.</h3>
+      <p>Assim que as inscrições abrirem, você recebe o aviso em primeira mão. Enquanto isso, entre na comunidade e acompanhe de perto.</p>
+      <a class="btn btn-gold" data-link="whatsapp" href="#">Entrar na comunidade</a>
+      <button class="btn btn-ghost" type="button" data-fechar-lista>Fechar</button>
+    </div>
+  </div>
+</div>
 
 <a class="totop" id="totop" href="#top" aria-label="Voltar ao topo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></a>
 <footer>
@@ -786,7 +876,7 @@
       </div>
     </div>
     <p class="disclaimer"><b>Aviso de risco:</b> operar mercado futuro envolve alto risco e pode levar à perda total do capital. Todo o conteúdo aqui é educacional e não constitui recomendação de investimento (CVM). Resultados passados não garantem resultados futuros.</p>
-    <div class="copy"><span>© <span id="yr">2026</span> Tibúrcio Trader. Todos os direitos reservados.</span><span>Brasil</span></div>
+    <div class="copy"><span>© <span id="yr">2026</span> Tibúrcio Trader. Todos os direitos reservados.</span><span><a href="/privacidade.html">Política de Privacidade</a> · Brasil</span></div>
   </div>
 </footer>
 
@@ -798,7 +888,17 @@
     instagram:  "https://www.instagram.com/tiburcio_trader/",
     youtube:    "https://www.youtube.com/@tiburcio_trader",
     email:      "mailto:tiburciotraderoficial@gmail.com",
-    plataforma: "#"                /* checkout do curso, quando existir */
+    plataforma: "#"                /* checkout da mentoria, quando existir */
+  };
+
+  /* ===== Lista de espera: destino dos cadastros =====
+     Preencha com os dados do Formulário Google (ver LEIA-ME).
+     Enquanto "url" estiver vazio, o formulário avisa que o cadastro está indisponível. */
+  var LISTA_ESPERA = {
+    url:      "",            /* .../formResponse */
+    nome:     "entry.0",     /* id do campo Nome */
+    telefone: "entry.0",     /* id do campo Telefone */
+    email:    "entry.0"      /* id do campo E-mail */
   };
   document.querySelectorAll("[data-link]").forEach(function(a){
     var k=a.getAttribute("data-link"), v=LINKS[k];
@@ -808,6 +908,44 @@
 
   var chan=document.querySelector(".chan");
   if(chan){ chan.setAttribute("data-n", String([].slice.call(chan.querySelectorAll(".ch")).filter(function(e){return e.style.display!=="none";}).length)); }
+
+  /* ===== Lista de espera ===== */
+  var modal=document.getElementById("modalLista"), form=document.getElementById("formLista"),
+      okBox=document.getElementById("okLista"), erro=document.getElementById("erroLista"), ultimoFoco=null;
+  function abrirLista(){ ultimoFoco=document.activeElement; modal.hidden=false; document.body.classList.add("modal-open");
+    var i=form.querySelector("input"); if(i) setTimeout(function(){i.focus();},60); }
+  function fecharLista(){ modal.hidden=true; document.body.classList.remove("modal-open"); if(ultimoFoco) ultimoFoco.focus(); }
+  document.querySelectorAll("[data-abrir-lista]").forEach(function(b){ b.addEventListener("click",abrirLista); });
+  document.querySelectorAll("[data-fechar-lista]").forEach(function(b){ b.addEventListener("click",fecharLista); });
+  document.addEventListener("keydown",function(e){ if(e.key==="Escape" && !modal.hidden) fecharLista(); });
+
+  /* máscara simples do telefone */
+  var tel=form.querySelector("[name=telefone]");
+  tel.addEventListener("input",function(){
+    var d=tel.value.replace(/\D/g,"").slice(0,11);
+    tel.value = d.length>6 ? "("+d.slice(0,2)+") "+d.slice(2,d.length>10?7:6)+"-"+d.slice(d.length>10?7:6)
+              : d.length>2 ? "("+d.slice(0,2)+") "+d.slice(2) : d;
+  });
+
+  form.addEventListener("submit",function(e){
+    e.preventDefault(); erro.hidden=true;
+    var nome=form.nome.value.trim(), fone=form.telefone.value.replace(/\D/g,""), mail=form.email.value.trim();
+    if(nome.length<3) return falha("Escreva seu nome completo.");
+    if(fone.length<10) return falha("Telefone incompleto. Use DDD + número.");
+    if(!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(mail)) return falha("E-mail inválido.");
+    if(!form.aceite.checked) return falha("Marque o aceite para continuar.");
+    if(!LISTA_ESPERA.url){ return falha("Cadastro indisponível no momento. Entre na comunidade pelo WhatsApp."); }
+    var btn=form.querySelector("button[type=submit]"); btn.disabled=true; btn.textContent="Enviando…";
+    var dados=new FormData();
+    dados.append(LISTA_ESPERA.nome, nome);
+    dados.append(LISTA_ESPERA.telefone, "+55 "+form.telefone.value);
+    dados.append(LISTA_ESPERA.email, mail);
+    fetch(LISTA_ESPERA.url,{method:"POST",mode:"no-cors",body:dados})
+      .then(function(){ form.hidden=true; okBox.hidden=false; })
+      .catch(function(){ btn.disabled=false; btn.textContent="Quero entrar na lista"; falha("Não consegui enviar agora. Tente de novo em instantes."); });
+    function noop(){}
+  });
+  function falha(msg){ erro.textContent=msg; erro.hidden=false; }
 
   /* ===== Progresso, nav, menu mobile, topo ===== */
   var prog=document.getElementById("progress"), nav=document.getElementById("nav"), totop=document.getElementById("totop");
