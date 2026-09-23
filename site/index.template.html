@@ -85,36 +85,20 @@
   .hero{padding:72px 0 64px;overflow:hidden;isolation:isolate}
   .hero canvas{position:absolute;inset:0;width:100%;height:100%;z-index:-2;opacity:.55}
   .hero .glow{position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(600px 420px at var(--mx,70%) var(--my,40%),rgba(255,209,26,.16),transparent 62%),linear-gradient(180deg,rgba(10,10,11,.2) 0%,rgba(10,10,11,.85) 78%,var(--bg) 100%)}
-  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center}
+  .hero-grid{display:grid;grid-template-columns:1fr;gap:40px;max-width:860px}
   .hero-copy{display:grid;gap:26px}
   .pill{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:999px;border:1px solid var(--line-gold);background:rgba(255,209,26,.06);font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:var(--gold);width:fit-content}
   .pill svg{width:16px;height:16px}
   .hero h1 em{font-style:normal;background:linear-gradient(120deg,var(--gold) 0%,var(--gold-2) 60%,var(--amber) 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
   .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
-  .hero-stats{display:grid;grid-template-columns:repeat(3,auto);gap:36px;padding-top:26px;border-top:1px solid var(--line);width:fit-content}
-  .stat b{display:block;font-family:var(--display);font-size:1.5rem;font-weight:700;letter-spacing:-.02em;line-height:1.1}
-  .stat span{font-size:.8rem;color:var(--muted)}
-  .stat b .mono{font-size:1.4rem;color:var(--gold)}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:0;padding:20px 0 0;border-top:1px solid var(--line);max-width:640px}
+  .stat{padding:4px 22px;border-left:1px solid var(--line)}
+  .stat:first-child{padding-left:0;border-left:0}
+  .stat b{display:block;font-family:var(--display);font-size:1.35rem;font-weight:700;letter-spacing:-.02em;line-height:1.15;color:var(--ink)}
+  .stat span{display:block;font-size:.78rem;color:var(--muted);line-height:1.35;margin-top:3px}
+  .stat b .mono{font-size:1.3rem;color:var(--gold)}
 
-  .hero-photo{position:relative;justify-self:end;width:min(100%,440px)}
-  .hero-photo .frame{position:relative;aspect-ratio:4/5;border-radius:22px;overflow:hidden;border:1px solid rgba(255,209,26,.35);box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.04),0 0 80px -20px rgba(255,209,26,.35)}
-  .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:center 20%;filter:saturate(1.02) contrast(1.04)}
-  .hero-photo .frame::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(10,10,11,.85) 100%);pointer-events:none}
-  .hero-photo .tag{position:absolute;left:18px;bottom:18px;right:18px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-family:var(--mono);font-size:.72rem;color:var(--ink-2);letter-spacing:.04em}
-  .hero-photo .tag b{color:var(--gold);font-weight:600}
-  .hero-photo .corner{position:absolute;width:26px;height:26px;border:2px solid var(--gold);z-index:2}
-  .hero-photo .c1{top:-8px;left:-8px;border-right:0;border-bottom:0;border-radius:6px 0 0 0}
-  .hero-photo .c2{bottom:-8px;right:-8px;border-left:0;border-top:0;border-radius:0 0 6px 0}
-  .hero-photo .float{position:absolute;right:-22px;top:38px;background:var(--surface);border:1px solid var(--line-gold);border-radius:12px;padding:12px 14px;display:grid;gap:4px;box-shadow:0 20px 40px -18px rgba(0,0,0,.9);z-index:3}
-  .hero-photo .float small{font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
-  .hero-photo .float b{font-family:var(--display);font-size:1rem;color:var(--ink)}
-  .hero-photo .float b span{color:var(--gold)}
-  @media(max-width:900px){
-    .hero-grid{grid-template-columns:1fr;gap:40px}
-    .hero-photo{justify-self:start;width:min(100%,380px)}
-    .hero-photo .float{right:0;top:-14px}
-    .hero-stats{grid-template-columns:1fr 1fr;gap:20px 32px;width:100%}
-  }
+  @media(max-width:900px){.hero-grid{gap:28px}}
 
   /* ticker */
   .tape{border-block:1px solid var(--line);background:var(--bg-2);overflow:hidden;position:relative}
@@ -233,9 +217,23 @@
 
   /* canais */
   .chgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-  .chcard{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s,transform .2s}
-  .chcard:hover{border-color:var(--line-gold);transform:translateY(-3px)}
-  .chcard.destaque{border-color:var(--line-gold);box-shadow:0 40px 90px -50px rgba(255,209,26,.5)}
+  .chcard{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column;
+          --glow:#ffd11a;--glow2:#e88c30;
+          transition:transform .25s ease,box-shadow .35s ease,border-color .25s ease}
+  /* anel de luz que percorre a borda */
+  .chcard::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1.5px;pointer-events:none;z-index:3;
+          background:linear-gradient(115deg,transparent 18%,var(--glow) 42%,var(--glow2) 58%,transparent 82%);
+          background-size:260% 100%;animation:brilhoBorda 9s linear infinite;
+          -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+          mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask-composite:exclude;
+          opacity:.5;transition:opacity .35s ease}
+  .chcard:hover{transform:translateY(-4px);border-color:transparent;box-shadow:0 22px 60px -28px var(--glow)}
+  .chcard:hover::before{opacity:1}
+  .chcard.destaque::before{opacity:.72}
+  .chcard.ig{--glow:#ee2a7b;--glow2:#f9ce34}
+  .chcard.yt{--glow:#ff3b30;--glow2:#ff7a3d}
+  .chcard.mt{--glow:#ffd11a;--glow2:#c9971a}
+  @keyframes brilhoBorda{to{background-position:-260% 0}}
   .chcard-img{display:block;border:0;padding:0;background:none;cursor:pointer;width:100%;line-height:0}
   .chcard-img img{width:100%;height:auto;display:block}
   .chcard-body{padding:22px 24px 24px;display:grid;gap:8px;align-content:start;flex:1}
@@ -337,9 +335,6 @@
   @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
   .hero-copy>*{animation:rise .7s cubic-bezier(.2,.7,.2,1) both}
   .hero-copy>:nth-child(2){animation-delay:.08s}.hero-copy>:nth-child(3){animation-delay:.16s}.hero-copy>:nth-child(4){animation-delay:.24s}.hero-copy>:nth-child(5){animation-delay:.32s}
-  .hero-photo{animation:rise .9s .2s cubic-bezier(.2,.7,.2,1) both}
-  .hero-photo .frame{transform:perspective(900px) rotateX(var(--rx,0)) rotateY(var(--ry,0));transition:transform .35s ease}
-  .hero-photo:hover .frame{transition:transform .08s linear}
 
   /* holofote que segue o cursor nos cards */
   .spot{position:relative}
@@ -373,16 +368,12 @@
     .hero-copy{gap:18px}
     .pill{font-size:.6rem;padding:7px 12px 7px 9px;gap:8px;line-height:1.35}
     .pill svg{width:14px;height:14px}
-    .hero-photo{width:min(100%,260px);justify-self:center}
-    .hero-photo .frame{aspect-ratio:1/1;border-radius:18px}
-    .hero-photo img{object-position:center 18%}
-    .hero-photo .float,.hero-photo .corner{display:none}
-    .hero-photo .tag{font-size:.62rem;left:12px;right:12px;bottom:12px}
     .hero-cta{gap:10px}
     .hero-cta .btn{flex:1 1 100%;justify-content:center;padding:15px 18px}
-    .hero-stats{grid-template-columns:repeat(3,1fr);gap:12px;padding-top:18px;text-align:center}
-    .stat b,.stat b .mono{font-size:1.1rem}
-    .stat span{font-size:.66rem;line-height:1.3;display:block}
+    .hero-stats{grid-template-columns:repeat(3,1fr);padding-top:16px}
+    .stat{padding:2px 10px}
+    .stat b,.stat b .mono{font-size:1rem}
+    .stat span{font-size:.64rem}
 
     /* fita de cotações mais discreta */
     .tape li{padding:11px 20px;gap:7px}
@@ -505,9 +496,8 @@
   html.no-js .rv,.rv.in{opacity:1;transform:none}
   @media(prefers-reduced-motion:reduce){
     .rv{transform:none;opacity:1;transition:none}
-    .hero-copy>*,.hero-photo{animation:none}
-    .hero-photo .frame{transform:none}
-    .tape-track{animation:none}
+    .hero-copy>*{animation:none}
+    .tape-track,.chcard::before{animation:none}
     .btn:hover,.pillar:hover{transform:none}
     .offer .top .live::before{animation:none}
   }
@@ -561,20 +551,8 @@
         </div>
         <div class="hero-stats">
           <div class="stat"><b><span class="mono">2022</span></b><span>operando WIN e WDO na B3</span></div>
-          <div class="stat"><b><span class="mono">3</span></b><span>canais gratuitos para acompanhar</span></div>
-          <div class="stat"><b>1º lugar</b><span>Arena Expert Trader XP</span></div>
-        </div>
-      </div>
-      <div class="hero-photo">
-        <span class="corner c1" aria-hidden="true"></span>
-        <span class="corner c2" aria-hidden="true"></span>
-        <div class="float" aria-hidden="true">
-          <small>Mercado</small>
-          <b>WIN <span>▲</span> WDO</b>
-        </div>
-        <div class="frame">
-          <img src="{{FOTO_HERO}}" alt="Ramon Tibúrcio no evento Expert Trader XP, com o crachá de competidor da arena." width="880" height="1100" fetchpriority="high">
-          <div class="tag"><span>Expert Trader XP · São Paulo</span><b>ARENA</b></div>
+          <div class="stat"><b><span class="mono">1º</span> lugar</b><span>Arena Expert Trader XP</span></div>
+          <div class="stat"><b><span class="mono">4</span> canais</b><span>gratuitos para acompanhar</span></div>
         </div>
       </div>
     </div>
@@ -629,7 +607,7 @@
           </div>
         </article>
 
-        <article class="chcard spot rv">
+        <article class="chcard ig spot rv">
           <a class="chcard-img" data-link="instagram" href="https://www.instagram.com/tiburcio_trader/" target="_blank" rel="noopener" aria-label="Seguir no Instagram">
             <img src="{{IMG:banner-instagram.jpg}}" alt="Perfil @tiburcio_trader no Instagram" width="1536" height="1024" loading="lazy">
           </a>
@@ -642,7 +620,7 @@
           </div>
         </article>
 
-        <article class="chcard spot rv">
+        <article class="chcard yt spot rv">
           <a class="chcard-img" data-link="youtube" href="#" target="_blank" rel="noopener" aria-label="Inscrever-se no canal do YouTube">
             <img src="{{IMG:banner-youtube.jpg}}" alt="Canal do Tibúrcio Trader no YouTube" width="1672" height="941" loading="lazy">
           </a>
@@ -655,7 +633,7 @@
           </div>
         </article>
 
-        <article class="chcard spot rv">
+        <article class="chcard mt spot rv">
           <button class="chcard-img" type="button" data-abrir-lista aria-label="Entrar na lista de espera da mentoria">
             <img src="{{IMG:banner-mentoria.jpg}}" alt="Lista de espera da mentoria Tibúrcio Trader" width="1536" height="1024" loading="lazy">
           </button>
@@ -974,10 +952,6 @@
   burger.addEventListener("click",function(){ var o=document.body.classList.toggle("menu-open"); burger.setAttribute("aria-expanded",o); });
   document.querySelectorAll("#mnav a").forEach(function(a){ a.addEventListener("click",function(){ document.body.classList.remove("menu-open"); burger.setAttribute("aria-expanded","false"); }); });
 
-  /* ===== Inclinação 3D da foto do hero ===== */
-  var ph=document.querySelector(".hero-photo");
-  ph.addEventListener("pointermove",function(e){ var r=ph.getBoundingClientRect(), x=(e.clientX-r.left)/r.width-.5, y=(e.clientY-r.top)/r.height-.5; ph.style.setProperty("--ry",(x*8)+"deg"); ph.style.setProperty("--rx",(-y*8)+"deg"); });
-  ph.addEventListener("pointerleave",function(){ ph.style.setProperty("--ry","0deg"); ph.style.setProperty("--rx","0deg"); });
 
   /* ===== Holofote nos cards ===== */
   document.querySelectorAll(".spot").forEach(function(c){ c.addEventListener("pointermove",function(e){ var r=c.getBoundingClientRect(); c.style.setProperty("--sx",(e.clientX-r.left)+"px"); c.style.setProperty("--sy",(e.clientY-r.top)+"px"); }); });
