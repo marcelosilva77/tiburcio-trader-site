@@ -322,7 +322,7 @@
   .nav-links a.active{color:var(--gold);border-color:var(--gold)}
   .burger{display:none;width:42px;height:42px;border-radius:10px;border:1px solid var(--line);background:transparent;color:var(--ink);cursor:pointer;place-items:center}
   .burger svg{width:20px;height:20px}
-  .mnav{display:none;position:fixed;inset:68px 0 0 0;background:rgba(10,10,11,.96);backdrop-filter:blur(16px);z-index:49;padding:28px 20px;flex-direction:column;gap:6px}
+  .mnav{display:none;position:fixed;inset:68px 0 0 0;background:#0a0a0b;z-index:49;padding:28px 20px;flex-direction:column;gap:6px;overflow-y:auto;overscroll-behavior:contain}
   .mnav a{font-family:var(--display);font-size:1.4rem;font-weight:600;padding:14px 8px;border-bottom:1px solid var(--line)}
   .mnav .btn{margin-top:18px;justify-content:center;font-size:1rem}
   body.menu-open .mnav{display:flex}
@@ -527,6 +527,7 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
   </div>
+</header>
   <nav class="mnav" id="mnav" aria-label="Menu">
     <a href="#sobre">Sobre</a>
     <a href="#operacional">Operacional</a>
@@ -535,7 +536,6 @@
     <a href="#faq">Dúvidas</a>
     <a class="btn btn-gold" data-link="whatsapp" href="#canais">Entrar na comunidade</a>
   </nav>
-</header>
 
 <main id="top">
   <section class="hero">
