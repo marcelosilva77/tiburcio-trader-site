@@ -890,12 +890,12 @@
     var ent = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
     var recarga = ent ? ent.type === "reload"
                       : !!(performance.navigation && performance.navigation.type === 1);
-    if(recarga && "scrollRestoration" in history){
+    /* so quando nao ha ancora: com #secao no endereco e essa mesma restauracao
+       que leva a pagina ate a secao, entao ali deixamos o navegador trabalhar */
+    if(recarga && !location.hash && "scrollRestoration" in history){
       history.scrollRestoration = "manual";
-      if(!location.hash){
-        window.scrollTo(0,0);
-        window.addEventListener("load",function(){ if(!location.hash) window.scrollTo(0,0); });
-      }
+      window.scrollTo(0,0);
+      window.addEventListener("load",function(){ window.scrollTo(0,0); });
     }
   }catch(e){}
 
