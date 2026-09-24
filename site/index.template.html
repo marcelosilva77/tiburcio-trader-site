@@ -66,8 +66,10 @@
   .btn-ghost:hover{border-color:var(--line-gold);background:rgba(255,209,26,.05)}
   .btn-ig{background:linear-gradient(45deg,#f9ce34 0%,#ee2a7b 52%,#6228d7 100%);color:#fff;box-shadow:0 8px 28px -10px rgba(238,42,123,.6)}
   .btn-ig:hover{transform:translateY(-2px);box-shadow:0 14px 34px -10px rgba(238,42,123,.75)}
+  .btn-ig:focus-visible{outline-color:#ee2a7b}
   .btn-yt{background:linear-gradient(135deg,#ff3b30 0%,#d91d16 100%);color:#fff;box-shadow:0 8px 28px -10px rgba(255,59,48,.6)}
   .btn-yt:hover{transform:translateY(-2px);box-shadow:0 14px 34px -10px rgba(255,59,48,.75)}
+  .btn-yt:focus-visible{outline-color:#ff3b30}
   .btn svg{width:18px;height:18px;flex:none}
 
   /* nav */
@@ -882,6 +884,21 @@
 
 <script>
 (function(){
+  /* Ao recarregar, o navegador (Safari do iPhone em especial) devolve a pagina para
+     onde ela estava. Em recarga forcamos o topo; em voltar/avancar deixamos restaurar. */
+  try{
+    var ent = performance.getEntriesByType && performance.getEntriesByType("navigation")[0];
+    var recarga = ent ? ent.type === "reload"
+                      : !!(performance.navigation && performance.navigation.type === 1);
+    if(recarga && "scrollRestoration" in history){
+      history.scrollRestoration = "manual";
+      if(!location.hash){
+        window.scrollTo(0,0);
+        window.addEventListener("load",function(){ if(!location.hash) window.scrollTo(0,0); });
+      }
+    }
+  }catch(e){}
+
   /* ===== CONFIGURAÇÃO: troque os links aqui ===== */
   var LINKS = {
     whatsapp:   "https://chat.whatsapp.com/HRoit8Vwt5gGZUCXNMpbTH",   /* comunidade */
