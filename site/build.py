@@ -8,7 +8,7 @@ Fotos esperadas em site/fotos/ (qualquer um destes nomes, jpg/jpeg/png):
   hl-resultados.*, hl-analises.*, hl-fechamento.* -> capas dos destaques do Instagram (opcionais)
 Se uma foto não existir, entra um placeholder dourado no lugar.
 """
-import base64, io, glob, os, sys
+import re, base64, io, glob, os, sys
 from PIL import Image, ImageEnhance, ImageOps, ImageFilter
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -126,6 +126,28 @@ def main():
     head_end = public_html.index("<div class=\"progress\"")
     full = ("<!doctype html>\n<html lang=\"pt-BR\">\n<head>\n" + public_html[:head_end] + "</head>\n<body>\n"
             + public_html[head_end:] + "\n</body>\n</html>\n")
+    # trava: um comentario de CSS aberto e nao fechado engole as regras seguintes em silencio.
+    # O sinal e um "/*" aparecendo dentro de um comentario: ele roubou o fecho do comentario seguinte.
+    for bloco in re.findall("<style>(.*?)</style>", full, re.S):
+        pos, suspeito = 0, None
+        while True:
+            a = bloco.find("/*", pos)
+            if a < 0:
+                break
+            b = bloco.find("*/", a + 2)
+            if b < 0 or bloco.find("/*", a + 2, b) >= 0:
+                suspeito = a
+                break
+            pos = b + 2
+        if suspeito is None and bloco.count("/*") == bloco.count("*/"):
+            continue
+        if suspeito is None:
+            suspeito = bloco.rfind("/*")
+        linha = bloco.count(chr(10), 0, suspeito) + 1
+        raise SystemExit("ERRO: comentario de CSS aberto e nao fechado na linha %d do <style> "
+                         "(linha %d do template). Tudo depois dele para de valer no navegador. "
+                         "Feche o comentario e rode de novo." % (linha, linha + 15))
+
     pub = os.path.join(pub_dir, "index.html")
     open(pub, "w", encoding="utf-8").write(full)
     print(f"Gerado: {pub} ({os.path.getsize(pub)//1024} KB)  [site completo para publicar]")
