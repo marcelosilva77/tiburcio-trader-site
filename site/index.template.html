@@ -64,6 +64,10 @@
   .btn-gold:hover{transform:translateY(-2px);box-shadow:0 14px 34px -10px rgba(255,209,26,.7)}
   .btn-ghost{background:rgba(255,255,255,.03);border-color:var(--line);color:var(--ink)}
   .btn-ghost:hover{border-color:var(--line-gold);background:rgba(255,209,26,.05)}
+  .btn-ig{background:linear-gradient(45deg,#f9ce34 0%,#ee2a7b 52%,#6228d7 100%);color:#fff;box-shadow:0 8px 28px -10px rgba(238,42,123,.6)}
+  .btn-ig:hover{transform:translateY(-2px);box-shadow:0 14px 34px -10px rgba(238,42,123,.75)}
+  .btn-yt{background:linear-gradient(135deg,#ff3b30 0%,#d91d16 100%);color:#fff;box-shadow:0 8px 28px -10px rgba(255,59,48,.6)}
+  .btn-yt:hover{transform:translateY(-2px);box-shadow:0 14px 34px -10px rgba(255,59,48,.75)}
   .btn svg{width:18px;height:18px;flex:none}
 
   /* nav */
@@ -234,8 +238,12 @@
   .chcard.mt{--glow:#ffd11a;--glow2:#c9971a}
   @keyframes brilhoBorda{to{background-position:-260% 0}}
   .chcard-img{display:block;border:0;padding:0;background:none;cursor:pointer;width:100%;line-height:0}
-  .chcard-img img{width:100%;height:auto;display:block}
-  .chcard-body{padding:22px 24px 24px;display:grid;gap:8px;align-content:start;flex:1}
+  .chcard-img img{width:100%;height:auto;display:block;aspect-ratio:3/2;object-fit:cover}
+  /* a arte do YouTube e mais larga que as outras; o recorte anda para a direita
+     para nao cortar a palavra YouTube, que vai ate 95% da largura */
+  .chcard.yt .chcard-img img{object-position:70% center}
+  /* a linha do paragrafo estica, entao os botoes dos quatro cards ficam na mesma altura */
+  .chcard-body{padding:22px 24px 24px;display:grid;gap:8px;flex:1;grid-template-rows:auto auto 1fr auto auto}
   .chcard-body .k{font-family:var(--mono);font-size:.66rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
   .chcard-body h3{font-family:var(--display);font-size:1.3rem;letter-spacing:-.01em;margin:0}
   .chcard-body p{color:var(--muted);font-size:.93rem;margin:0 0 6px}
@@ -545,7 +553,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0V4zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/></svg>
           CAMPEÃO · EXPERT TRADER XP · COMPETIDOR ARENA
         </span>
-        <h1><span class="dk">Eu opero a B3 todo dia. E mostro como, de graça, para quem quiser aprender.</span><span class="mb">Eu opero a B3 todo dia. E mostro como.</span></h1>
+        <h1>Eu opero a B3 todo dia. E mostro como.</h1>
         <p class="lede"><span class="dk">Sou Ramon Tibúrcio, campeão da arena do Expert Trader XP. Opero mini-índice e mini-dólar desde 2022 e compartilho a minha leitura do mercado com quem quer aprender a operar com método.</span><span class="mb">Campeão da arena Expert Trader XP. Mini-índice e mini-dólar desde 2022, com método e risco definido.</span></p>
         <div class="hero-cta">
           <a class="btn btn-gold" data-link="whatsapp" href="#canais"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 1 1-4.1 14.9l-.4-.2-2.4.6.6-2.3-.2-.4A8 8 0 0 1 12 4zm4.5 10.3c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.1-.3 0-.5l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.9.9-.9 2.1-.1 3.4a9.3 9.3 0 0 0 4.6 4.1c1.6.6 2.4.5 3.1.3.5-.1 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2l-.5-.2z"/></svg>Entrar na comunidade gratuita
@@ -617,7 +625,7 @@
             <span class="k">@tiburcio_trader</span>
             <h3>Instagram</h3>
             <p>Onde eu mostro o dia a dia: leitura do mercado, operações comentadas e o raciocínio por trás de cada decisão.</p>
-            <a class="btn btn-ghost" data-link="instagram" href="https://www.instagram.com/tiburcio_trader/" target="_blank" rel="noopener">Seguir o perfil <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-ig" data-link="instagram" href="https://www.instagram.com/tiburcio_trader/" target="_blank" rel="noopener">Seguir o perfil <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             <span class="mini">Conteúdo aberto</span>
           </div>
         </article>
@@ -630,7 +638,7 @@
             <span class="k">Conteúdo em vídeo</span>
             <h3>YouTube</h3>
             <p>Vídeos mais longos: análises, operações comentadas com calma e o que fica de aprendizado.</p>
-            <a class="btn btn-ghost" data-link="youtube" href="#" target="_blank" rel="noopener">Inscrever-se <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="btn btn-yt" data-link="youtube" href="#" target="_blank" rel="noopener">Inscrever-se <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             <span class="mini">Conteúdo aberto</span>
           </div>
         </article>
