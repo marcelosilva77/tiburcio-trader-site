@@ -42,10 +42,11 @@
   }
   *{box-sizing:border-box}
   html{scroll-behavior:smooth}
-  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip}
-  /* overflow-x:hidden no body faz o outro eixo virar auto, o corpo vira um container
-     de rolagem proprio e os links de secao (#canais etc.) param de funcionar.
-     overflow-x:clip corta igual sem criar container. */
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  /* Sem overflow-x aqui de proposito: tanto hidden quanto clip no body sao propagados
+     para a viewport e quebram o salto para as secoes (#canais e afins) em todo o site.
+     A auditoria em 375, 768, 1024 e 1440 nao achou vazamento horizontal; se um dia
+     aparecer, corte no elemento que vaza, nunca no body. */
   a{color:inherit;text-decoration:none}
   img{max-width:100%;display:block}
   h1,h2,h3{font-family:var(--display);margin:0;letter-spacing:-.02em;text-wrap:balance;line-height:1.08}
