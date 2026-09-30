@@ -14,7 +14,10 @@ from PIL import Image, ImageEnhance, ImageOps, ImageFilter
 HERE = os.path.dirname(os.path.abspath(__file__))
 # Base das fotos no site publicado. "fotos/" usa os arquivos ao lado do index.html (ideal quando a
 # hospedagem servir os arquivos). A CDN do jsDelivr serve direto do repositório público.
-FOTOS_URL = os.environ.get("FOTOS_URL", "https://cdn.jsdelivr.net/gh/marcelosilva77/tiburcio-trader-site@main/site/public/fotos/")
+# As imagens sao publicadas junto com o site (site/public vira a raiz no gh-pages), entao
+# usamos caminho do proprio dominio. Depender de um CDN de terceiro ja fez a arte da
+# comunidade sumir em conexao lenta: cache da borda frio + 238 KB = imagem que nao chega.
+FOTOS_URL = os.environ.get("FOTOS_URL", "/fotos/")
 FOTOS = os.path.join(HERE, "fotos")
 OUT_FOTOS = os.path.join(FOTOS, "tratadas")
 os.makedirs(OUT_FOTOS, exist_ok=True)
