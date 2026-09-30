@@ -23,10 +23,14 @@ cd "C:\Users\marce\PROJETO B3" && python site\build.py && git add -A && git comm
 
 - `site/index.template.html` — o site (edite aqui textos, cores e links).
 - `site/build.py` — gera o `site/index.html` final embutindo as fotos já tratadas.
-- `site/fotos/` — coloque as fotos originais aqui com estes nomes:
-  - `hero.jpg` → foto no Expert Trader XP (com o crachá).
-  - `b3.jpg` → foto no estande da B3.
-  - `avatar.jpg` → foto de perfil (opcional; se faltar, usa a `hero.jpg`).
+- `site/fotos/` — foto da seção "Sobre". O `build.py` procura nesta ordem:
+  - `sobre.*` → a foto em uso (hoje, o evento Expert Trader XP).
+  - `b3.*` → se existir e não houver `sobre.*`, o rótulo vira "B3 · Bolsa do Brasil".
+  - `hero.*` → último recurso.
+- `site/banners/` — as artes dos canais, intactas (`*-original.png`). Nunca edite.
+- `site/exporta-banners.py` — gera `public/img/banner-*.jpg` a partir dos originais,
+  com 1000 px de largura (metade do peso, sem perda visível). Rode só quando trocar
+  uma arte; depois rode o `build.py`.
 - `site/index.html` — versão para o Artifact do Claude (gerado, não edite à mão).
 - `site/public/index.html` — site completo, é este que vai para o ar (gerado).
 
