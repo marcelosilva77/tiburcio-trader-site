@@ -41,6 +41,9 @@ FORMULARIO = ("https://docs.google.com/forms/d/e/"
               "1FAIpQLSe9rUcI9AwFwE7L04fhOky1FFFN4cd94h1xdj_Y4fIxkaThKw/viewform")
 CAMPOS_FORMULARIO = ["1609997170", "963372110", "255066339"]
 
+CRLF = chr(13) + chr(10)
+LF = chr(10)
+
 CABECALHO = {"User-Agent": "revisao-tiburciotrader/1.0", "Cache-Control": "no-cache"}
 
 achados = []
@@ -97,24 +100,36 @@ def confere_recursos(html):
     if not enderecos:
         anota("recursos da pagina", False, "nao encontrei nenhum arquivo citado na pagina")
         return
-    quebrados, divergentes = [], []
+    TEXTO = (".html", ".css", ".js", ".svg")
+    quebrados, divergentes, tem_no_repo = [], [], True
     for caminho in enderecos:
+        no_repo = os.path.join(PUBLICO, caminho.lstrip("/"))
         try:
             status, dados = busca(SITE + caminho, binario=True)
-            if status != 200:
-                quebrados.append("%s (HTTP %d)" % (caminho, status))
-                continue
-            no_repo = os.path.join(PUBLICO, caminho.lstrip("/"))
-            if os.path.exists(no_repo) and os.path.getsize(no_repo) != len(dados):
-                divergentes.append("%s (%d bytes no ar, %d no repositorio)"
-                                   % (caminho, len(dados), os.path.getsize(no_repo)))
         except Exception as e:
             quebrados.append("%s (%s)" % (caminho, e))
+            tem_no_repo = tem_no_repo and os.path.exists(no_repo)
+            continue
+        if status != 200:
+            quebrados.append("%s (HTTP %d)" % (caminho, status))
+            tem_no_repo = tem_no_repo and os.path.exists(no_repo)
+            continue
+        if not os.path.exists(no_repo):
+            continue
+        if caminho.lower().endswith(TEXTO):
+            # arquivo de texto: comparar o conteudo, nao os bytes. Windows grava
+            # fim de linha com dois caracteres e a nuvem com um, e isso mudaria o
+            # tamanho sem nada estar errado.
+            local = io.open(no_repo, encoding="utf-8", errors="replace").read().replace(CRLF, LF)
+            vivo = dados.decode("utf-8", "replace").replace(CRLF, LF)
+            if local.strip() != vivo.strip():
+                divergentes.append("%s (conteudo diferente do repositorio)" % caminho)
+        elif os.path.getsize(no_repo) != len(dados):
+            divergentes.append("%s (%d bytes no ar, %d no repositorio)"
+                               % (caminho, len(dados), os.path.getsize(no_repo)))
 
     anota("todos os %d arquivos da pagina respondem" % len(enderecos),
-          not quebrados, "; ".join(quebrados),
-          reparavel=all(os.path.exists(os.path.join(PUBLICO, c.split(" ")[0].lstrip("/")))
-                        for c in quebrados) if quebrados else False)
+          not quebrados, "; ".join(quebrados), reparavel=tem_no_repo)
     if divergentes:
         anota("arquivos iguais aos do repositorio", False, "; ".join(divergentes), reparavel=True)
 
