@@ -1,0 +1,114 @@
+name: Revisão semanal do site
+
+# Roda na nuvem, de graça (o repositório é público), sem depender de nenhum
+# computador ligado. Verifica o site no ar e, quando o problema for apenas a
+# versão publicada ter saído do lugar, republica o que está no repositório.
+#
+# O que ela NÃO faz: reconstruir o site. A pasta site/fotos/ não é versionada,
+# então uma reconstrução na nuvem publicaria o espaço reservado dourado no
+# lugar da foto do Ramon. Aqui só republicamos arquivos já commitados.
+
+on:
+  schedule:
+    - cron: '0 11 * * 1'      # toda segunda, 08:00 no horário de Brasília
+  workflow_dispatch:           # permite rodar na mão pelo site do GitHub
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  revisao:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0       # o subtree split precisa do histórico inteiro
+
+      - name: Preparar o Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Verificar o site
+        id: revisao
+        run: |
+          set +e
+          python site/verifica.py | tee saida.txt
+          echo "codigo=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+          {
+            echo '## Revisão do site'
+            echo '```'
+            cat saida.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Republicar o que está no repositório
+        id: republicacao
+        if: steps.revisao.outputs.codigo == '1'
+        run: |
+          git config user.name "Revisão automática"
+          git config user.email "actions@users.noreply.github.com"
+          git subtree split --prefix site/public -b gh-pages-novo
+          git push -f origin gh-pages-novo:gh-pages
+          echo "Publicação refeita. Aguardando o GitHub Pages subir a versão nova..."
+          sleep 90
+
+      - name: Conferir se a republicação resolveu
+        id: reconferencia
+        if: steps.revisao.outputs.codigo == '1'
+        run: |
+          set +e
+          python site/verifica.py | tee saida2.txt
+          echo "codigo=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+          {
+            echo '## Depois de republicar'
+            echo '```'
+            cat saida2.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Avisar o Marcelo
+        if: >
+          steps.revisao.outputs.codigo == '2' ||
+          steps.reconferencia.outputs.codigo == '1' ||
+          steps.reconferencia.outputs.codigo == '2' ||
+          steps.reconferencia.outputs.codigo == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          HOJE=$(date -u +'%d/%m/%Y')
+          if [ "${{ steps.reconferencia.outputs.codigo }}" = "0" ]; then
+            TITULO="Site corrigido sozinho em $HOJE"
+            ABERTURA="A revisão encontrou a versão publicada fora do lugar e **republicou o que estava no repositório**. Conferi depois e o site voltou ao normal. Nada precisa ser feito, mas vale saber que houve uma publicação automática."
+          else
+            TITULO="Revisão do site encontrou problema em $HOJE"
+            ABERTURA="A revisão achou algo que **não se resolve republicando**. Precisa de alguém olhando."
+          fi
+          {
+            echo "$ABERTURA"
+            echo
+            echo '### Primeira verificação'
+            echo '```'
+            cat saida.txt
+            echo '```'
+            if [ -f saida2.txt ]; then
+              echo '### Depois de republicar'
+              echo '```'
+              cat saida2.txt
+              echo '```'
+            fi
+            echo
+            echo "[Ver a execução completa](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})"
+          } > corpo.md
+          gh issue create --title "$TITULO" --body-file corpo.md
+
+      - name: Falhar o job quando sobrou problema
+        if: >
+          steps.revisao.outputs.codigo == '2' ||
+          steps.reconferencia.outputs.codigo == '1' ||
+          steps.reconferencia.outputs.codigo == '2'
+        run: |
+          echo "A revisão terminou com problema em aberto."
+          exit 1

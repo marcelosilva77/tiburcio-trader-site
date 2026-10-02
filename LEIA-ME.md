@@ -28,6 +28,14 @@ cd "C:\Users\marce\PROJETO B3" && python site\build.py && git add -A && git comm
   - `b3.*` → se existir e não houver `sobre.*`, o rótulo vira "B3 · Bolsa do Brasil".
   - `hero.*` → último recurso.
 - `site/banners/` — as artes dos canais, intactas (`*-original.png`). Nunca edite.
+- `site/verifica.py` — revisa o site no ar (responde, arquivos chegam, conteudo
+  essencial presente, formulario de pe, certificado valido). Rode a qualquer momento
+  com `python site/verifica.py`.
+- `.github/workflows/revisao-semanal.yml` — roda essa revisao toda segunda, na nuvem.
+  Se o problema for so a versao publicada ter saido do lugar, republica sozinha o que
+  esta no repositorio e confere de novo. Qualquer outra coisa, abre um aviso no GitHub.
+  Nunca reconstroi o site na nuvem: `site/fotos/` nao e versionado e o resultado sairia
+  com o espaco reservado no lugar da foto.
 - `site/exporta-banners.py` — gera `public/img/banner-*.jpg` a partir dos originais,
   com 1000 px de largura (metade do peso, sem perda visível). Rode só quando trocar
   uma arte; depois rode o `build.py`.
