@@ -36,7 +36,12 @@ jobs:
         run: |
           set +e
           python site/verifica.py | tee saida.txt
-          echo "codigo=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+          CODE=${PIPESTATUS[0]}
+          case $CODE in
+            0) echo "estado=ok" >> "$GITHUB_OUTPUT" ;;
+            1) echo "estado=republicar" >> "$GITHUB_OUTPUT" ;;
+            *) echo "estado=humano" >> "$GITHUB_OUTPUT" ;;
+          esac
           {
             echo '## Revisão do site'
             echo '```'
@@ -46,7 +51,7 @@ jobs:
 
       - name: Republicar o que está no repositório
         id: republicacao
-        if: steps.revisao.outputs.codigo == '1'
+        if: steps.revisao.outputs.estado == 'republicar'
         run: |
           git config user.name "Revisão automática"
           git config user.email "actions@users.noreply.github.com"
@@ -57,11 +62,16 @@ jobs:
 
       - name: Conferir se a republicação resolveu
         id: reconferencia
-        if: steps.revisao.outputs.codigo == '1'
+        if: steps.revisao.outputs.estado == 'republicar'
         run: |
           set +e
           python site/verifica.py | tee saida2.txt
-          echo "codigo=${PIPESTATUS[0]}" >> "$GITHUB_OUTPUT"
+          CODE=${PIPESTATUS[0]}
+          case $CODE in
+            0) echo "estado=ok" >> "$GITHUB_OUTPUT" ;;
+            1) echo "estado=republicar" >> "$GITHUB_OUTPUT" ;;
+            *) echo "estado=humano" >> "$GITHUB_OUTPUT" ;;
+          esac
           {
             echo '## Depois de republicar'
             echo '```'
@@ -71,15 +81,13 @@ jobs:
 
       - name: Avisar o Marcelo
         if: >
-          steps.revisao.outputs.codigo == '2' ||
-          steps.reconferencia.outputs.codigo == '1' ||
-          steps.reconferencia.outputs.codigo == '2' ||
-          steps.reconferencia.outputs.codigo == '0'
+          steps.revisao.outputs.estado == 'humano' ||
+          steps.republicacao.outcome == 'success'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           HOJE=$(date -u +'%d/%m/%Y')
-          if [ "${{ steps.reconferencia.outputs.codigo }}" = "0" ]; then
+          if [ "${{ steps.reconferencia.outputs.estado }}" = "ok" ]; then
             TITULO="Site corrigido sozinho em $HOJE"
             ABERTURA="A revisão encontrou a versão publicada fora do lugar e **republicou o que estava no repositório**. Conferi depois e o site voltou ao normal. Nada precisa ser feito, mas vale saber que houve uma publicação automática."
           else
@@ -106,9 +114,9 @@ jobs:
 
       - name: Falhar o job quando sobrou problema
         if: >
-          steps.revisao.outputs.codigo == '2' ||
-          steps.reconferencia.outputs.codigo == '1' ||
-          steps.reconferencia.outputs.codigo == '2'
+          steps.revisao.outputs.estado == 'humano' ||
+          steps.reconferencia.outputs.estado == 'republicar' ||
+          steps.reconferencia.outputs.estado == 'humano'
         run: |
           echo "A revisão terminou com problema em aberto."
           exit 1
