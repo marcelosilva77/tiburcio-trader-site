@@ -23,7 +23,10 @@ cd "C:\Users\marce\PROJETO B3" && python site\build.py && git add -A && git comm
 
 - `site/index.template.html` — o site (edite aqui textos, cores e links).
 - `site/build.py` — gera o `site/index.html` final embutindo as fotos já tratadas.
-- `site/fotos/` — foto da seção "Sobre". O `build.py` procura nesta ordem:
+- `site/fotos/` — foto da seção "Sobre". **Esta pasta não vai para o repositório**
+  (está no `.gitignore`), então é a primeira coisa que some. Guarde cópia no Drive do
+  projeto. Se o arquivo sumir, o `build.py` agora recusa gerar em vez de publicar o
+  espaço reservado dourado no lugar do rosto. O `build.py` procura nesta ordem:
   - `sobre.*` → a foto em uso (hoje, o evento Expert Trader XP).
   - `b3.*` → se existir e não houver `sobre.*`, o rótulo vira "B3 · Bolsa do Brasil".
   - `hero.*` → último recurso.

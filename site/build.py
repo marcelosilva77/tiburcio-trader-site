@@ -6,7 +6,7 @@ Fotos esperadas em site/fotos/ (qualquer um destes nomes, jpg/jpeg/png):
   b3.*     -> alternativa: foto no estande da B3      -> {{FOTO_B3}}
   hero.*   -> ultimo recurso, se as duas faltarem
   hl-resultados.*, hl-analises.*, hl-fechamento.* -> capas dos destaques do Instagram (opcionais)
-Se uma foto não existir, entra um placeholder dourado no lugar.
+Se a foto da seção Sobre não existir, o build para em vez de publicar um placeholder.
 """
 import re, base64, io, glob, os, sys
 from PIL import Image, ImageEnhance, ImageOps, ImageFilter
@@ -79,6 +79,17 @@ def main():
         alt_b3 = "Ramon Tibúrcio no evento Expert Trader XP."
 
     # (token, origem, nome publico, largura, proporcao, foco vertical, qualidade, rotulo)
+    # trava: sem a foto original o build publicaria o retangulo dourado no lugar do
+    # rosto do Ramon, e isso ja foi ao ar uma vez sem ninguem ver. A pasta site/fotos/
+    # nao e versionada, entao e justamente ela que some. Melhor recusar o build.
+    if not foto_sobre and not os.environ.get("ACEITO_PLACEHOLDER"):
+        raise SystemExit(
+            "ERRO: nao achei a foto da secao Sobre em site/fotos/ (sobre.*, b3.* ou hero.*)." + chr(10) +
+            "       Sem ela o site sai com o espaco reservado dourado no lugar da foto." + chr(10) +
+            "       Reponha o arquivo e rode de novo. Se for mesmo para publicar sem foto," + chr(10) +
+            "       rode com ACEITO_PLACEHOLDER=1."
+        )
+
     specs = [
         ("{{FOTO_B3}}", foto_sobre, "sobre.jpg", 900, (4, 3), 0.30, 78, "FOTO: EXPERT TRADER XP"),
     ]
@@ -154,8 +165,6 @@ def main():
     pub = os.path.join(pub_dir, "index.html")
     open(pub, "w", encoding="utf-8").write(full)
     print(f"Gerado: {pub} ({os.path.getsize(pub)//1024} KB)  [site completo para publicar]")
-    if not foto_sobre:
-        print("\nAVISO: nenhuma foto em site/fotos/ (sobre.*, b3.* ou hero.*). Placeholder usado.")
 
 
 if __name__ == "__main__":

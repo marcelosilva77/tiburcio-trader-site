@@ -35,6 +35,10 @@ MARCOS = [
     ("destino da lista de espera", "/formResponse"),
     ("politica de privacidade", "privacidade.html"),
     ("aviso de risco", "Aviso de risco"),
+    # se o build rodar sem a foto original ele publica um placeholder dourado embutido
+    # no HTML, e esta referencia desaparece. Ja aconteceu uma vez.
+    ("foto da secao Sobre", 'src="/fotos/sobre.jpg"'),
+    ("assinatura da mundIA", "/img/mundia.png"),
 ]
 
 FORMULARIO = ("https://docs.google.com/forms/d/e/"
