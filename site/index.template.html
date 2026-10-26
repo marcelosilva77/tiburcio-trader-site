@@ -313,6 +313,21 @@
   .ct:hover .s{color:var(--gold);transform:translateX(2px)}
   .foot a.ct:hover{color:inherit}
 
+  /* assinatura de quem fez o site */
+  .assina{margin-top:26px;padding:20px 24px;border:1px solid var(--line);border-radius:14px;
+          background:linear-gradient(180deg,rgba(255,255,255,.025),transparent);
+          display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+  .assina-txt{display:grid;gap:5px;min-width:0}
+  .assina .k{font-family:var(--mono);font-size:.63rem;letter-spacing:.17em;text-transform:uppercase;color:var(--muted-2)}
+  .assina .marca{font-family:var(--display);font-size:1.32rem;font-weight:700;letter-spacing:-.02em;color:var(--ink);line-height:1.1}
+  .assina .marca span{color:var(--gold)}
+  .assina-txt p{margin:0;font-size:.84rem;color:var(--muted)}
+  .btn-zap{background:linear-gradient(135deg,#25d366 0%,#1aa84f 100%);color:#04210f;font-weight:700;
+           box-shadow:0 8px 28px -12px rgba(37,211,102,.55);flex:none}
+  .btn-zap:hover{transform:translateY(-2px);box-shadow:0 14px 34px -12px rgba(37,211,102,.75)}
+  .btn-zap:focus-visible{outline-color:#25d366}
+  @media(max-width:760px){.assina{padding:18px;gap:14px}.assina .btn-zap{width:100%;justify-content:center}}
+
   /* footer */
   footer{border-top:1px solid var(--line);padding:44px 0 36px;background:var(--bg-2)}
   .foot{display:grid;grid-template-columns:1.2fr .8fr .8fr;gap:36px;align-items:start}
@@ -882,6 +897,15 @@
       </div>
     </div>
     <p class="disclaimer"><b>Aviso de risco:</b> operar mercado futuro envolve alto risco e pode levar à perda total do capital. Todo o conteúdo aqui é educacional e não constitui recomendação de investimento (CVM). Resultados passados não garantem resultados futuros.</p>
+    <div class="assina">
+      <div class="assina-txt">
+        <span class="k">Criação e desenvolvimento</span>
+        <b class="marca">mund<span>IA</span></b>
+        <p>Criação de sites e presença digital.</p>
+      </div>
+      <a class="btn btn-zap" data-link="mundia" href="#" target="_blank" rel="noopener"
+         aria-label="Falar com a mundIA no WhatsApp, 22 99941-8089"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 2a8 8 0 1 1-4.1 14.9l-.4-.2-2.4.6.6-2.3-.2-.4A8 8 0 0 1 12 4zm4.5 10.3c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1l-.7.9c-.1.2-.3.2-.5.1a6.5 6.5 0 0 1-3.2-2.8c-.1-.2 0-.4.1-.5l.4-.5c.1-.2.1-.3 0-.5l-.7-1.6c-.2-.4-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.9.9-.9 2.1-.1 3.4a9.3 9.3 0 0 0 4.6 4.1c1.6.6 2.4.5 3.1.3.5-.1 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2l-.5-.2z"/></svg>(22) 99941-8089</a>
+    </div>
     <div class="copy"><span>© <span id="yr">2026</span> Tibúrcio Trader. Todos os direitos reservados.</span><span><a href="/privacidade.html">Política de Privacidade</a> · Brasil</span></div>
   </div>
 </footer>
@@ -909,6 +933,7 @@
     instagram:  "https://www.instagram.com/tiburcio_trader/",
     youtube:    "https://www.youtube.com/@tiburcio_trader",
     email:      "mailto:tiburciotraderoficial@gmail.com",
+    mundia:     "https://wa.me/5522999418089?text=Ol%C3%A1!%20Vi%20o%20site%20do%20Tib%C3%BArcio%20Trader%20e%20gostaria%20de%20falar%20sobre%20um%20projeto.",   /* quem fez o site */
     plataforma: "#"                /* checkout da mentoria, quando existir */
   };
 
