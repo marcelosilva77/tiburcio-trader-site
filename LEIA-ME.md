@@ -28,6 +28,10 @@ cd "C:\Users\marce\PROJETO B3" && python site\build.py && git add -A && git comm
   - `b3.*` → se existir e não houver `sobre.*`, o rótulo vira "B3 · Bolsa do Brasil".
   - `hero.*` → último recurso.
 - `site/banners/` — as artes dos canais, intactas (`*-original.png`). Nunca edite.
+- `site/banners/mundia-original.jpg` — logo da mundIA como o Marcelo enviou.
+  A versao do site (`public/img/mundia.png`) foi extraida dela: letras brancas com
+  fundo transparente, porque o rodape nao e preto puro e um retangulo preto apareceria
+  como emenda. Se chegar uma logo nova, refaca a extracao em vez de recortar na mao.
 - `site/verifica.py` — revisa o site no ar (responde, arquivos chegam, conteudo
   essencial presente, formulario de pe, certificado valido). Rode a qualquer momento
   com `python site/verifica.py`.
